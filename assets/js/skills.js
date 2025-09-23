@@ -10,16 +10,16 @@ function loadSkills() {
     if (!skillsGrid) return;
 
     const skills = [
-        { name: 'Frontend Development', icon: '🎨', level: 90, techs: ['React', 'Vue.js', 'TypeScript', 'Tailwind CSS'] },
-        { name: 'Backend Development', icon: '⚙️', level: 85, techs: ['Node.js', 'Python', 'Django', 'Express'] },
-        { name: 'Database Management', icon: '🗄️', level: 80, techs: ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL'] },
-        { name: 'Cloud & DevOps', icon: '☁️', level: 75, techs: ['AWS', 'Azure', 'Docker', 'Kubernetes'] },
-        { name: 'Data Science & ML', icon: '🤖', level: 70, techs: ['TensorFlow', 'Pandas', 'Scikit-learn', 'Jupyter'] },
-        { name: 'Mobile Development', icon: '📱', level: 65, techs: ['React Native', 'Flutter', 'iOS', 'Android'] },
-        { name: 'Version Control', icon: '🔀', level: 95, techs: ['Git', 'GitHub', 'GitLab', 'CI/CD'] },
-        { name: 'UI/UX Design', icon: '🎯', level: 70, techs: ['Figma', 'Adobe XD', 'Responsive Design'] },
-        { name: 'Testing & QA', icon: '🧪', level: 80, techs: ['Jest', 'Cypress', 'Selenium', 'Unit Testing'] },
-        { name: 'Agile & Scrum', icon: '🔄', level: 85, techs: ['Jira', 'Scrum Master', 'Kanban', 'Sprint Planning'] }
+        { name: 'Infrastructure as Code', icon: '🏗️', level: 85, techs: ['Terraform', 'Azure', 'Databricks', 'Docker'] },
+        { name: 'Big Data Platforms', icon: '📊', level: 80, techs: ['Hadoop', 'Spark', 'Hive', 'Delta Lake'] },
+        { name: 'Linux & Automation', icon: '🐧', level: 90, techs: ['Linux Admin', 'Ansible', 'Bash', 'PowerShell'] },
+        { name: 'Programming Languages', icon: '💻', level: 85, techs: ['Python', 'JavaScript', 'SQL', 'Zsh'] },
+        { name: 'Data Engineering', icon: '⚙️', level: 75, techs: ['Pandas', 'Jupyter', 'Zeppelin', 'ETL'] },
+        { name: 'Cloud Platforms', icon: '☁️', level: 80, techs: ['Azure', 'Cloudera CDP', 'Ranger', 'Hue'] },
+        { name: 'Database Systems', icon: '🗄️', level: 75, techs: ['SQL Server', 'MySQL', 'ODBC', 'Data Modeling'] },
+        { name: 'DevOps Practices', icon: '🔄', level: 85, techs: ['CI/CD', 'Jira', 'Confluence', 'Git'] },
+        { name: 'Data Visualization', icon: '📈', level: 70, techs: ['Matplotlib', 'Seaborn', 'Plotly', 'Dashboards'] },
+        { name: 'Web Development', icon: '🌐', level: 75, techs: ['Node.js', 'HTML/CSS', 'REST APIs', 'Frontend'] }
     ];
 
     // Show only 6 skills on homepage, all on skills page
