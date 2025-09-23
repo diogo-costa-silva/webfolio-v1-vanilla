@@ -68,12 +68,16 @@ function initScrollIndicator() {
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', () => {
             const nextSection = document.querySelector('#about-preview');
-            if (nextSection) {
-                const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
-                const targetPosition = nextSection.offsetTop - headerHeight;
+            const hero = document.querySelector('.hero');
 
+            if (nextSection && hero) {
+                // Calculate the exact position where hero ends
+                const heroBottom = hero.offsetTop + hero.offsetHeight;
+
+                // Scroll to just past the hero section
+                // This ensures the hero is completely out of view
                 window.scrollTo({
-                    top: targetPosition,
+                    top: heroBottom,
                     behavior: 'smooth'
                 });
             }
