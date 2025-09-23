@@ -11,76 +11,76 @@ function loadProjects() {
 
     const projects = [
         {
-            title: 'E-Commerce Platform',
-            category: 'web',
-            description: 'Full-stack e-commerce solution with payment integration, real-time inventory, and admin dashboard',
-            image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop',
-            tags: ['React', 'Node.js', 'MongoDB', 'Stripe API'],
-            demo: 'https://demo-ecommerce.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/ecommerce-platform'
-        },
-        {
-            title: 'Data Analytics Dashboard',
-            category: 'data',
-            description: 'Real-time analytics dashboard with ML insights for business metrics and predictive analysis',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-            tags: ['Python', 'Pandas', 'Plotly', 'TensorFlow'],
-            demo: 'https://demo-analytics.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/analytics-dashboard'
-        },
-        {
-            title: 'Task Management System',
-            category: 'web',
-            description: 'Collaborative project management tool with real-time updates and team collaboration features',
-            image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop',
-            tags: ['Vue.js', 'Express', 'PostgreSQL', 'Socket.io'],
-            demo: 'https://demo-tasks.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/task-manager'
-        },
-        {
-            title: 'AI Content Generator',
-            category: 'ai',
-            description: 'AI-powered content generation platform using OpenAI GPT for marketing copy and blog posts',
-            image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop',
-            tags: ['Next.js', 'OpenAI API', 'Tailwind CSS', 'Vercel'],
-            demo: 'https://demo-ai.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/ai-content-gen'
-        },
-        {
-            title: 'Mobile Banking App',
-            category: 'mobile',
-            description: 'Secure mobile banking application with biometric authentication and real-time transactions',
-            image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&h=500&fit=crop',
-            tags: ['React Native', 'Firebase', 'Node.js', 'Plaid API'],
-            demo: 'https://demo-banking.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/mobile-banking'
-        },
-        {
-            title: 'Cloud Infrastructure Automation',
+            title: 'Azure Infrastructure Automation',
             category: 'devops',
-            description: 'Infrastructure as Code solution for multi-cloud deployments with automated scaling',
+            description: 'Automated cloud infrastructure provisioning using Terraform for Azure resources including Databricks clusters, app registrations, and secret management. Reduced deployment time by 70%.',
             image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=500&fit=crop',
-            tags: ['Terraform', 'Docker', 'Kubernetes', 'Azure'],
-            demo: 'https://demo-infra.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/cloud-automation'
+            tags: ['Terraform', 'Azure', 'Databricks', 'IaC'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
         },
         {
-            title: 'Real Estate Platform',
-            category: 'web',
-            description: 'Property listing platform with virtual tours, advanced search, and mortgage calculator',
-            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop',
-            tags: ['Django', 'React', 'PostgreSQL', 'Mapbox'],
-            demo: 'https://demo-realestate.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/real-estate'
-        },
-        {
-            title: 'Cryptocurrency Tracker',
+            title: 'REV@CONSTRUCTION Data Platform',
             category: 'data',
-            description: 'Real-time crypto portfolio tracker with price alerts and market analysis',
-            image: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800&h=500&fit=crop',
-            tags: ['React', 'WebSockets', 'Chart.js', 'CoinGecko API'],
-            demo: 'https://demo-crypto.diogosilva.dev',
-            github: 'https://github.com/diogo-costa-silva/crypto-tracker'
+            description: 'Big Data platform for processing road pavement sensor data. Built Hadoop cluster (1 master, 3 workers) and implemented Delta Lake architecture for efficient data ingestion and analysis.',
+            image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop',
+            tags: ['Hadoop', 'Python', 'Delta Lake', 'Spark'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
+        },
+        {
+            title: 'Cloudera Platform Configuration',
+            category: 'devops',
+            description: 'Enterprise-scale data platform setup with Cloudera, implementing schemas in Hue and access policies in Ranger across development, staging, and production environments.',
+            image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=500&fit=crop',
+            tags: ['Cloudera', 'Hue', 'Ranger', 'Big Data'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
+        },
+        {
+            title: 'Linux System Automation',
+            category: 'automation',
+            description: 'Comprehensive automation suite for Linux system administration using Ansible playbooks and Bash scripts, managing user permissions, file systems, and scheduled tasks.',
+            image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&h=500&fit=crop',
+            tags: ['Ansible', 'Bash', 'Linux', 'Automation'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
+        },
+        {
+            title: 'PHC AI Module Research',
+            category: 'ai',
+            description: 'Research project analyzing PHC ERP AI capabilities for business automation. Identified key use cases for client data processing and automated workflow optimization.',
+            image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop',
+            tags: ['AI', 'ERP', 'Research', 'Business Intelligence'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
+        },
+        {
+            title: 'Data Pipeline Automation',
+            category: 'data',
+            description: 'Automated ETL pipeline for sensor data processing using Python, PowerShell, and SFTP. Implemented bronze-silver-gold architecture in Delta Lake for data quality management.',
+            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
+            tags: ['Python', 'PowerShell', 'SFTP', 'ETL'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
+        },
+        {
+            title: 'Infrastructure Monitoring Dashboard',
+            category: 'devops',
+            description: 'Real-time monitoring solution for cloud infrastructure health, resource utilization, and cost optimization. Integrated with Azure Monitor and custom alerting systems.',
+            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
+            tags: ['Azure Monitor', 'Python', 'Dashboard', 'DevOps'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
+        },
+        {
+            title: 'ODBC Connection Manager',
+            category: 'automation',
+            description: 'Enterprise tool for managing ODBC connections across multiple environments, troubleshooting connection errors, and automating database access configuration.',
+            image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=500&fit=crop',
+            tags: ['SQL Server', 'ODBC', 'Python', 'Database'],
+            demo: '#',
+            github: 'https://github.com/diogo-costa-silva'
         }
     ];
 
