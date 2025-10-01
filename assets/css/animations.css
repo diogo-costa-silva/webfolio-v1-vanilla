@@ -1,5 +1,50 @@
 /* Animations */
 
+/* Smooth scroll behavior for filter navigation */
+@media (prefers-reduced-motion: no-preference) {
+    .filters__tags {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Card entrance animation */
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.project-card {
+    animation: cardEntrance 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-fill-mode: both;
+}
+
+.project-card:nth-child(1) { animation-delay: 0ms; }
+.project-card:nth-child(2) { animation-delay: 50ms; }
+.project-card:nth-child(3) { animation-delay: 100ms; }
+.project-card:nth-child(4) { animation-delay: 150ms; }
+.project-card:nth-child(5) { animation-delay: 200ms; }
+.project-card:nth-child(6) { animation-delay: 250ms; }
+.project-card:nth-child(7) { animation-delay: 300ms; }
+.project-card:nth-child(8) { animation-delay: 350ms; }
+
+/* Fade In Up - Used for skills grid */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Fade In */
 @keyframes fadeIn {
     from {
