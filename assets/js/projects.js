@@ -1,162 +1,293 @@
 // Projects Module
 
 export function initProjects() {
-    loadProjects();
-    initProjectFilters();
+    loadProjects().then(() => {
+        // Initialize filters after projects are loaded
+        initProjectFilters();
+    });
 }
 
-function loadProjects() {
+async function loadProjects() {
     const projectsGrid = document.getElementById('projectsGrid') || document.querySelector('.projects-grid');
     if (!projectsGrid) return;
 
-    const projects = [
-        {
-            title: 'Azure Infrastructure Automation',
-            category: 'devops',
-            description: 'Automated cloud infrastructure provisioning using Terraform for Azure resources including Databricks clusters, app registrations, and secret management. Reduced deployment time by 70%.',
-            image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=500&fit=crop',
-            tags: ['Terraform', 'Azure', 'Databricks', 'IaC'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'REV@CONSTRUCTION Data Platform',
-            category: 'data',
-            description: 'Big Data platform for processing road pavement sensor data. Built Hadoop cluster (1 master, 3 workers) and implemented Delta Lake architecture for efficient data ingestion and analysis.',
-            image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop',
-            tags: ['Hadoop', 'Python', 'Delta Lake', 'Spark'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'Cloudera Platform Configuration',
-            category: 'devops',
-            description: 'Enterprise-scale data platform setup with Cloudera, implementing schemas in Hue and access policies in Ranger across development, staging, and production environments.',
-            image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=500&fit=crop',
-            tags: ['Cloudera', 'Hue', 'Ranger', 'Big Data'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'Linux System Automation',
-            category: 'automation',
-            description: 'Comprehensive automation suite for Linux system administration using Ansible playbooks and Bash scripts, managing user permissions, file systems, and scheduled tasks.',
-            image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&h=500&fit=crop',
-            tags: ['Ansible', 'Bash', 'Linux', 'Automation'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'PHC AI Module Research',
-            category: 'ai',
-            description: 'Research project analyzing PHC ERP AI capabilities for business automation. Identified key use cases for client data processing and automated workflow optimization.',
-            image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop',
-            tags: ['AI', 'ERP', 'Research', 'Business Intelligence'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'Data Pipeline Automation',
-            category: 'data',
-            description: 'Automated ETL pipeline for sensor data processing using Python, PowerShell, and SFTP. Implemented bronze-silver-gold architecture in Delta Lake for data quality management.',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-            tags: ['Python', 'PowerShell', 'SFTP', 'ETL'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'Infrastructure Monitoring Dashboard',
-            category: 'devops',
-            description: 'Real-time monitoring solution for cloud infrastructure health, resource utilization, and cost optimization. Integrated with Azure Monitor and custom alerting systems.',
-            image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-            tags: ['Azure Monitor', 'Python', 'Dashboard', 'DevOps'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        },
-        {
-            title: 'ODBC Connection Manager',
-            category: 'automation',
-            description: 'Enterprise tool for managing ODBC connections across multiple environments, troubleshooting connection errors, and automating database access configuration.',
-            image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=500&fit=crop',
-            tags: ['SQL Server', 'ODBC', 'Python', 'Database'],
-            demo: '#',
-            github: 'https://github.com/diogo-costa-silva'
-        }
-    ];
+    try {
+        // Try to load from JSON
+        const response = await fetch('/data/projects.json');
+        const data = await response.json();
+        renderProjects(data.projects, projectsGrid);
+    } catch (error) {
+        // Fallback to inline data
+        console.log('Loading inline projects data');
+        renderProjects(getInlineProjects(), projectsGrid);
+    }
 
-    // Only show 4 projects on homepage
-    const projectsToShow = window.location.pathname.includes('projects.html') ? projects : projects.slice(0, 4);
+    return Promise.resolve(); // Ensure promise is returned
+}
 
-    projectsGrid.innerHTML = projectsToShow.map(project => `
-        <div class="project-card reveal" data-category="${project.category}">
-            <img src="${project.image}" alt="${project.title}" class="project-card__image">
+function getCategoryDisplayName(category) {
+    const categoryNames = {
+        'data-science': 'Data Science',
+        'web-dev': 'Web Dev',
+        'backend': 'Backend',
+        'devops': 'DevOps',
+        'automation': 'Automation',
+        'mobile': 'Mobile'
+    };
+    return categoryNames[category] || category;
+}
+
+function getStatusBadge(status, isReal) {
+    const badges = {
+        'completed': isReal ? '<span class="badge badge--success">REAL</span>' : '<span class="badge badge--success">COMPLETED</span>',
+        'in-progress': '<span class="badge badge--warning">IN PROGRESS</span>',
+        'planned': '<span class="badge badge--info">PLANNED</span>'
+    };
+    return badges[status] || '';
+}
+
+function getDifficultyIndicator(difficulty) {
+    const levels = {
+        'novice': 1,
+        'beginner': 2,
+        'intermediate': 3,
+        'advanced': 4,
+        'expert': 5
+    };
+
+    const dots = '●'.repeat(levels[difficulty] || 0);
+    return `<span class="difficulty difficulty--${difficulty}">${dots}</span>`;
+}
+
+function renderProjects(projects, container) {
+    // Determine if we're on the projects page
+    const isProjectsPage = window.location.pathname.includes('projects.html');
+
+    // Filter projects based on page
+    let projectsToShow;
+    if (isProjectsPage) {
+        // Projects page - show all projects
+        projectsToShow = projects;
+    } else {
+        // Homepage - show only featured projects (max 6)
+        projectsToShow = projects.filter(p => p.featured).slice(0, 6);
+    }
+
+    // Render projects with improved structure
+    container.innerHTML = projectsToShow.map(project => {
+        const categoryDisplayName = getCategoryDisplayName(project.category);
+        const statusBadge = getStatusBadge(project.status, project.isReal);
+        const difficultyIndicator = getDifficultyIndicator(project.difficulty);
+        const techs = project.technologies || project.tags || [];
+
+        return `
+        <div class="project-card" data-category="${project.category}" data-status="${project.status}" data-difficulty="${project.difficulty}">
+            <div class="project-card__image-wrapper">
+                <img src="${project.image}" alt="${project.title}" class="project-card__image" loading="lazy">
+                ${statusBadge ? `<div class="project-card__status">${statusBadge}</div>` : ''}
+            </div>
             <div class="project-card__content">
-                <span class="card__category">${project.category}</span>
-                <h3 class="card__title">${project.title}</h3>
-                <p class="card__description">${project.description}</p>
-                <div class="card__tags">
-                    ${project.tags.map(tag => `<span class="card__tag">${tag}</span>`).join('')}
+                <div class="project-card__header">
+                    <span class="project-card__category">${categoryDisplayName}</span>
+                    ${difficultyIndicator}
                 </div>
-                <div class="card__actions">
-                    <a href="${project.demo}" class="btn btn--primary btn--small">Live Demo</a>
-                    <a href="${project.github}" class="btn btn--secondary btn--small">GitHub</a>
+                <h3 class="project-card__title">${project.title}</h3>
+                <p class="project-card__description">${project.description}</p>
+                <div class="project-card__tags">
+                    ${techs.slice(0, 3).map(tag => `<span class="project-card__tag">${tag}</span>`).join('')}
+                </div>
+                <div class="project-card__actions">
+                    ${project.demo !== '#' ? `<a href="${project.demo}" class="btn btn--secondary" target="_blank" aria-label="View live demo">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        <span>Demo</span>
+                    </a>` : ''}
+                    ${project.github !== '#' ? `<a href="${project.github}" class="btn btn--primary" target="_blank" aria-label="View on GitHub">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>Code</span>
+                    </a>` : `<button class="btn btn--ghost" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>Soon</span>
+                    </button>`}
                 </div>
             </div>
         </div>
-    `).join('');
+        `}).join('');
+
+    // Update project counts after rendering
+    if (isProjectsPage) {
+        updateProjectCounts(projects);
+    }
+}
+
+function updateProjectCounts(allProjects) {
+    const filterButtons = document.querySelectorAll('[data-filter]');
+
+    filterButtons.forEach(button => {
+        const filter = button.dataset.filter;
+        const countSpan = button.querySelector('.filter-count');
+
+        if (countSpan) {
+            let count = 0;
+            if (filter === 'all') {
+                count = allProjects.length;
+            } else {
+                count = allProjects.filter(p => p.category === filter).length;
+            }
+            countSpan.textContent = ` (${count})`;
+        }
+    });
 }
 
 function initProjectFilters() {
-    const filterButtons = document.querySelectorAll('.filter-tag');
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const filterContainer = document.querySelector('.filters__tags');
     const searchInput = document.querySelector('.filters__search');
-    const projectCards = document.querySelectorAll('.project-card');
 
-    if (filterButtons.length) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active state
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+    if (!filterButtons.length) return;
 
-                // Filter projects
-                const filter = button.dataset.filter;
-                filterProjects(filter);
-            });
-        });
-    }
-
+    // Initialize search functionality
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
-            searchProjects(e.target.value.toLowerCase());
+            const searchTerm = e.target.value.toLowerCase();
+            filterProjects(searchTerm);
         });
+    }
+
+    // Add swipe indicator for mobile
+    if (filterContainer && window.innerWidth <= 768) {
+        checkScrollIndicator(filterContainer);
+        filterContainer.addEventListener('scroll', () => {
+            checkScrollIndicator(filterContainer);
+        });
+    }
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filter = button.dataset.filter;
+
+            // Get fresh list of project cards each time
+            const projectCards = document.querySelectorAll('.project-card');
+
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // Scroll active button into view on mobile
+            if (window.innerWidth <= 768) {
+                button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+
+            // Use the unified filter function
+            const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+            filterProjects(searchTerm);
+        });
+    });
+}
+
+function checkScrollIndicator(container) {
+    const isScrollable = container.scrollWidth > container.clientWidth;
+    const isAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
+
+    if (isScrollable && !isAtEnd) {
+        container.classList.add('has-scroll');
+    } else {
+        container.classList.remove('has-scroll');
     }
 }
 
-function filterProjects(filter) {
+function filterProjects(searchTerm = '') {
     const projectCards = document.querySelectorAll('.project-card');
+    const activeFilter = document.querySelector('.filter-tag.active');
+    const activeCategory = activeFilter ? activeFilter.dataset.filter : 'all';
 
     projectCards.forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
+        const title = card.querySelector('.project-card__title').textContent.toLowerCase();
+        const description = card.querySelector('.project-card__description').textContent.toLowerCase();
+        const category = card.dataset.category;
+
+        // Check category filter
+        const matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+        // Check search term
+        const matchesSearch = searchTerm === '' ||
+            title.includes(searchTerm) ||
+            description.includes(searchTerm);
+
+        // Show/hide based on both filters
+        if (matchesCategory && matchesSearch) {
             card.style.display = '';
-            card.classList.add('fade-in-up');
         } else {
             card.style.display = 'none';
         }
     });
 }
 
-function searchProjects(searchTerm) {
-    const projectCards = document.querySelectorAll('.project-card');
-
-    projectCards.forEach(card => {
-        const title = card.querySelector('.card__title').textContent.toLowerCase();
-        const description = card.querySelector('.card__description').textContent.toLowerCase();
-        const tags = Array.from(card.querySelectorAll('.card__tag')).map(tag => tag.textContent.toLowerCase());
-
-        if (title.includes(searchTerm) || description.includes(searchTerm) || tags.some(tag => tag.includes(searchTerm))) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
+// Inline fallback data - minimal set for emergency fallback
+function getInlineProjects() {
+    return [
+        {
+            id: 1,
+            title: 'MotoGP Analytics Dashboard',
+            category: 'data-science',
+            description: 'Interactive dashboard analyzing MotoGP race data, lap times, and rider performance using Python and Jupyter notebooks.',
+            technologies: ['Python', 'Jupyter', 'Pandas', 'Plotly'],
+            status: 'completed',
+            difficulty: 'intermediate',
+            featured: true,
+            github: 'https://github.com/diogo-costa-silva/motogp-analytics',
+            demo: '#',
+            image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc81?w=800&h=500&fit=crop',
+            isReal: true
+        },
+        {
+            id: 2,
+            title: 'Portfolio Website v3',
+            category: 'web-dev',
+            description: 'Modern, responsive portfolio website built with vanilla JavaScript, featuring dark mode and multi-language support.',
+            technologies: ['HTML', 'CSS', 'JavaScript', 'EmailJS'],
+            status: 'completed',
+            difficulty: 'intermediate',
+            featured: true,
+            github: 'https://github.com/diogo-costa-silva/website-v3',
+            demo: 'https://diogo-costa-silva.github.io',
+            image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=500&fit=crop',
+            isReal: true
+        },
+        {
+            id: 3,
+            title: 'Azure Infrastructure Automation',
+            category: 'devops',
+            description: 'Terraform scripts for automated Azure resource provisioning including Databricks, Key Vaults, and networking.',
+            technologies: ['Terraform', 'Azure', 'Databricks', 'PowerShell'],
+            status: 'completed',
+            difficulty: 'advanced',
+            featured: true,
+            github: '#',
+            demo: '#',
+            image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=500&fit=crop',
+            isReal: true
+        },
+        {
+            id: 4,
+            title: 'Task Flow',
+            category: 'web-dev',
+            description: 'Minimalist task management app with drag-and-drop functionality, local storage, and productivity analytics.',
+            technologies: ['React', 'TypeScript', 'Tailwind CSS'],
+            status: 'planned',
+            difficulty: 'intermediate',
+            featured: false,
+            github: '#',
+            demo: '#',
+            image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop',
+            isReal: false
         }
-    });
+    ];
 }
