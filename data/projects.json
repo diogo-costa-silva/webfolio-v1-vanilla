@@ -1,0 +1,575 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "MotoGP Analytics Dashboard",
+      "category": "data-science",
+      "description": "Interactive dashboard analyzing MotoGP race data, lap times, and rider performance using Python and Jupyter notebooks.",
+      "technologies": [
+        "Python",
+        "Jupyter",
+        "Pandas",
+        "Plotly",
+        "Seaborn"
+      ],
+      "status": "completed",
+      "difficulty": "intermediate",
+      "featured": true,
+      "github": "https://github.com/diogo-costa-silva/motogp-analytics",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 2,
+      "title": "Premier League Analytics",
+      "category": "data-science",
+      "description": "Comprehensive analysis of Premier League statistics including player performance, team metrics, and match predictions.",
+      "technologies": [
+        "Python",
+        "Pandas",
+        "Scikit-learn",
+        "Matplotlib"
+      ],
+      "status": "completed",
+      "difficulty": "intermediate",
+      "featured": true,
+      "github": "https://github.com/diogo-costa-silva/premier-league-analytics",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 3,
+      "title": "Streamlit Sales Dashboard",
+      "category": "data-science",
+      "description": "Interactive sales dashboard built with Streamlit, featuring real-time data visualization and KPI tracking.",
+      "technologies": [
+        "Python",
+        "Streamlit",
+        "Pandas",
+        "Plotly"
+      ],
+      "status": "completed",
+      "difficulty": "intermediate",
+      "featured": true,
+      "github": "https://github.com/diogo-costa-silva/streamlit-sales-dashboard",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 4,
+      "title": "Spotify Mood Analyzer",
+      "category": "data-science",
+      "description": "Machine learning model that analyzes your Spotify playlists to predict and visualize your music mood patterns.",
+      "technologies": [
+        "Python",
+        "Scikit-learn",
+        "Spotify API",
+        "Streamlit"
+      ],
+      "status": "planned",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 5,
+      "title": "Crypto Price Predictor",
+      "category": "data-science",
+      "description": "Time series forecasting model for cryptocurrency prices using Facebook Prophet and historical market data.",
+      "technologies": [
+        "Python",
+        "Prophet",
+        "yFinance",
+        "Dash"
+      ],
+      "status": "in-progress",
+      "difficulty": "expert",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1621504450181-5d356f61d307?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 6,
+      "title": "Netflix Content Recommender",
+      "category": "data-science",
+      "description": "Collaborative filtering recommendation system for Netflix content based on user viewing patterns.",
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "Flask",
+        "MongoDB"
+      ],
+      "status": "planned",
+      "difficulty": "expert",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 7,
+      "title": "Weather Pattern Visualizer",
+      "category": "data-science",
+      "description": "Interactive dashboard for visualizing weather patterns, climate trends, and predictive forecasting.",
+      "technologies": [
+        "Python",
+        "Dash",
+        "Plotly",
+        "OpenWeather API"
+      ],
+      "status": "planned",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 8,
+      "title": "Portfolio Website v3",
+      "category": "web-dev",
+      "description": "Modern, responsive portfolio website built with vanilla JavaScript, featuring dark mode and multi-language support.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "EmailJS"
+      ],
+      "status": "completed",
+      "difficulty": "intermediate",
+      "featured": true,
+      "github": "https://github.com/diogo-costa-silva/website-v3",
+      "demo": "https://diogo-costa-silva.github.io",
+      "image": "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 9,
+      "title": "Task Flow",
+      "category": "web-dev",
+      "description": "Minimalist task management app with drag-and-drop functionality, local storage, and productivity analytics.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "DnD Kit"
+      ],
+      "status": "planned",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 10,
+      "title": "DevLinks Hub",
+      "category": "web-dev",
+      "description": "Developer-focused link aggregator similar to Linktree with GitHub integration and customizable themes.",
+      "technologies": [
+        "Next.js",
+        "Tailwind CSS",
+        "Prisma",
+        "PostgreSQL"
+      ],
+      "status": "in-progress",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 11,
+      "title": "Code Snippet Manager",
+      "category": "web-dev",
+      "description": "Web app to organize and share code snippets with syntax highlighting, tags, and search functionality.",
+      "technologies": [
+        "Vue.js",
+        "Prism.js",
+        "Firebase",
+        "Algolia"
+      ],
+      "status": "planned",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 12,
+      "title": "Markdown Notes",
+      "category": "web-dev",
+      "description": "Real-time markdown editor with live preview, file management, and export to multiple formats.",
+      "technologies": [
+        "React",
+        "CodeMirror",
+        "Marked.js",
+        "IndexedDB"
+      ],
+      "status": "planned",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 13,
+      "title": "SQL Murder Mystery",
+      "category": "backend",
+      "description": "Interactive SQL learning game where you solve a murder mystery by querying a database.",
+      "technologies": [
+        "SQL",
+        "SQLite",
+        "Python",
+        "Jupyter"
+      ],
+      "status": "completed",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "https://github.com/diogo-costa-silva/sql-murder-mystery",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 14,
+      "title": "Weather API Gateway",
+      "category": "backend",
+      "description": "RESTful API that aggregates weather data from multiple sources with caching and rate limiting.",
+      "technologies": [
+        "Node.js",
+        "Express",
+        "Redis",
+        "Docker"
+      ],
+      "status": "planned",
+      "difficulty": "beginner",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 15,
+      "title": "URL Shortener Service",
+      "category": "backend",
+      "description": "URL shortening service with custom aliases, QR codes, and detailed analytics dashboard.",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "Redis"
+      ],
+      "status": "in-progress",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 16,
+      "title": "JWT Auth Microservice",
+      "category": "backend",
+      "description": "Reusable authentication microservice with JWT tokens, refresh tokens, and role-based access control.",
+      "technologies": [
+        "Go",
+        "Gin",
+        "JWT",
+        "MongoDB"
+      ],
+      "status": "planned",
+      "difficulty": "expert",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 17,
+      "title": "Data Pipeline API",
+      "category": "backend",
+      "description": "REST API for processing CSV files and returning statistical insights and visualizations.",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "Pandas",
+        "Celery"
+      ],
+      "status": "planned",
+      "difficulty": "beginner",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 18,
+      "title": "Docker Dumb AI",
+      "category": "devops",
+      "description": "Containerized AI application deployed to Docker Hub, demonstrating CI/CD pipeline setup.",
+      "technologies": [
+        "Docker",
+        "Python",
+        "GitHub Actions",
+        "Docker Hub"
+      ],
+      "status": "completed",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "https://github.com/diogo-costa-silva/docker-dumb-ai",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 19,
+      "title": "Azure Infrastructure Automation",
+      "category": "devops",
+      "description": "Terraform scripts for automated Azure resource provisioning including Databricks, Key Vaults, and networking.",
+      "technologies": [
+        "Terraform",
+        "Azure",
+        "Databricks",
+        "PowerShell"
+      ],
+      "status": "completed",
+      "difficulty": "advanced",
+      "featured": true,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 20,
+      "title": "Kubernetes Cluster Monitor",
+      "category": "devops",
+      "description": "Real-time monitoring dashboard for Kubernetes clusters with Prometheus metrics and Grafana visualization.",
+      "technologies": [
+        "Kubernetes",
+        "Prometheus",
+        "Grafana",
+        "Helm"
+      ],
+      "status": "planned",
+      "difficulty": "expert",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1667372393185-66bcd6e34faf?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 21,
+      "title": "CI/CD Pipeline Template",
+      "category": "devops",
+      "description": "Reusable GitHub Actions workflows for Python and Node.js projects with testing and deployment.",
+      "technologies": [
+        "GitHub Actions",
+        "YAML",
+        "Docker",
+        "AWS"
+      ],
+      "status": "in-progress",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 22,
+      "title": "Terraform AWS Starter",
+      "category": "devops",
+      "description": "Infrastructure as Code templates for common AWS architectures including VPC, EC2, and RDS setups.",
+      "technologies": [
+        "Terraform",
+        "AWS",
+        "CloudFormation",
+        "Bash"
+      ],
+      "status": "planned",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 23,
+      "title": "Email Report Automator",
+      "category": "automation",
+      "description": "Python script that generates and sends automated reports via email with data visualizations.",
+      "technologies": [
+        "Python",
+        "Pandas",
+        "Matplotlib",
+        "SMTP"
+      ],
+      "status": "planned",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 24,
+      "title": "Social Media Scheduler",
+      "category": "automation",
+      "description": "Automated posting tool for multiple social media platforms with content calendar and analytics.",
+      "technologies": [
+        "Python",
+        "Selenium",
+        "Schedule",
+        "SQLite"
+      ],
+      "status": "planned",
+      "difficulty": "beginner",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 25,
+      "title": "File Organizer Bot",
+      "category": "automation",
+      "description": "Automated file organization system that sorts downloads by type, date, and custom rules.",
+      "technologies": [
+        "Python",
+        "Watchdog",
+        "PyQt5",
+        "YAML"
+      ],
+      "status": "in-progress",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1544396821-4dd40b938ad3?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 26,
+      "title": "Web Scraper Dashboard",
+      "category": "automation",
+      "description": "Automated web scraping tool with price monitoring, alerts, and historical data tracking.",
+      "technologies": [
+        "Python",
+        "BeautifulSoup",
+        "Scrapy",
+        "PostgreSQL"
+      ],
+      "status": "planned",
+      "difficulty": "beginner",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 27,
+      "title": "Linux System Automation",
+      "category": "automation",
+      "description": "Ansible playbooks and Bash scripts for Linux system administration and user management.",
+      "technologies": [
+        "Ansible",
+        "Bash",
+        "Python",
+        "Cron"
+      ],
+      "status": "completed",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&h=500&fit=crop",
+      "isReal": true
+    },
+    {
+      "id": 28,
+      "title": "Expense Tracker Lite",
+      "category": "mobile",
+      "description": "React Native app for personal expense tracking with categories, budgets, and spending insights.",
+      "technologies": [
+        "React Native",
+        "Expo",
+        "AsyncStorage",
+        "Chart.js"
+      ],
+      "status": "planned",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 29,
+      "title": "Workout Timer",
+      "category": "mobile",
+      "description": "HIIT workout timer app with customizable intervals, rest periods, and workout history tracking.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "SQLite",
+        "Provider"
+      ],
+      "status": "planned",
+      "difficulty": "novice",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=500&fit=crop",
+      "isReal": false
+    },
+    {
+      "id": 30,
+      "title": "Daily Journal",
+      "category": "mobile",
+      "description": "Minimalist journaling app with mood tracking, photo attachments, and cloud sync.",
+      "technologies": [
+        "React Native",
+        "Firebase",
+        "Redux",
+        "Camera API"
+      ],
+      "status": "planned",
+      "difficulty": "intermediate",
+      "featured": false,
+      "github": "#",
+      "demo": "#",
+      "image": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&h=500&fit=crop",
+      "isReal": false
+    }
+  ]
+}
