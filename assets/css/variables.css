@@ -29,10 +29,6 @@
     --warning: #ff9800;
     --error: #f44336;
     --info: #2196f3;
-    --success-500: #10b981;
-    --warning-500: #fb923c;
-    --error-500: #ef4444;
-    --info-500: #3b82f6;
 
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;

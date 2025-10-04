@@ -1,4 +1,4 @@
-/* Skills Page Styles - Modular and Maintainable */
+/* Skills Page Styles - Compact Grid with Icons */
 
 /* Main container for skills categories section */
 .skills-categories {
@@ -6,33 +6,38 @@
     min-height: 60vh;
 }
 
-/* Grid container for all skill categories */
+/* Grid container for all skill categories - 2 columns on desktop */
 .skills-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: var(--space-xl);
     animation: fadeInUp 0.6s ease-out;
 }
 
+/* Category container */
 .skill-category {
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);
-    padding: var(--space-2xl);
+    padding: var(--space-xl);
 }
 
+/* Category header - more compact */
 .skill-category__header {
     display: flex;
     align-items: center;
     gap: var(--space-md);
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
     border-bottom: 2px solid var(--border-color);
 }
 
 .skill-category__icon {
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     background: var(--primary-100);
     border-radius: var(--radius-md);
 }
@@ -43,63 +48,110 @@
 }
 
 .skill-category__title {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: var(--font-semibold);
     color: var(--primary-600);
 }
 
-/* Using grid utilities from utilities.css */
-.skill-category__grid {
-    /* Applied via classes: grid grid-auto-md gap-xl */
+.skill-category__description {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    margin-top: var(--space-xs);
+    opacity: 0.8;
+    line-height: 1.4;
 }
 
-/* Using grid utilities from utilities.css */
-.skill-category__items {
-    /* Applied via classes: grid grid-auto-sm gap-lg */
+/* Skills list - compact grid */
+.skill-category__skills {
+    display: grid;
+    gap: var(--space-sm);
 }
 
+/* Compact skill item with icon */
 .skill-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: var(--space-md);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .skill-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
     border-color: var(--primary-300);
 }
 
-.skill-item__name {
-    font-weight: var(--font-medium);
-    margin-bottom: var(--space-sm);
+/* Technology icon */
+.skill-item__icon {
+    font-size: 32px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
+/* Skill content */
+.skill-item__content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+}
+
+.skill-item__name {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+
+/* Level indicator - Dots + Years only */
 .skill-item__level {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-sm);
+    gap: var(--space-md);
+    flex-shrink: 0;
 }
 
-.skill-item__bar {
-    flex: 1;
-    height: 4px;
-    background: var(--gray-200);
-    overflow: hidden;
+/* Dots indicator */
+.skill-item__dots {
+    display: flex;
+    gap: 3px;
 }
 
-.skill-item__progress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
-    transition: width var(--transition-slow);
+.skill-item__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-300);
+    transition: background var(--transition-fast);
 }
 
-.skill-item__years {
+.skill-item__dot--filled {
+    background: var(--primary-600);
+}
+
+[data-theme="dark"] .skill-item__dot {
+    background: var(--gray-700);
+}
+
+[data-theme="dark"] .skill-item__dot--filled {
+    background: var(--primary-400);
+}
+
+/* Experience years */
+.skill-item__experience {
     font-size: var(--text-sm);
     color: var(--text-tertiary);
+    font-weight: var(--font-normal);
 }
 
 /* Enhanced Skill Card Styles */
@@ -249,21 +301,44 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .skill-category__grid {
+    .skills-categories__grid {
         grid-template-columns: 1fr;
     }
 
-    .skill-category__items {
-        grid-template-columns: 1fr;
-    }
-
-    .certifications__grid {
-        grid-template-columns: 1fr;
+    .skill-category {
+        padding: var(--space-lg);
     }
 
     .skill-category__header {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .skill-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .skill-item__content {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .skill-item__level {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .skill-item__label {
+        min-width: auto;
+    }
+
+    .certifications__grid {
+        grid-template-columns: 1fr;
     }
 
     .skill-card__techs {

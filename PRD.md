@@ -19,22 +19,31 @@ Development of a clean, professional multi-page portfolio website showcasing ski
 - **Accessibility**: WCAG compliance for inclusive access
 
 ### 1.4 Technology Stack
+- **Build System**: Jekyll (static site generator, GitHub Pages native)
 - **Languages**: HTML5, CSS3, JavaScript (ES6+ vanilla)
-- **No Frameworks**: Focus on fundamentals and performance
+- **Templating**: Liquid (Jekyll) for shared components
+- **No Frontend Frameworks**: Focus on fundamentals and performance
 - **Minimal Libraries**: EmailJS for contact form only
 - **Version Control**: Git with strategic commit strategy
-- **Hosting**: GitHub Pages or Netlify
+- **Hosting**: GitHub Pages (https://dipedilans.github.io)
+
+**⚠️ ARCHITECTURAL UPDATE (2025-01):**
+Migrated to Jekyll to eliminate ~1000 lines of duplicated HTML. Header/footer are now in `_includes/` instead of loaded via JavaScript. See ARCHITECTURE.md for rationale.
 
 ---
 
 ## 2. Website Architecture
 
 ### 2.1 Structure Type
-**Multi-Page Application** with the following structure:
+**Multi-Page Jekyll Site** with the following structure:
 - Separate HTML files for each major section
-- Shared components (header, footer) loaded via JavaScript
+- Shared components (header, footer) via Jekyll includes (NOT JavaScript)
+- Layouts in `_layouts/` for consistent page structure
 - Consistent navigation across all pages
 - Homepage as central hub with previews
+
+**~~Shared components (header, footer) loaded via JavaScript~~** ← ❌ DEPRECATED (2025-01)
+**New approach:** Jekyll `_includes/` for zero code duplication
 
 ### 2.2 Site Map
 ```

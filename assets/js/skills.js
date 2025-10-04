@@ -57,7 +57,7 @@ function renderHomepageSkills(categories, container) {
             if (skill.featured) {
                 featuredSkills.push({
                     ...skill,
-                    icon: category.icon,
+                    categoryIcon: category.icon,
                     categoryName: category.name
                 });
             }
@@ -67,28 +67,27 @@ function renderHomepageSkills(categories, container) {
     // Take first 6 featured skills
     const skillsToShow = featuredSkills.slice(0, 6);
 
-    container.innerHTML = skillsToShow.map(skill => `
-        <div class="card card--hoverable card--centered">
-            <div class="card__header">
-                <span class="card__category">
-                    <span class="skill-card__icon">${skill.icon}</span>
-                    ${skill.categoryName}
-                </span>
-            </div>
-            <div class="card__content">
-                <h3 class="card__title">${skill.name}</h3>
-                <div class="card__tags">
-                    ${skill.techs.slice(0, 4).map(tech => `<span class="card__tag">${tech}</span>`).join('')}
+    container.innerHTML = skillsToShow.map(skill => {
+        const iconClass = getIconClass(skill.name);
+        const dotsHTML = renderDots(skill.level);
+
+        return `
+            <div class="card card--hoverable">
+                <div class="card__header">
+                    <i class="skill-item__icon ${iconClass}"></i>
                 </div>
-                <div class="skill-card__level">
-                    <div class="progress" style="flex: 1;">
-                        <div class="progress__bar" data-level="${skill.level}" style="width: ${skill.level}%;"></div>
+                <div class="card__content">
+                    <h3 class="card__title">${skill.name}</h3>
+                    <div class="skill-item__level" style="justify-content: center;">
+                        <div class="skill-item__dots">
+                            ${dotsHTML}
+                        </div>
+                        <span class="skill-item__experience">${skill.experience}</span>
                     </div>
-                    <span class="skill-card__percentage">${skill.level}%</span>
                 </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function renderSkillsPage(categories, container) {
@@ -101,30 +100,110 @@ function renderSkillsPage(categories, container) {
         <div class="skill-category">
             <div class="skill-category__header">
                 <span class="skill-category__icon">${category.icon}</span>
-                <h2 class="skill-category__title">${category.name}</h2>
-                <p class="skill-category__description">${category.description}</p>
+                <div>
+                    <h2 class="skill-category__title">${category.name}</h2>
+                    <p class="skill-category__description">${category.description}</p>
+                </div>
             </div>
-            <div class="skill-category__grid">
-                ${category.skills.map(skill => `
-                    <div class="skill-card">
-                        <h3 class="skill-card__title">${skill.name}</h3>
-                        <span class="skill-card__experience">${skill.experience}</span>
-                        <div class="skill-card__techs">
-                            ${skill.techs.slice(0, 4).map(tech => `<span class="card__tag">${tech}</span>`).join('')}
-                        </div>
-                        <div class="skill-card__level">
-                            <div class="skill-card__progress">
-                                <div class="skill-card__progress-bar" data-level="${skill.level}" style="width: ${skill.level}%;"></div>
-                            </div>
-                            <span class="skill-card__percentage">${skill.level}%</span>
-                        </div>
-                    </div>
-                `).join('')}
+            <div class="skill-category__skills">
+                ${category.skills.map(skill => renderSkillItem(skill)).join('')}
             </div>
         </div>
     `).join('');
 
     container.innerHTML = html;
+}
+
+function renderSkillItem(skill) {
+    const iconClass = getIconClass(skill.name);
+    const dotsHTML = renderDots(skill.level);
+
+    return `
+        <div class="skill-item">
+            <i class="skill-item__icon ${iconClass}"></i>
+            <div class="skill-item__content">
+                <span class="skill-item__name">${skill.name}</span>
+                <div class="skill-item__level">
+                    <div class="skill-item__dots">
+                        ${dotsHTML}
+                    </div>
+                    <span class="skill-item__experience">${skill.experience}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function renderDots(level) {
+    const totalDots = 5;
+    let dots = '';
+
+    for (let i = 1; i <= totalDots; i++) {
+        const filled = i <= level ? 'skill-item__dot--filled' : '';
+        dots += `<span class="skill-item__dot ${filled}"></span>`;
+    }
+
+    return dots;
+}
+
+function getIconClass(skillName) {
+    // Map skill names to DevIcon classes
+    const iconMap = {
+        // Languages & Core
+        'Python': 'devicon-python-plain colored',
+        'JavaScript': 'devicon-javascript-plain colored',
+        'Bash': 'devicon-bash-plain',
+        'HTML': 'devicon-html5-plain colored',
+        'CSS': 'devicon-css3-plain colored',
+        'SQL': 'devicon-azuresqldatabase-plain colored',
+
+        // Data Science & Visualization
+        'Pandas': 'devicon-pandas-plain colored',
+        'NumPy': 'devicon-numpy-plain colored',
+        'Matplotlib': 'devicon-matplotlib-plain colored',
+        'Seaborn': 'devicon-python-plain colored',
+        'Streamlit': 'devicon-streamlit-plain colored',
+        'Jupyter Notebooks': 'devicon-jupyter-plain colored',
+        'Scikit-learn': 'devicon-scikitlearn-plain colored',
+
+        // Big Data Platforms
+        'Apache Spark': 'devicon-apachespark-plain colored',
+        'PySpark': 'devicon-apachespark-plain colored',
+        'Hadoop': 'devicon-hadoop-plain colored',
+        'HDFS': 'devicon-hadoop-plain colored',
+        'Hive': 'devicon-apache-plain colored',
+        'Cloudera Data Platform': 'devicon-hadoop-plain colored',
+        'Parquet': 'devicon-apache-plain colored',
+        'Delta Lake': 'devicon-azure-plain colored',
+        'PostgreSQL': 'devicon-postgresql-plain colored',
+        'MongoDB': 'devicon-mongodb-plain colored',
+        'SQL Server': 'devicon-microsoftsqlserver-plain colored',
+
+        // Cloud & Infrastructure
+        'Microsoft Azure': 'devicon-azure-plain colored',
+        'Azure Data Factory': 'devicon-azure-plain colored',
+        'Azure Data Lake Storage': 'devicon-azure-plain colored',
+        'Linux': 'devicon-linux-plain',
+        'Docker': 'devicon-docker-plain colored',
+        'Kubernetes': 'devicon-kubernetes-plain colored',
+        'Terraform': 'devicon-terraform-plain colored',
+        'Ansible': 'devicon-ansible-plain colored',
+
+        // DevOps & Version Control
+        'Git': 'devicon-git-plain colored',
+        'GitHub': 'devicon-github-original',
+        'GitHub Actions': 'devicon-githubactions-plain',
+        'Jenkins': 'devicon-jenkins-plain colored',
+        'VS Code': 'devicon-vscode-plain colored',
+
+        // Backend & APIs
+        'Node.js': 'devicon-nodejs-plain colored',
+        'FastAPI': 'devicon-fastapi-plain colored',
+        'Flask': 'devicon-flask-original',
+        'REST APIs': 'devicon-postman-plain colored'
+    };
+
+    return iconMap[skillName] || 'devicon-code-plain';
 }
 
 // Fallback inline data
@@ -141,28 +220,28 @@ function getInlineSkills() {
                         name: "Microsoft Azure",
                         level: 85,
                         experience: "4+ years",
-                        techs: ["Data Lake", "HDInsight", "Data Factory", "Power BI"],
+                        techs: ["Data Lake", "HDInsight", "Data Factory"],
                         featured: true
                     },
                     {
-                        name: "Infrastructure as Code",
+                        name: "Terraform",
                         level: 90,
                         experience: "5+ years",
-                        techs: ["Terraform", "Ansible", "CloudFormation"],
+                        techs: ["IaC", "Cloud Automation"],
                         featured: true
                     },
                     {
-                        name: "Containerization",
-                        level: 80,
-                        experience: "3+ years",
-                        techs: ["Docker", "Kubernetes", "Docker Compose"],
+                        name: "Docker",
+                        level: 85,
+                        experience: "4+ years",
+                        techs: ["Containers", "Docker Compose"],
                         featured: false
                     },
                     {
-                        name: "Linux Administration",
+                        name: "Linux",
                         level: 90,
                         experience: "6+ years",
-                        techs: ["Ubuntu", "CentOS", "RHEL", "Shell Scripting"],
+                        techs: ["Ubuntu", "CentOS", "Bash"],
                         featured: true
                     }
                 ]

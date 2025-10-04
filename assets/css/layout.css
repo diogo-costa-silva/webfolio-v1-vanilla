@@ -45,9 +45,9 @@
     color: var(--primary-600);
 }
 
-/* Navigation */
+/* Navigation - MOBILE FIRST */
 .nav {
-    display: flex;
+    display: none; /* Escondida por defeito (mobile) */
     align-items: center;
     gap: var(--space-xl);
 }
@@ -123,9 +123,9 @@
     top: 0;
 }
 
-/* Mobile Menu Toggle */
+/* Mobile Menu Toggle - MOBILE FIRST */
 .mobile-menu-toggle {
-    display: none;
+    display: flex; /* Visível por defeito (mobile) */
     width: 40px;
     height: 40px;
     align-items: center;
@@ -171,9 +171,9 @@
     transform: rotate(-45deg);
 }
 
-/* Mobile Navigation */
+/* Mobile Navigation - MOBILE FIRST */
 .nav--mobile {
-    display: none;
+    display: block; /* Disponível por defeito (mobile) */
     position: fixed;
     top: var(--header-height);
     left: 0;
@@ -184,10 +184,12 @@
     transform: translateY(-100%);
     transition: transform var(--transition-base);
     z-index: calc(var(--z-header) - 1);
+    pointer-events: none; /* Don't intercept clicks when hidden */
 }
 
 .nav--mobile.active {
     transform: translateY(0);
+    pointer-events: auto; /* Allow clicks when visible */
 }
 
 .nav--mobile .nav__list {
@@ -300,19 +302,26 @@ main {
     min-height: calc(100vh - var(--header-height));
 }
 
-/* Responsive Layout */
-@media (max-width: 768px) {
+/* Responsive Layout - MOBILE FIRST APPROACH */
+
+/* DESKTOP: A partir de 1025px mostrar nav desktop e esconder hamburger */
+@media (min-width: 1025px) {
     .nav {
-        display: none;
+        display: flex; /* Mostrar nav horizontal no desktop */
     }
 
     .mobile-menu-toggle {
-        display: flex;
+        display: none; /* Esconder hamburger no desktop */
     }
 
     .nav--mobile {
-        display: block;
+        display: none; /* Desativar completamente no desktop */
     }
+}
+
+/* TABLET & MOBILE: Até 1024px manter comportamento mobile */
+@media (max-width: 1024px) {
+    /* Nav desktop escondida, hamburger visível - já definido por defeito */
 
     .footer__content {
         grid-template-columns: 1fr;
@@ -344,3 +353,4 @@ main {
         height: 36px;
     }
 }
+

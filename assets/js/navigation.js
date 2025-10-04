@@ -6,7 +6,19 @@ export function initHeader() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileNav = document.getElementById('mobileNav');
 
-    if (!header) return;
+    // DEFENSIVE: Verificar elementos críticos existem
+    if (!header) {
+        console.error('[Navigation] Header element not found');
+        return;
+    }
+
+    if (!mobileMenuToggle) {
+        console.warn('[Navigation] Mobile menu toggle not found');
+    }
+
+    if (!mobileNav) {
+        console.warn('[Navigation] Mobile nav not found');
+    }
 
     // Scroll variables
     let lastScrollTop = 0;
@@ -119,14 +131,16 @@ export function initHeader() {
     // Attach scroll listener with passive flag for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Handle window resize
+    // Handle window resize - IMPROVED with better breakpoint
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
+            const isDesktop = window.innerWidth > 1024;
+
             // Close mobile menu on desktop resize
-            if (window.innerWidth > 768 && mobileNav && mobileNav.classList.contains('active')) {
-                mobileMenuToggle.classList.remove('mobile-menu-toggle--active');
+            if (isDesktop && mobileNav && mobileNav.classList.contains('active')) {
+                mobileMenuToggle?.classList.remove('mobile-menu-toggle--active');
                 mobileNav.classList.remove('active');
                 document.body.style.overflow = '';
             }

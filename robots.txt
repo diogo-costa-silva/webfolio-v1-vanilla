@@ -1,0 +1,7 @@
+# robots.txt for https://dipedilans.github.io
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://dipedilans.github.io/sitemap.xml
