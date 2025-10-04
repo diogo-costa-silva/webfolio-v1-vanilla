@@ -243,6 +243,8 @@
 
     .about-preview__visual {
         order: -1;
+        display: flex;
+        justify-content: center;
     }
 
     .contact-cta__title {

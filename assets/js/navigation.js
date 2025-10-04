@@ -136,7 +136,7 @@ export function initHeader() {
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            const isDesktop = window.innerWidth > 1024;
+            const isDesktop = window.innerWidth >= 1024;
 
             // Close mobile menu on desktop resize
             if (isDesktop && mobileNav && mobileNav.classList.contains('active')) {

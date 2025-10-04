@@ -135,9 +135,11 @@
 
 .mobile-menu-toggle__icon {
     position: relative;
+    display: block;
     width: 24px;
     height: 2px;
     background: var(--text-primary);
+    border-radius: 2px;
     transition: background var(--transition-fast);
 }
 
@@ -145,18 +147,20 @@
 .mobile-menu-toggle__icon::after {
     content: '';
     position: absolute;
+    left: 0;
     width: 24px;
     height: 2px;
     background: var(--text-primary);
+    border-radius: 2px;
     transition: transform var(--transition-fast);
 }
 
 .mobile-menu-toggle__icon::before {
-    transform: translateY(-8px);
+    top: -8px;
 }
 
 .mobile-menu-toggle__icon::after {
-    transform: translateY(8px);
+    bottom: -8px;
 }
 
 .mobile-menu-toggle--active .mobile-menu-toggle__icon {
@@ -164,10 +168,12 @@
 }
 
 .mobile-menu-toggle--active .mobile-menu-toggle__icon::before {
+    top: 0;
     transform: rotate(45deg);
 }
 
 .mobile-menu-toggle--active .mobile-menu-toggle__icon::after {
+    bottom: 0;
     transform: rotate(-45deg);
 }
 
@@ -182,13 +188,18 @@
     border-bottom: 1px solid var(--border-color);
     padding: var(--space-lg) 0;
     transform: translateY(-100%);
-    transition: transform var(--transition-base);
+    visibility: hidden; /* Esconder completamente quando não ativo */
+    opacity: 0;
+    transition: transform var(--transition-base), visibility 0s var(--transition-base), opacity var(--transition-base);
     z-index: calc(var(--z-header) - 1);
     pointer-events: none; /* Don't intercept clicks when hidden */
 }
 
 .nav--mobile.active {
     transform: translateY(0);
+    visibility: visible; /* Mostrar quando ativo */
+    opacity: 1;
+    transition: transform var(--transition-base), visibility 0s 0s, opacity var(--transition-base);
     pointer-events: auto; /* Allow clicks when visible */
 }
 
@@ -304,8 +315,8 @@ main {
 
 /* Responsive Layout - MOBILE FIRST APPROACH */
 
-/* DESKTOP: A partir de 1025px mostrar nav desktop e esconder hamburger */
-@media (min-width: 1025px) {
+/* DESKTOP: A partir de 1024px mostrar nav desktop e esconder hamburger */
+@media (min-width: 1024px) {
     .nav {
         display: flex; /* Mostrar nav horizontal no desktop */
     }
