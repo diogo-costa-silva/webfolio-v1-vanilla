@@ -200,7 +200,9 @@ Edit `data/translations.json`:
 
 ## Deployment
 
-### Deploy to GitHub Pages
+### Deploy to GitHub Pages (with GitHub Actions)
+
+This project uses **GitHub Actions** for automated deployment. Every push to `main` triggers an automatic deployment.
 
 **Initial Setup:**
 
@@ -221,15 +223,32 @@ git commit -m "feat: initial deployment"
 git push -u origin main
 ```
 
-**Enable GitHub Pages:**
+**Enable GitHub Pages with GitHub Actions:**
 
 1. Go to repo settings: https://github.com/dipedilans/dipedilans.github.io/settings/pages
-2. **Source:** Deploy from a branch
-3. **Branch:** `main`
-4. **Folder:** `/ (root)`
-5. Click **Save**
+2. **Source:** GitHub Actions
+3. Workflow will automatically run on push
 
-**Site goes live at:** https://dipedilans.github.io (within 1-2 minutes)
+**Site goes live at:** https://dipedilans.github.io (within 30-60 seconds)
+
+### GitHub Actions Workflow
+
+The workflow (`.github/workflows/static.yml`) does:
+
+1. **Checkout code** - Clones repository
+2. **Setup Pages** - Configures GitHub Pages
+3. **Upload artifact** - Prepares files for deployment
+4. **Deploy** - Publishes to GitHub Pages
+
+**Benefits:**
+- ✅ **Visible history** - See all deployments in Actions tab
+- ✅ **Better control** - Can add validation steps (HTML validation, link checking)
+- ✅ **Learn CI/CD** - Practical experience with GitHub Actions
+- ✅ **Future extensibility** - Easy to add build steps if needed
+
+**View deployments:**
+- Actions tab: https://github.com/dipedilans/dipedilans.github.io/actions
+- Latest run: Shows status (✓ success, ✗ failure, ● in progress)
 
 ### Daily Updates
 
@@ -243,7 +262,22 @@ git add .
 git commit -m "feat: add new project to portfolio"
 git push origin main
 
+# GitHub Actions automatically:
+# - Runs workflow
+# - Validates deployment
+# - Publishes to GitHub Pages
+#
 # Wait 30-60 seconds → Changes live!
+```
+
+**Monitor deployment:**
+
+```bash
+# View latest workflow runs
+gh run list --repo dipedilans/dipedilans.github.io --limit 5
+
+# Watch live deployment (get run ID from list above)
+gh run view <run-id> --repo dipedilans/dipedilans.github.io
 ```
 
 **Commit message types:**
@@ -253,6 +287,7 @@ git push origin main
 - `style:` - CSS/visual changes
 - `perf:` - Performance improvements
 - `chore:` - Maintenance
+- `ci:` - CI/CD changes (GitHub Actions)
 
 ---
 
