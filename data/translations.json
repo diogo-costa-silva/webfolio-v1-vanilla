@@ -31,7 +31,8 @@
         "contact.schedule": "Schedule Call",
         "footer.quickLinks": "Quick Links",
         "footer.connect": "Connect",
-        "footer.rights": "All rights reserved"
+        "footer.rights": "All rights reserved",
+        "backToTop.label": "Back to top"
     },
     "pt": {
         "nav.home": "Início",
@@ -65,6 +66,7 @@
         "contact.schedule": "Agendar Chamada",
         "footer.quickLinks": "Links Rápidos",
         "footer.connect": "Conectar",
-        "footer.rights": "Todos os direitos reservados"
+        "footer.rights": "Todos os direitos reservados",
+        "backToTop.label": "Voltar ao topo"
     }
 }
