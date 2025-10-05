@@ -103,75 +103,9 @@
                     <div class="about-content__text">
                         <h2>My Story</h2>
                         <p>Born and raised in Maputo, Mozambique, my journey into technology began at the Portuguese School of Mozambique, where I discovered my passion for problem-solving and innovation. This passion led me to Portugal in 2016, where I pursued an Integrated Master's degree in Engineering and Management of Information Systems at the University of Minho.</p>
-                        <p>During my academic journey, I immersed myself in the world of Big Data and distributed systems, working as a Research Grant holder at ISISE where I built and managed a Hadoop cluster for processing sensor data from road pavements. This experience sparked my fascination with infrastructure and large-scale data processing.</p>
-                        <p>Currently, I'm part of the Programa Contacto at MC Digital (Sonae), where I work as a Platform Engineer, managing cloud infrastructure, automating deployments, and ensuring the reliability of critical systems that power one of Portugal's largest retail operations.</p>
-                        <h3>What I Do</h3>
-                        <p>As a Platform Engineer, I bridge the gap between development and operations, creating robust infrastructure that enables teams to deliver value faster and more reliably. My work involves:</p>
-                        <ul style="margin-top: 1rem; list-style: disc; padding-left: 2rem;">
-                            <li>Designing and implementing Infrastructure as Code using Terraform for Azure environments</li>
-                            <li>Managing Linux systems and automating repetitive tasks with Ansible and Bash scripting</li>
-                            <li>Configuring Big Data platforms including Hadoop, Databricks, and Cloudera</li>
-                            <li>Providing technical support and solving complex infrastructure challenges</li>
-                            <li>Ensuring security and compliance across all platform deployments</li>
-                        </ul>
-                        <p style="margin-top: 1.5rem;">I believe in the power of automation to eliminate toil and enable engineers to focus on what truly matters: solving interesting problems and delivering value to users.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline -->
-        <section class="section timeline">
-            <div class="container">
-                <h2 class="section__title">My Journey</h2>
-                <div class="timeline__container">
-                    <div class="timeline__item reveal">
-                        <div class="timeline__dot"></div>
-                        <div class="timeline__date">September 2024 - Present</div>
-                        <div class="timeline__title">Platform Engineer - MC Digital (Sonae)</div>
-                        <div class="timeline__description">
-                            Managing cloud infrastructure with Terraform and Azure, administering Linux systems,
-                            and automating processes with Ansible. Working with Big Data platforms like Databricks
-                            and Cloudera to support data-driven retail operations.
-                        </div>
-                    </div>
-                    <div class="timeline__item reveal">
-                        <div class="timeline__dot"></div>
-                        <div class="timeline__date">February 2024 - March 2024</div>
-                        <div class="timeline__title">Internship - Mozaboot</div>
-                        <div class="timeline__description">
-                            Explored PHC ERP system architecture and researched AI module applications for business
-                            automation. Collaborated with technical team to identify value propositions for enterprise clients.
-                        </div>
-                    </div>
-                    <div class="timeline__item reveal">
-                        <div class="timeline__dot"></div>
-                        <div class="timeline__date">February 2022 - June 2023</div>
-                        <div class="timeline__title">Research Grant - ISISE, University of Minho</div>
-                        <div class="timeline__description">
-                            Built and managed a Hadoop cluster for the REV@CONSTRUCTION project. Developed Python scripts
-                            for data ingestion, implemented Delta Lake architecture, and automated file transfers between
-                            Windows and Linux systems.
-                        </div>
-                    </div>
-                    <div class="timeline__item reveal">
-                        <div class="timeline__dot"></div>
-                        <div class="timeline__date">September 2016 - June 2023</div>
-                        <div class="timeline__title">Master's Degree - University of Minho</div>
-                        <div class="timeline__description">
-                            Integrated Master's in Engineering and Management of Information Systems.
-                            Focused on distributed systems, data engineering, and software development.
-                            Developed strong foundations in both technical and management aspects of IT.
-                        </div>
-                    </div>
-                    <div class="timeline__item reveal">
-                        <div class="timeline__dot"></div>
-                        <div class="timeline__date">September 2013 - July 2016</div>
-                        <div class="timeline__title">High School - Portuguese School of Mozambique</div>
-                        <div class="timeline__description">
-                            Science and Technology track in Maputo, Mozambique. First exposure to programming
-                            and computer science, which sparked my passion for technology and problem-solving.
-                        </div>
+                        <p>During my academic years, I discovered a fascination with how systems work at scale and how infrastructure enables amazing things to happen. What started as curiosity about technology grew into a genuine love for building reliable systems that make people's lives easier.</p>
+                        <p>Today, I work as a Platform Engineer at MC Digital (Sonae), where I get to combine my technical skills with my passion for solving real-world problems. Whether it's automating repetitive tasks or ensuring systems run smoothly, I find joy in the challenge of making complex things simple and reliable.</p>
+                        <p>Beyond the code and infrastructure, I'm driven by the belief that technology should be accessible and inclusive. My multicultural background—growing up in Mozambique and building my career in Portugal—has taught me the value of diverse perspectives in creating better solutions for everyone.</p>
                     </div>
                 </div>
             </div>
@@ -184,14 +118,22 @@
                 <p class="section__subtitle">Life beyond the terminal</p>
 
                 <div class="behind-code__grid">
-                    <div class="behind-code__card reveal">
+                    <!-- Volunteer cards with modals -->
+                    <div class="behind-code__card reveal" data-modal-trigger="modal-foodbank" style="cursor: pointer;">
                         <div class="behind-code__icon">🤝</div>
-                        <h3 class="behind-code__title">Community & Volunteering</h3>
+                        <h3 class="behind-code__title">Food Bank Volunteer</h3>
                         <p class="behind-code__description">
-                            I believe in giving back to the community. I volunteer at the Food Bank Against Hunger in Porto,
-                            helping to sort and distribute food to families in need. I also participate in environmental
-                            initiatives with AMMA Matosinhos, working on invasive species removal and native tree planting
-                            to preserve our local ecosystems.
+                            Helping families in need through food distribution at the Food Bank Against Hunger in Porto.
+                            Click to learn more about this experience.
+                        </p>
+                    </div>
+
+                    <div class="behind-code__card reveal" data-modal-trigger="modal-amma" style="cursor: pointer;">
+                        <div class="behind-code__icon">🌱</div>
+                        <h3 class="behind-code__title">Environmental Volunteer</h3>
+                        <p class="behind-code__description">
+                            Contributing to ecosystem preservation through invasive species removal and tree planting with AMMA Matosinhos.
+                            Click to learn more about this initiative.
                         </p>
                     </div>
 
@@ -254,6 +196,76 @@
             </div>
         </section>
     </main>
+
+    <!-- Modals -->
+    <!-- Food Bank Modal -->
+    <div class="modal" id="modal-foodbank">
+        <div class="modal__content">
+            <button class="modal__close" aria-label="Close modal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="modal__header">
+                <h2 class="modal__title">Food Bank Against Hunger</h2>
+                <p class="modal__subtitle">Social Action Volunteer | September 2024 | Porto, Portugal</p>
+            </div>
+            <div class="modal__body">
+                <p>
+                    Volunteering at the Food Bank Against Hunger in Porto has been an incredibly rewarding experience.
+                    As part of the social action team, I contribute to ensuring food security for vulnerable populations
+                    in the Porto region.
+                </p>
+                <p><strong>Activities & Responsibilities:</strong></p>
+                <ul>
+                    <li>Receiving and sorting food donations from local businesses and individuals</li>
+                    <li>Organizing food items by category and expiration date for efficient distribution</li>
+                    <li>Distributing food packages to families in need with dignity and respect</li>
+                    <li>Collaborating with team members to streamline the logistics of food distribution</li>
+                    <li>Supporting community initiatives that raise awareness about food waste and hunger</li>
+                </ul>
+                <p>
+                    This experience has taught me the importance of community solidarity and how small actions can
+                    make a significant difference in people's lives. It's a reminder that beyond technology and code,
+                    we all have a responsibility to contribute to our communities.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AMMA Modal -->
+    <div class="modal" id="modal-amma">
+        <div class="modal__content">
+            <button class="modal__close" aria-label="Close modal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="modal__header">
+                <h2 class="modal__title">AMMA - Matosinhos Environment</h2>
+                <p class="modal__subtitle">Environmental Volunteer | November 2024 | Matosinhos, Portugal</p>
+            </div>
+            <div class="modal__body">
+                <p>
+                    Through Matosinhos City Council's environmental program AMMA (Association for the Environment of Matosinhos),
+                    I've been actively involved in protecting and preserving local ecosystems.
+                </p>
+                <p><strong>Conservation Activities:</strong></p>
+                <ul>
+                    <li>Participated in invasive species removal projects to protect native biodiversity</li>
+                    <li>Helped plant native tree species to restore natural habitats</li>
+                    <li>Learned about local flora and fauna and the importance of ecosystem balance</li>
+                    <li>Contributed to environmental education initiatives in the community</li>
+                    <li>Worked alongside environmental experts and passionate volunteers</li>
+                </ul>
+                <p>
+                    This hands-on environmental work has deepened my appreciation for nature and sustainability.
+                    It's shown me that protecting our environment requires active participation from everyone,
+                    and that even small contributions can help preserve our planet for future generations.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer id="footer" class="footer">
