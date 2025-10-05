@@ -115,7 +115,7 @@ a:focus-visible {
 
 /* Section */
 .section {
-    padding: var(--space-4xl) 0;
+    padding: var(--section-padding-desktop) 0;
 }
 
 .section__title {
@@ -177,11 +177,11 @@ a:focus-visible {
     }
 
     .section {
-        padding: var(--space-3xl) 0;
+        padding: var(--section-padding-tablet) 0;
     }
 
     .page-hero {
-        padding: var(--space-4xl) 0 var(--space-3xl);
+        padding: var(--section-padding-desktop) 0 var(--section-padding-tablet);
     }
 }
 
@@ -195,6 +195,6 @@ a:focus-visible {
     }
 
     .section {
-        padding: var(--space-2xl) 0;
+        padding: var(--section-padding-mobile) 0;
     }
 }
