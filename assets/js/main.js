@@ -10,6 +10,7 @@ import { initContact } from './contact.js';
 import { initSkills } from './skills.js';
 import { initTestimonials } from './testimonials.js';
 import { initBackToTop } from './back-to-top.js';
+import { initModals } from './modal.js';
 
 // Initialize app when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initFooter();
         initAnimations();
         initBackToTop();
+        initModals();
 
         // Initialize page-specific features
         const currentPage = getCurrentPage();
