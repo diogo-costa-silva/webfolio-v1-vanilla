@@ -18,7 +18,7 @@ async function loadSkills() {
 
     try {
         // Load from JSON file
-        const response = await fetch('/data/skills.json');
+        const response = await fetch('data/skills.json');
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
