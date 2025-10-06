@@ -1,6 +1,6 @@
 // Language Module - PT/EN toggle with dropdown
 
-let currentLanguage = localStorage.getItem('language') || 'pt';
+let currentLanguage = localStorage.getItem('language') || 'en';
 
 export function initLanguage() {
     const languageToggle = document.getElementById('languageToggle');
