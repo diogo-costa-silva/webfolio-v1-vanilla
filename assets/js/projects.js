@@ -1,6 +1,7 @@
 // Projects Module
 
 import { getCurrentLanguage } from './language.js';
+import { getRecentProjects } from './github-api.js';
 
 let translations = {};
 
@@ -33,14 +34,33 @@ async function loadProjects() {
     const projectsGrid = document.getElementById('projectsGrid') || document.querySelector('.projects-grid');
     if (!projectsGrid) return;
 
+    // Check if we're on homepage
+    const isHomepage = !window.location.pathname.includes('projects.html');
+
+    // Add loading state for homepage
+    if (isHomepage) {
+        projectsGrid.classList.add('loading');
+    }
+
     try {
         // Try to load from JSON
         const response = await fetch('/data/projects.json');
         const data = await response.json();
-        renderProjects(data.projects, projectsGrid);
+
+        if (isHomepage) {
+            // Homepage: fetch 6 most recent projects from GitHub API
+            console.log('Loading recent projects for homepage...');
+            const recentProjects = await getRecentProjects(data.projects, 6);
+            projectsGrid.classList.remove('loading');
+            renderProjects(recentProjects, projectsGrid);
+        } else {
+            // Projects page: show all projects
+            renderProjects(data.projects, projectsGrid);
+        }
     } catch (error) {
         // Fallback to inline data
         console.log('Loading inline projects data');
+        projectsGrid.classList.remove('loading');
         renderProjects(getInlineProjects(), projectsGrid);
     }
 
@@ -99,8 +119,8 @@ function renderProjects(projects, container) {
         // Projects page - show all projects
         projectsToShow = projects;
     } else {
-        // Homepage - show only featured projects (max 6)
-        projectsToShow = projects.filter(p => p.featured).slice(0, 6);
+        // Homepage - projects already filtered by getRecentProjects() to 6
+        projectsToShow = projects;
     }
 
     // Render projects with improved structure
