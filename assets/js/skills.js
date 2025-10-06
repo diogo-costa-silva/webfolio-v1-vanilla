@@ -1,5 +1,9 @@
 // Skills Module - Modular and data-driven like projects.js
 
+import { getCurrentLanguage } from './language.js';
+
+let translations = {};
+
 export function initSkills() {
     // Ensure DOM is ready
     if (document.readyState === 'loading') {
@@ -10,11 +14,26 @@ export function initSkills() {
     }
 }
 
+async function loadTranslations() {
+    try {
+        const response = await fetch('/data/translations.json');
+        const data = await response.json();
+        const currentLang = getCurrentLanguage();
+        translations = data[currentLang] || data['en'];
+    } catch (error) {
+        console.error('Error loading translations:', error);
+        translations = {};
+    }
+}
+
 async function loadSkills() {
     const skillsGrid = document.querySelector('.skills-grid');
     const categoriesGrid = document.querySelector('.skills-categories__grid');
 
     if (!skillsGrid && !categoriesGrid) return;
+
+    // Load translations first
+    await loadTranslations();
 
     try {
         // Load from JSON file
@@ -82,7 +101,7 @@ function renderHomepageSkills(categories, container) {
                         <div class="skill-item__dots">
                             ${dotsHTML}
                         </div>
-                        <span class="skill-item__experience">${skill.experience}</span>
+                        <span class="skill-item__experience">${translateExperience(skill.experience)}</span>
                     </div>
                 </div>
             </div>
@@ -117,6 +136,7 @@ function renderSkillsPage(categories, container) {
 function renderSkillItem(skill) {
     const iconClass = getIconClass(skill.name);
     const dotsHTML = renderDots(skill.level);
+    const translatedExperience = translateExperience(skill.experience);
 
     return `
         <div class="skill-item">
@@ -127,11 +147,19 @@ function renderSkillItem(skill) {
                     <div class="skill-item__dots">
                         ${dotsHTML}
                     </div>
-                    <span class="skill-item__experience">${skill.experience}</span>
+                    <span class="skill-item__experience">${translatedExperience}</span>
                 </div>
             </div>
         </div>
     `;
+}
+
+function translateExperience(experience) {
+    if (!experience) return '';
+
+    // Replace "years" with translated version
+    const yearsWord = translations['experience.years'] || 'years';
+    return experience.replace(/years/gi, yearsWord);
 }
 
 function renderDots(level) {

@@ -60,12 +60,24 @@
             </nav>
 
             <div class="header__controls">
-                <button class="header__button" id="languageToggle" aria-label="Toggle language">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </button>
+                <div class="language-selector">
+                    <button class="header__button" id="languageToggle" aria-label="Toggle language">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button class="language-option" data-lang="pt">
+                            <span class="language-flag">🇵🇹</span>
+                            <span class="language-name">PT</span>
+                        </button>
+                        <button class="language-option" data-lang="en">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name">EN</span>
+                        </button>
+                    </div>
+                </div>
 
                 <button class="header__button" id="themeToggle" aria-label="Toggle theme">
                     <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -123,17 +135,17 @@
                 <div class="about-preview__grid">
                     <div class="about-preview__content">
                         <h2 class="section__title" data-i18n="about.title">About Me</h2>
-                        <p class="section__text">
+                        <p class="section__text" data-i18n="about.preview.text">
                             Platform Engineer with expertise in infrastructure automation, Big Data ecosystems, and cloud technologies.
                             Currently at MC Digital (Sonae), specializing in platform management, data infrastructure, and DevOps practices.
                             Passionate about transforming complex technical challenges into efficient, scalable solutions that drive innovation.
                         </p>
                         <ul class="about-preview__highlights">
-                            <li>☁️ Infrastructure as Code with Terraform & Azure</li>
-                            <li>🐧 Linux System Administration & Automation</li>
-                            <li>📊 Big Data Platforms (Hadoop, Databricks, Cloudera)</li>
-                            <li>🔧 Ansible & Bash Scripting for Automation</li>
-                            <li>🐍 Python Development for Data Engineering</li>
+                            <li><span data-i18n="about.preview.highlight1">Infrastructure as Code with Terraform & Azure</span></li>
+                            <li><span data-i18n="about.preview.highlight2">Linux System Administration & Automation</span></li>
+                            <li><span data-i18n="about.preview.highlight3">Big Data Platforms (Hadoop, Databricks, Cloudera)</span></li>
+                            <li><span data-i18n="about.preview.highlight4">Ansible & Bash Scripting for Automation</span></li>
+                            <li><span data-i18n="about.preview.highlight5">Python Development for Data Engineering</span></li>
                         </ul>
                         <a href="about.html" class="btn btn--ghost" data-i18n="about.readMore">Read Full Story →</a>
                     </div>
@@ -210,7 +222,7 @@
                 <div class="testimonials__carousel">
                     <div class="testimonial-card active">
                         <div class="testimonial-card__content">
-                            <p class="testimonial-card__quote">
+                            <p class="testimonial-card__quote" data-i18n="testimonials.quote1">
                                 "Diogo demonstrated exceptional skills in setting up and managing our Hadoop infrastructure.
                                 His work on the REV@CONSTRUCTION project enabled us to process sensor data at scale,
                                 providing crucial insights for our road pavement research."
@@ -219,14 +231,14 @@
                         <div class="testimonial-card__author">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Research Lead" class="testimonial-card__avatar" loading="lazy">
                             <div class="testimonial-card__info">
-                                <h4 class="testimonial-card__name">Prof. Miguel Azenha</h4>
-                                <p class="testimonial-card__role">Research Coordinator, ISISE - UMinho</p>
+                                <h4 class="testimonial-card__name" data-i18n="testimonials.author1.name">Prof. Miguel Azenha</h4>
+                                <p class="testimonial-card__role" data-i18n="testimonials.author1.role">Research Coordinator, ISISE - UMinho</p>
                             </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
                         <div class="testimonial-card__content">
-                            <p class="testimonial-card__quote">
+                            <p class="testimonial-card__quote" data-i18n="testimonials.quote2">
                                 "During his time at MC Digital, Diogo quickly became a key member of our platform team.
                                 His expertise in Terraform and Azure infrastructure automation significantly improved our
                                 deployment processes and system reliability."
@@ -235,14 +247,14 @@
                         <div class="testimonial-card__author">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Lead" class="testimonial-card__avatar" loading="lazy">
                             <div class="testimonial-card__info">
-                                <h4 class="testimonial-card__name">Ana Rodrigues</h4>
-                                <p class="testimonial-card__role">Platform Team Lead, MC Digital - Sonae</p>
+                                <h4 class="testimonial-card__name" data-i18n="testimonials.author2.name">Ana Rodrigues</h4>
+                                <p class="testimonial-card__role" data-i18n="testimonials.author2.role">Platform Team Lead, MC Digital - Sonae</p>
                             </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
                         <div class="testimonial-card__content">
-                            <p class="testimonial-card__quote">
+                            <p class="testimonial-card__quote" data-i18n="testimonials.quote3">
                                 "Diogo's research on PHC's AI module showed great analytical thinking and business acumen.
                                 He identified practical applications that could transform how our clients handle their data
                                 and automate their processes."
@@ -251,8 +263,8 @@
                         <div class="testimonial-card__author">
                             <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="CEO" class="testimonial-card__avatar" loading="lazy">
                             <div class="testimonial-card__info">
-                                <h4 class="testimonial-card__name">Carlos Matsinhe</h4>
-                                <p class="testimonial-card__role">Technical Director, Mozaboot</p>
+                                <h4 class="testimonial-card__name" data-i18n="testimonials.author3.name">Carlos Matsinhe</h4>
+                                <p class="testimonial-card__role" data-i18n="testimonials.author3.role">Technical Director, Mozaboot</p>
                             </div>
                         </div>
                     </div>
@@ -296,7 +308,7 @@
             <div class="footer__content">
                 <div class="footer__brand">
                     <div class="footer__logo">Diogo Silva</div>
-                    <p class="footer__tagline">Platform Engineer building robust infrastructure solutions</p>
+                    <p class="footer__tagline" data-i18n="footer.tagline">Platform Engineer building robust infrastructure solutions</p>
                     <div class="social-links">
                         <a href="https://github.com/diogo-costa-silva" target="_blank" aria-label="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

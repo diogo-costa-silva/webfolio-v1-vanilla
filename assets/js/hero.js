@@ -1,8 +1,26 @@
 // Hero Module - Typewriter effects and scroll indicator
 
+import { getCurrentLanguage } from './language.js';
+
+let translations = {};
+
 export function initHero() {
-    initTypewriter();
+    loadTranslationsAndInit();
     initScrollIndicator();
+}
+
+async function loadTranslationsAndInit() {
+    try {
+        const response = await fetch('/data/translations.json');
+        const data = await response.json();
+        const currentLang = getCurrentLanguage();
+        translations = data[currentLang] || data['en'];
+    } catch (error) {
+        console.error('Error loading translations:', error);
+        translations = {};
+    }
+
+    initTypewriter();
 }
 
 function initTypewriter() {
@@ -16,11 +34,10 @@ function initTypewriter() {
 
     if (taglineElement) {
         const taglines = [
-            'Full-Stack Developer',
-            'Problem Solver',
-            'Tech Enthusiast',
-            'Continuous Learner',
-            'Code Craftsman'
+            translations['hero.tagline1'] || 'Platform Engineer',
+            translations['hero.tagline2'] || 'Infrastructure Automation',
+            translations['hero.tagline3'] || 'Big Data Expert',
+            translations['hero.tagline4'] || 'Cloud Specialist'
         ];
         typewriterCycle(taglineElement, taglines, 3000);
     }

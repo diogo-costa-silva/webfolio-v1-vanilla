@@ -1,10 +1,27 @@
 // Projects Module
 
+import { getCurrentLanguage } from './language.js';
+
+let translations = {};
+
 export function initProjects() {
-    loadProjects().then(() => {
-        // Initialize filters after projects are loaded
-        initProjectFilters();
-    });
+    loadTranslationsAndProjects();
+}
+
+async function loadTranslationsAndProjects() {
+    try {
+        const response = await fetch('/data/translations.json');
+        const data = await response.json();
+        const currentLang = getCurrentLanguage();
+        translations = data[currentLang] || data['en'];
+    } catch (error) {
+        console.error('Error loading translations:', error);
+        translations = {};
+    }
+
+    await loadProjects();
+    // Initialize filters after projects are loaded
+    initProjectFilters();
 }
 
 async function loadProjects() {
@@ -26,22 +43,30 @@ async function loadProjects() {
 }
 
 function getCategoryDisplayName(category) {
-    const categoryNames = {
-        'data-science': 'Data Science',
-        'web-dev': 'Web Dev',
-        'backend': 'Backend',
-        'devops': 'DevOps',
-        'automation': 'Automation',
-        'mobile': 'Mobile'
+    const categoryMap = {
+        'data-science': 'category.dataScience',
+        'web-dev': 'category.webDev',
+        'backend': 'category.backend',
+        'devops': 'category.devops',
+        'automation': 'category.automation',
+        'mobile': 'category.mobile'
     };
-    return categoryNames[category] || category;
+
+    const key = categoryMap[category];
+    return key ? (translations[key] || category) : category;
 }
 
 function getStatusBadge(status, isReal) {
+    const statusText = {
+        'completed': isReal ? translations['status.real'] || 'REAL' : translations['status.completed'] || 'COMPLETED',
+        'in-progress': translations['status.inProgress'] || 'IN PROGRESS',
+        'planned': translations['status.planned'] || 'PLANNED'
+    };
+
     const badges = {
-        'completed': isReal ? '<span class="badge badge--success">REAL</span>' : '<span class="badge badge--success">COMPLETED</span>',
-        'in-progress': '<span class="badge badge--warning">IN PROGRESS</span>',
-        'planned': '<span class="badge badge--info">PLANNED</span>'
+        'completed': `<span class="badge badge--success">${statusText['completed']}</span>`,
+        'in-progress': `<span class="badge badge--warning">${statusText['in-progress']}</span>`,
+        'planned': `<span class="badge badge--info">${statusText['planned']}</span>`
     };
     return badges[status] || '';
 }

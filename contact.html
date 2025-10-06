@@ -48,12 +48,24 @@
             </nav>
 
             <div class="header__controls">
-                <button class="header__button" id="languageToggle" aria-label="Toggle language">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </button>
+                <div class="language-selector">
+                    <button class="header__button" id="languageToggle" aria-label="Toggle language">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button class="language-option" data-lang="pt">
+                            <span class="language-flag">🇵🇹</span>
+                            <span class="language-name">PT</span>
+                        </button>
+                        <button class="language-option" data-lang="en">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name">EN</span>
+                        </button>
+                    </div>
+                </div>
 
                 <button class="header__button" id="themeToggle" aria-label="Toggle theme">
                     <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -88,8 +100,8 @@
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
-                <h1 class="page-hero__title">Get In Touch</h1>
-                <p class="page-hero__subtitle">Let's discuss your project</p>
+                <h1 class="page-hero__title" data-i18n="contact.page.title">Get In Touch</h1>
+                <p class="page-hero__subtitle" data-i18n="contact.page.subtitle">Let's discuss your project</p>
             </div>
         </section>
 
@@ -101,57 +113,57 @@
                     <div class="contact__form-container">
                         <form id="contactForm" class="contact-form">
                             <div class="form-group">
-                                <label for="name">Name *</label>
+                                <label for="name" data-i18n="contact.form.name">Name *</label>
                                 <input type="text" id="name" name="name" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email *</label>
+                                <label for="email" data-i18n="contact.form.email">Email *</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="subject">Subject *</label>
+                                <label for="subject" data-i18n="contact.form.subject">Subject *</label>
                                 <input type="text" id="subject" name="subject" required>
                             </div>
                             <div class="form-group">
-                                <label for="message">Message *</label>
+                                <label for="message" data-i18n="contact.form.message">Message *</label>
                                 <textarea id="message" name="message" rows="5" required></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="budget">Budget (Optional)</label>
+                                <label for="budget" data-i18n="contact.form.budget">Budget (Optional)</label>
                                 <select id="budget" name="budget">
-                                    <option value="">Select budget range</option>
-                                    <option value="< 5k">Less than $5,000</option>
-                                    <option value="5k-10k">$5,000 - $10,000</option>
-                                    <option value="10k-25k">$10,000 - $25,000</option>
-                                    <option value="> 25k">More than $25,000</option>
+                                    <option value="" data-i18n="contact.form.budgetPlaceholder">Select budget range</option>
+                                    <option value="< 5k" data-i18n="contact.form.budget1">Less than $5,000</option>
+                                    <option value="5k-10k" data-i18n="contact.form.budget2">$5,000 - $10,000</option>
+                                    <option value="10k-25k" data-i18n="contact.form.budget3">$10,000 - $25,000</option>
+                                    <option value="> 25k" data-i18n="contact.form.budget4">More than $25,000</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+                            <button type="submit" class="btn btn--primary btn--full" data-i18n="contact.form.submit">Send Message</button>
                         </form>
                     </div>
 
                     <!-- Contact Information -->
                     <div class="contact__info">
-                        <h2>Let's Connect</h2>
-                        <p>Feel free to reach out for collaborations or just a friendly hello</p>
+                        <h2 data-i18n="contact.info.title">Let's Connect</h2>
+                        <p data-i18n="contact.info.subtitle">Feel free to reach out for collaborations or just a friendly hello</p>
 
                         <div class="contact__details">
                             <div class="contact__item">
-                                <h3>Email</h3>
+                                <h3 data-i18n="contact.info.email.title">Email</h3>
                                 <a href="mailto:hello@diogosilva.dev">hello@diogosilva.dev</a>
                             </div>
                             <div class="contact__item">
-                                <h3>Location</h3>
-                                <p>Lisbon, Portugal</p>
+                                <h3 data-i18n="contact.info.location.title">Location</h3>
+                                <p data-i18n="contact.info.location.value">Lisbon, Portugal</p>
                             </div>
                             <div class="contact__item">
-                                <h3>Response Time</h3>
-                                <p>Within 24-48 hours</p>
+                                <h3 data-i18n="contact.info.response.title">Response Time</h3>
+                                <p data-i18n="contact.info.response.value">Within 24-48 hours</p>
                             </div>
                         </div>
 
                         <div class="contact__social">
-                            <h3>Follow Me</h3>
+                            <h3 data-i18n="contact.info.follow.title">Follow Me</h3>
                             <div class="social-links">
                                 <a href="#" aria-label="GitHub">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">

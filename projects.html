@@ -48,12 +48,24 @@
             </nav>
 
             <div class="header__controls">
-                <button class="header__button" id="languageToggle" aria-label="Toggle language">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </button>
+                <div class="language-selector">
+                    <button class="header__button" id="languageToggle" aria-label="Toggle language">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button class="language-option" data-lang="pt">
+                            <span class="language-flag">🇵🇹</span>
+                            <span class="language-name">PT</span>
+                        </button>
+                        <button class="language-option" data-lang="en">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name">EN</span>
+                        </button>
+                    </div>
+                </div>
 
                 <button class="header__button" id="themeToggle" aria-label="Toggle theme">
                     <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -88,8 +100,8 @@
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
-                <h1 class="page-hero__title">Projects</h1>
-                <p class="page-hero__subtitle">My portfolio of work</p>
+                <h1 class="page-hero__title" data-i18n="projects.page.title">Projects</h1>
+                <p class="page-hero__subtitle" data-i18n="projects.page.subtitle">My portfolio of work</p>
             </div>
         </section>
 
@@ -97,15 +109,15 @@
         <section class="section projects-filters">
             <div class="container">
                 <div class="filters">
-                    <input type="text" class="filters__search" placeholder="Search projects...">
+                    <input type="text" class="filters__search" data-i18n-placeholder="projects.search.placeholder" placeholder="Search projects...">
                     <div class="filters__tags">
-                        <button class="filter-tag active" data-filter="all">All <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="data-science">Data Science <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="web-dev">Web Development <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="backend">Backend & APIs <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="devops">DevOps & Cloud <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="automation">Automation <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="mobile">Mobile Apps <span class="filter-count"></span></button>
+                        <button class="filter-tag active" data-filter="all"><span data-i18n="projects.filter.all">All</span> <span class="filter-count"></span></button>
+                        <button class="filter-tag" data-filter="data-science"><span data-i18n="projects.filter.dataScience">Data Science</span> <span class="filter-count"></span></button>
+                        <button class="filter-tag" data-filter="web-dev"><span data-i18n="projects.filter.webDev">Web Development</span> <span class="filter-count"></span></button>
+                        <button class="filter-tag" data-filter="backend"><span data-i18n="projects.filter.backend">Backend & APIs</span> <span class="filter-count"></span></button>
+                        <button class="filter-tag" data-filter="devops"><span data-i18n="projects.filter.devops">DevOps & Cloud</span> <span class="filter-count"></span></button>
+                        <button class="filter-tag" data-filter="automation"><span data-i18n="projects.filter.automation">Automation</span> <span class="filter-count"></span></button>
+                        <button class="filter-tag" data-filter="mobile"><span data-i18n="projects.filter.mobile">Mobile Apps</span> <span class="filter-count"></span></button>
                     </div>
                 </div>
             </div>

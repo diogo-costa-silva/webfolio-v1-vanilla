@@ -48,12 +48,24 @@
             </nav>
 
             <div class="header__controls">
-                <button class="header__button" id="languageToggle" aria-label="Toggle language">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </button>
+                <div class="language-selector">
+                    <button class="header__button" id="languageToggle" aria-label="Toggle language">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button class="language-option" data-lang="pt">
+                            <span class="language-flag">🇵🇹</span>
+                            <span class="language-name">PT</span>
+                        </button>
+                        <button class="language-option" data-lang="en">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name">EN</span>
+                        </button>
+                    </div>
+                </div>
 
                 <button class="header__button" id="themeToggle" aria-label="Toggle theme">
                     <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -88,10 +100,10 @@
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
-                <h1 class="page-hero__title">Resume</h1>
-                <p class="page-hero__subtitle">My professional experience</p>
+                <h1 class="page-hero__title" data-i18n="resume.page.title">Resume</h1>
+                <p class="page-hero__subtitle" data-i18n="resume.page.subtitle">My professional experience</p>
                 <a href="assets/docs/cv.pdf" class="btn btn--primary" download>
-                    <span>Download PDF</span>
+                    <span data-i18n="resume.download">Download PDF</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
                     </svg>
@@ -105,13 +117,13 @@
                 <div class="resume">
                     <!-- Professional Summary -->
                     <div class="resume__section">
-                        <h2 class="resume__heading">Professional Summary</h2>
-                        <p class="professional-summary">Platform Engineer with expertise in cloud infrastructure, automation, and Big Data platforms. Currently managing Azure environments with Infrastructure as Code at MC Digital (Sonae), one of Portugal's largest retail operations. Strong foundation in Linux systems administration, data engineering, and distributed systems. Experienced in building scalable solutions using Terraform, Ansible, Databricks, and Cloudera. Passionate about automation, reliability, and creating infrastructure that enables teams to deliver value efficiently.</p>
+                        <h2 class="resume__heading" data-i18n="resume.summary.title">Professional Summary</h2>
+                        <p class="professional-summary" data-i18n="resume.summary.text">Platform Engineer with expertise in cloud infrastructure, automation, and Big Data platforms. Currently managing Azure environments with Infrastructure as Code at MC Digital (Sonae), one of Portugal's largest retail operations. Strong foundation in Linux systems administration, data engineering, and distributed systems. Experienced in building scalable solutions using Terraform, Ansible, Databricks, and Cloudera. Passionate about automation, reliability, and creating infrastructure that enables teams to deliver value efficiently.</p>
                     </div>
 
                     <!-- Experience -->
                     <div class="resume__section">
-                        <h2 class="resume__heading">Experience</h2>
+                        <h2 class="resume__heading" data-i18n="resume.experience.title">Experience</h2>
                         <div class="resume__timeline">
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
@@ -168,7 +180,7 @@
 
                     <!-- Education -->
                     <div class="resume__section">
-                        <h2 class="resume__heading">Education</h2>
+                        <h2 class="resume__heading" data-i18n="resume.education.title">Education</h2>
                         <div class="resume__timeline">
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
@@ -196,7 +208,7 @@
 
                     <!-- Languages -->
                     <div class="resume__section">
-                        <h2 class="resume__heading">Languages</h2>
+                        <h2 class="resume__heading" data-i18n="resume.languages.title">Languages</h2>
                         <div class="language-cards">
                             <div class="language-card">
                                 <div class="language-card__flag">🇵🇹</div>

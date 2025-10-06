@@ -48,12 +48,24 @@
             </nav>
 
             <div class="header__controls">
-                <button class="header__button" id="languageToggle" aria-label="Toggle language">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </button>
+                <div class="language-selector">
+                    <button class="header__button" id="languageToggle" aria-label="Toggle language">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <button class="language-option" data-lang="pt">
+                            <span class="language-flag">🇵🇹</span>
+                            <span class="language-name">PT</span>
+                        </button>
+                        <button class="language-option" data-lang="en">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name">EN</span>
+                        </button>
+                    </div>
+                </div>
 
                 <button class="header__button" id="themeToggle" aria-label="Toggle theme">
                     <svg class="theme-icon theme-icon--light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -88,8 +100,8 @@
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
-                <h1 class="page-hero__title">About Me</h1>
-                <p class="page-hero__subtitle">From Mozambique to Portugal: A Platform Engineer's Journey</p>
+                <h1 class="page-hero__title" data-i18n="about.page.title">About Me</h1>
+                <p class="page-hero__subtitle" data-i18n="about.page.subtitle">From Mozambique to Portugal: A Platform Engineer's Journey</p>
             </div>
         </section>
 
@@ -101,11 +113,11 @@
                         <img src="assets/images/profile.png" alt="Diogo Silva" loading="lazy">
                     </div>
                     <div class="about-content__text">
-                        <h2>My Story</h2>
-                        <p>Born and raised in Maputo, Mozambique, my journey into technology began at the Portuguese School of Mozambique, where I discovered my passion for problem-solving and innovation. This passion led me to Portugal in 2016, where I pursued an Integrated Master's degree in Engineering and Management of Information Systems at the University of Minho.</p>
-                        <p>During my academic years, I discovered a fascination with how systems work at scale and how infrastructure enables amazing things to happen. What started as curiosity about technology grew into a genuine love for building reliable systems that make people's lives easier.</p>
-                        <p>Today, I work as a Platform Engineer at MC Digital (Sonae), where I get to combine my technical skills with my passion for solving real-world problems. Whether it's automating repetitive tasks or ensuring systems run smoothly, I find joy in the challenge of making complex things simple and reliable.</p>
-                        <p>Beyond the code and infrastructure, I'm driven by the belief that technology should be accessible and inclusive. My multicultural background—growing up in Mozambique and building my career in Portugal—has taught me the value of diverse perspectives in creating better solutions for everyone.</p>
+                        <h2 data-i18n="about.myStory.title">My Story</h2>
+                        <p data-i18n="about.myStory.p1">Born and raised in Maputo, Mozambique, my journey into technology began at the Portuguese School of Mozambique, where I discovered my passion for problem-solving and innovation. This passion led me to Portugal in 2016, where I pursued an Integrated Master's degree in Engineering and Management of Information Systems at the University of Minho.</p>
+                        <p data-i18n="about.myStory.p2">During my academic years, I discovered a fascination with how systems work at scale and how infrastructure enables amazing things to happen. What started as curiosity about technology grew into a genuine love for building reliable systems that make people's lives easier.</p>
+                        <p data-i18n="about.myStory.p3">Today, I work as a Platform Engineer at MC Digital (Sonae), where I get to combine my technical skills with my passion for solving real-world problems. Whether it's automating repetitive tasks or ensuring systems run smoothly, I find joy in the challenge of making complex things simple and reliable.</p>
+                        <p data-i18n="about.myStory.p4">Beyond the code and infrastructure, I'm driven by the belief that technology should be accessible and inclusive. My multicultural background—growing up in Mozambique and building my career in Portugal—has taught me the value of diverse perspectives in creating better solutions for everyone.</p>
                     </div>
                 </div>
             </div>
@@ -114,15 +126,15 @@
         <!-- Behind the Code Section -->
         <section class="section behind-code">
             <div class="container">
-                <h2 class="section__title">Behind the Code</h2>
-                <p class="section__subtitle">Life beyond the terminal</p>
+                <h2 class="section__title" data-i18n="about.behindCode.title">Behind the Code</h2>
+                <p class="section__subtitle" data-i18n="about.behindCode.subtitle">Life beyond the terminal</p>
 
                 <div class="behind-code__grid">
                     <!-- Volunteer cards with modals -->
                     <div class="behind-code__card reveal" data-modal-trigger="modal-foodbank" style="cursor: pointer;">
                         <div class="behind-code__icon">🤝</div>
-                        <h3 class="behind-code__title">Food Bank Volunteer</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.foodbank.title">Food Bank Volunteer</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.foodbank.desc">
                             Helping families in need through food distribution at the Food Bank Against Hunger in Porto.
                             Click to learn more about this experience.
                         </p>
@@ -130,8 +142,8 @@
 
                     <div class="behind-code__card reveal" data-modal-trigger="modal-amma" style="cursor: pointer;">
                         <div class="behind-code__icon">🌱</div>
-                        <h3 class="behind-code__title">Environmental Volunteer</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.amma.title">Environmental Volunteer</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.amma.desc">
                             Contributing to ecosystem preservation through invasive species removal and tree planting with AMMA Matosinhos.
                             Click to learn more about this initiative.
                         </p>
@@ -139,8 +151,8 @@
 
                     <div class="behind-code__card reveal">
                         <div class="behind-code__icon">🌍</div>
-                        <h3 class="behind-code__title">Cultural Bridge</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.cultural.title">Cultural Bridge</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.cultural.desc">
                             Growing up in Mozambique and now living in Portugal has given me a unique perspective on life
                             and technology. I speak Portuguese natively, am fluent in English, and understand basic Spanish.
                             This multicultural background helps me connect with diverse teams and bring different viewpoints
@@ -150,8 +162,8 @@
 
                     <div class="behind-code__card reveal">
                         <div class="behind-code__icon">📚</div>
-                        <h3 class="behind-code__title">Continuous Learning</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.learning.title">Continuous Learning</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.learning.desc">
                             Technology evolves rapidly, and I love staying ahead of the curve. Whether it's exploring new
                             cloud services, experimenting with emerging programming languages, or diving into the latest
                             DevOps practices, I'm always learning. Currently fascinated by Infrastructure as Code patterns
@@ -161,8 +173,8 @@
 
                     <div class="behind-code__card reveal">
                         <div class="behind-code__icon">⚡</div>
-                        <h3 class="behind-code__title">Interests & Hobbies</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.interests.title">Interests & Hobbies</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.interests.desc">
                             When I'm not coding, you'll find me exploring Porto's vibrant tech meetups, hiking in the
                             beautiful Portuguese countryside, or experimenting with home automation projects. I enjoy
                             building Raspberry Pi projects, contributing to open-source initiatives, and occasionally
@@ -172,8 +184,8 @@
 
                     <div class="behind-code__card reveal">
                         <div class="behind-code__icon">🎯</div>
-                        <h3 class="behind-code__title">Values & Philosophy</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.values.title">Values & Philosophy</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.values.desc">
                             I believe in writing clean, maintainable code that others can understand and build upon.
                             Automation should eliminate repetitive tasks, not complicate simple ones. Every technical
                             decision should be driven by business value. And most importantly, technology should be
@@ -183,8 +195,8 @@
 
                     <div class="behind-code__card reveal">
                         <div class="behind-code__icon">🚀</div>
-                        <h3 class="behind-code__title">Future Goals</h3>
-                        <p class="behind-code__description">
+                        <h3 class="behind-code__title" data-i18n="about.behindCode.goals.title">Future Goals</h3>
+                        <p class="behind-code__description" data-i18n="about.behindCode.goals.desc">
                             Looking ahead, I aim to deepen my expertise in cloud-native architectures and contribute
                             to large-scale distributed systems. I'm passionate about mentoring junior engineers and
                             sharing knowledge through technical writing and speaking at conferences. My goal is to
@@ -207,24 +219,24 @@
                 </svg>
             </button>
             <div class="modal__header">
-                <h2 class="modal__title">Food Bank Against Hunger</h2>
-                <p class="modal__subtitle">Social Action Volunteer | September 2024 | Porto, Portugal</p>
+                <h2 class="modal__title" data-i18n="about.modal.foodbank.title">Food Bank Against Hunger</h2>
+                <p class="modal__subtitle" data-i18n="about.modal.foodbank.subtitle">Social Action Volunteer | September 2024 | Porto, Portugal</p>
             </div>
             <div class="modal__body">
-                <p>
+                <p data-i18n="about.modal.foodbank.p1">
                     Volunteering at the Food Bank Against Hunger in Porto has been an incredibly rewarding experience.
                     As part of the social action team, I contribute to ensuring food security for vulnerable populations
                     in the Porto region.
                 </p>
-                <p><strong>Activities & Responsibilities:</strong></p>
+                <p><strong data-i18n="about.modal.foodbank.activitiesTitle">Activities & Responsibilities:</strong></p>
                 <ul>
-                    <li>Receiving and sorting food donations from local businesses and individuals</li>
-                    <li>Organizing food items by category and expiration date for efficient distribution</li>
-                    <li>Distributing food packages to families in need with dignity and respect</li>
-                    <li>Collaborating with team members to streamline the logistics of food distribution</li>
-                    <li>Supporting community initiatives that raise awareness about food waste and hunger</li>
+                    <li data-i18n="about.modal.foodbank.activity1">Receiving and sorting food donations from local businesses and individuals</li>
+                    <li data-i18n="about.modal.foodbank.activity2">Organizing food items by category and expiration date for efficient distribution</li>
+                    <li data-i18n="about.modal.foodbank.activity3">Distributing food packages to families in need with dignity and respect</li>
+                    <li data-i18n="about.modal.foodbank.activity4">Collaborating with team members to streamline the logistics of food distribution</li>
+                    <li data-i18n="about.modal.foodbank.activity5">Supporting community initiatives that raise awareness about food waste and hunger</li>
                 </ul>
-                <p>
+                <p data-i18n="about.modal.foodbank.p2">
                     This experience has taught me the importance of community solidarity and how small actions can
                     make a significant difference in people's lives. It's a reminder that beyond technology and code,
                     we all have a responsibility to contribute to our communities.
@@ -242,23 +254,23 @@
                 </svg>
             </button>
             <div class="modal__header">
-                <h2 class="modal__title">AMMA - Matosinhos Environment</h2>
-                <p class="modal__subtitle">Environmental Volunteer | November 2024 | Matosinhos, Portugal</p>
+                <h2 class="modal__title" data-i18n="about.modal.amma.title">AMMA - Matosinhos Environment</h2>
+                <p class="modal__subtitle" data-i18n="about.modal.amma.subtitle">Environmental Volunteer | November 2024 | Matosinhos, Portugal</p>
             </div>
             <div class="modal__body">
-                <p>
+                <p data-i18n="about.modal.amma.p1">
                     Through Matosinhos City Council's environmental program AMMA (Association for the Environment of Matosinhos),
                     I've been actively involved in protecting and preserving local ecosystems.
                 </p>
-                <p><strong>Conservation Activities:</strong></p>
+                <p><strong data-i18n="about.modal.amma.activitiesTitle">Conservation Activities:</strong></p>
                 <ul>
-                    <li>Participated in invasive species removal projects to protect native biodiversity</li>
-                    <li>Helped plant native tree species to restore natural habitats</li>
-                    <li>Learned about local flora and fauna and the importance of ecosystem balance</li>
-                    <li>Contributed to environmental education initiatives in the community</li>
-                    <li>Worked alongside environmental experts and passionate volunteers</li>
+                    <li data-i18n="about.modal.amma.activity1">Participated in invasive species removal projects to protect native biodiversity</li>
+                    <li data-i18n="about.modal.amma.activity2">Helped plant native tree species to restore natural habitats</li>
+                    <li data-i18n="about.modal.amma.activity3">Learned about local flora and fauna and the importance of ecosystem balance</li>
+                    <li data-i18n="about.modal.amma.activity4">Contributed to environmental education initiatives in the community</li>
+                    <li data-i18n="about.modal.amma.activity5">Worked alongside environmental experts and passionate volunteers</li>
                 </ul>
-                <p>
+                <p data-i18n="about.modal.amma.p2">
                     This hands-on environmental work has deepened my appreciation for nature and sustainability.
                     It's shown me that protecting our environment requires active participation from everyone,
                     and that even small contributions can help preserve our planet for future generations.
@@ -273,7 +285,7 @@
             <div class="footer__content">
                 <div class="footer__brand">
                     <div class="footer__logo">Diogo Silva</div>
-                    <p class="footer__tagline">Platform Engineer building robust infrastructure solutions</p>
+                    <p class="footer__tagline" data-i18n="footer.tagline">Platform Engineer building robust infrastructure solutions</p>
                     <div class="social-links">
                         <a href="https://github.com/diogo-costa-silva" target="_blank" aria-label="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
