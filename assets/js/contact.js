@@ -1,8 +1,34 @@
 // Contact Module
 
-export function initContact() {
-    const contactForm = document.getElementById('contactForm');
+import { getCurrentLanguage } from './language.js';
 
+let translations = {};
+
+export function initContact() {
+    loadTranslationsAndInit();
+
+    // Listen for language changes and reload translations
+    window.addEventListener('languageChanged', async () => {
+        await loadTranslations();
+    });
+}
+
+async function loadTranslations() {
+    try {
+        const response = await fetch('/data/translations.json');
+        const data = await response.json();
+        const currentLang = getCurrentLanguage();
+        translations = data[currentLang] || data['en'];
+    } catch (error) {
+        console.error('Error loading translations:', error);
+        translations = {};
+    }
+}
+
+async function loadTranslationsAndInit() {
+    await loadTranslations();
+
+    const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         initFormValidation(contactForm);
         initFormSubmission(contactForm);
@@ -40,7 +66,7 @@ function validateField(field) {
     // Required field validation
     if (field.hasAttribute('required') && !value) {
         isValid = false;
-        errorMessage = 'This field is required';
+        errorMessage = translations['validation.required'] || 'This field is required';
     }
 
     // Email validation
@@ -48,7 +74,7 @@ function validateField(field) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
             isValid = false;
-            errorMessage = 'Please enter a valid email address';
+            errorMessage = translations['validation.email'] || 'Please enter a valid email address';
         }
     }
 
@@ -94,7 +120,7 @@ function initFormSubmission(form) {
         const submitButton = form.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
+        submitButton.textContent = translations['validation.sending'] || 'Sending...';
 
         try {
             // Here you would integrate with EmailJS or your backend
@@ -102,11 +128,13 @@ function initFormSubmission(form) {
             await simulateFormSubmission(data);
 
             // Show success message
-            showNotification('Message sent successfully!', 'success');
+            const successMessage = translations['feedback.success'] || 'Message sent successfully!';
+            showNotification(successMessage, 'success');
             form.reset();
         } catch (error) {
             // Show error message
-            showNotification('Failed to send message. Please try again.', 'error');
+            const errorMessage = translations['feedback.error'] || 'Failed to send message. Please try again.';
+            showNotification(errorMessage, 'error');
         } finally {
             // Reset button state
             submitButton.disabled = false;

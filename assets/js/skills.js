@@ -12,6 +12,11 @@ export function initSkills() {
         // Add a small delay to ensure all elements are rendered
         setTimeout(loadSkills, 50);
     }
+
+    // Listen for language changes and re-render
+    window.addEventListener('languageChanged', async () => {
+        await loadSkills();
+    });
 }
 
 async function loadTranslations() {
@@ -111,24 +116,34 @@ function renderHomepageSkills(categories, container) {
 
 function renderSkillsPage(categories, container) {
     if (!categories || categories.length === 0) {
-        container.innerHTML = '<p>No skills data available.</p>';
+        const noSkillsMessage = translations['messages.noSkills'] || 'No skills data available.';
+        container.innerHTML = `<p>${noSkillsMessage}</p>`;
         return;
     }
 
-    const html = categories.map(category => `
+    const html = categories.map((category, index) => {
+        // Get translated category name and description
+        const categoryIndex = index + 1;
+        const nameKey = `skills.category.${categoryIndex}.name`;
+        const descriptionKey = `skills.category.${categoryIndex}.description`;
+        const categoryName = translations[nameKey] || category.name;
+        const categoryDescription = translations[descriptionKey] || category.description;
+
+        return `
         <div class="skill-category">
             <div class="skill-category__header">
                 <span class="skill-category__icon">${category.icon}</span>
                 <div>
-                    <h2 class="skill-category__title">${category.name}</h2>
-                    <p class="skill-category__description">${category.description}</p>
+                    <h2 class="skill-category__title">${categoryName}</h2>
+                    <p class="skill-category__description">${categoryDescription}</p>
                 </div>
             </div>
             <div class="skill-category__skills">
                 ${category.skills.map(skill => renderSkillItem(skill)).join('')}
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 
     container.innerHTML = html;
 }

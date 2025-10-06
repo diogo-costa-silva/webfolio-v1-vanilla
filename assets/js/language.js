@@ -62,6 +62,9 @@ function updateActiveLanguage() {
 function setLanguage(lang) {
     document.documentElement.setAttribute('lang', lang);
     loadTranslations(lang);
+
+    // Dispatch custom event to notify modules that language has changed
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
 }
 
 async function loadTranslations(lang) {
