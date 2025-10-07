@@ -167,6 +167,63 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
+/* Color Themes - Primary Color Variations */
+/* Red Theme */
+[data-color="red"] {
+    --primary-50: #ffebee;
+    --primary-100: #ffcdd2;
+    --primary-200: #ef9a9a;
+    --primary-300: #e57373;
+    --primary-400: #ef5350;
+    --primary-500: #f44336;
+    --primary-600: #e53935;
+    --primary-700: #d32f2f;
+    --primary-800: #c62828;
+    --primary-900: #b71c1c;
+}
+
+/* Green Theme */
+[data-color="green"] {
+    --primary-50: #e8f5e9;
+    --primary-100: #c8e6c9;
+    --primary-200: #a5d6a7;
+    --primary-300: #81c784;
+    --primary-400: #66bb6a;
+    --primary-500: #4caf50;
+    --primary-600: #43a047;
+    --primary-700: #388e3c;
+    --primary-800: #2e7d32;
+    --primary-900: #1b5e20;
+}
+
+/* Orange Theme */
+[data-color="orange"] {
+    --primary-50: #fff3e0;
+    --primary-100: #ffe0b2;
+    --primary-200: #ffcc80;
+    --primary-300: #ffb74d;
+    --primary-400: #ffa726;
+    --primary-500: #ff9800;
+    --primary-600: #fb8c00;
+    --primary-700: #f57c00;
+    --primary-800: #ef6c00;
+    --primary-900: #e65100;
+}
+
+/* Yellow Theme */
+[data-color="yellow"] {
+    --primary-50: #fffde7;
+    --primary-100: #fff9c4;
+    --primary-200: #fff59d;
+    --primary-300: #fff176;
+    --primary-400: #ffee58;
+    --primary-500: #ffeb3b;
+    --primary-600: #ffeb3b;  /* Pure bright yellow */
+    --primary-700: #ffeb3b;  /* Pure bright yellow (not golden #fdd835) */
+    --primary-800: #fdd835;  /* Slightly darker yellow */
+    --primary-900: #fbc02d;  /* Darker yellow */
+}
+
 /* Responsive breakpoints */
 @media (min-width: 640px) {
     :root {
