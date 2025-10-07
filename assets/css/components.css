@@ -1027,3 +1027,121 @@
 .skeleton-line--long {
     width: 100%;
 }
+
+/* ============================================
+   Color Selector Dropdown
+   ============================================ */
+
+.color-selector {
+    position: relative;
+}
+
+.color-indicator {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-fast);
+}
+
+.color-indicator[data-color="blue"] {
+    background: #1e88e5;
+}
+
+.color-indicator[data-color="red"] {
+    background: #e53935;
+}
+
+.color-indicator[data-color="green"] {
+    background: #43a047;
+}
+
+.color-indicator[data-color="orange"] {
+    background: #fb8c00;
+}
+
+.color-indicator[data-color="yellow"] {
+    background: #fdd835;
+}
+
+.color-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-xs);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    min-width: 60px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-base);
+    z-index: 1000;
+}
+
+.color-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.color-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.color-option:hover {
+    background: var(--bg-secondary);
+}
+
+.color-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    border: 3px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.color-option.active .color-circle {
+    border-color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.color-circle--blue {
+    background: #1e88e5;
+}
+
+.color-circle--red {
+    background: #e53935;
+}
+
+.color-circle--green {
+    background: #43a047;
+}
+
+.color-circle--orange {
+    background: #fb8c00;
+}
+
+.color-circle--yellow {
+    background: #fdd835;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .color-dropdown {
+        right: -8px;
+    }
+}

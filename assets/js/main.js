@@ -1,6 +1,7 @@
 // Main Application Module
 import { initHeader } from './navigation.js';
 import { initFooter } from './footer.js';
+import { initColor } from './color.js';
 import { initTheme } from './theme.js';
 import { initLanguage } from './language.js';
 import { initAnimations } from './animations.js';
@@ -16,6 +17,7 @@ import { initModals } from './modal.js';
 document.addEventListener('DOMContentLoaded', () => {
     try {
         // Initialize features
+        initColor();
         initTheme();
         initLanguage();
         initHeader();
