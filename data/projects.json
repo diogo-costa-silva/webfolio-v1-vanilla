@@ -61,7 +61,7 @@
     {
       "id": 4,
       "title": "Spotify Mood Analyzer",
-      "category": "data-science",
+      "category": "machine-learning",
       "description": "Machine learning model that analyzes your Spotify playlists to predict and visualize your music mood patterns.",
       "technologies": [
         "Python",
@@ -80,7 +80,7 @@
     {
       "id": 5,
       "title": "Crypto Price Predictor",
-      "category": "data-science",
+      "category": "machine-learning",
       "description": "Time series forecasting model for cryptocurrency prices using Facebook Prophet and historical market data.",
       "technologies": [
         "Python",
@@ -99,7 +99,7 @@
     {
       "id": 6,
       "title": "Netflix Content Recommender",
-      "category": "data-science",
+      "category": "machine-learning",
       "description": "Collaborative filtering recommendation system for Netflix content based on user viewing patterns.",
       "technologies": [
         "Python",
