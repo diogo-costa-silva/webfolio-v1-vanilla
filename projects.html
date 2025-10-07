@@ -24,6 +24,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- DevIcons for Technology Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 <body>
     <!-- Progress Bar -->
@@ -38,7 +41,6 @@
 
             <nav class="nav">
                 <ul class="nav__list">
-                    <li><a href="index.html" class="nav__link" data-i18n="nav.home">Home</a></li>
                     <li><a href="about.html" class="nav__link" data-i18n="nav.about">About</a></li>
                     <li><a href="skills.html" class="nav__link" data-i18n="nav.skills">Skills</a></li>
                     <li><a href="projects.html" class="nav__link nav__link--active" data-i18n="nav.projects">Projects</a></li>
@@ -109,7 +111,6 @@
         <!-- Mobile navigation -->
         <nav class="nav--mobile" id="mobileNav">
             <ul class="nav__list">
-                <li><a href="index.html" class="nav__link" data-i18n="nav.home">Home</a></li>
                 <li><a href="about.html" class="nav__link" data-i18n="nav.about">About</a></li>
                 <li><a href="skills.html" class="nav__link" data-i18n="nav.skills">Skills</a></li>
                 <li><a href="projects.html" class="nav__link" data-i18n="nav.projects">Projects</a></li>
@@ -131,17 +132,148 @@
         <!-- Projects Filters -->
         <section class="section projects-filters">
             <div class="container">
-                <div class="filters">
-                    <input type="text" class="filters__search" data-i18n-placeholder="projects.search.placeholder" placeholder="Search projects...">
-                    <div class="filters__tags">
-                        <button class="filter-tag active" data-filter="all"><span data-i18n="projects.filter.all">All</span> <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="data-science"><span data-i18n="projects.filter.dataScience">Data Science</span> <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="web-dev"><span data-i18n="projects.filter.webDev">Web Development</span> <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="backend"><span data-i18n="projects.filter.backend">Backend & APIs</span> <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="devops"><span data-i18n="projects.filter.devops">DevOps & Cloud</span> <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="automation"><span data-i18n="projects.filter.automation">Automation</span> <span class="filter-count"></span></button>
-                        <button class="filter-tag" data-filter="mobile"><span data-i18n="projects.filter.mobile">Mobile Apps</span> <span class="filter-count"></span></button>
+                <!-- Search Bar -->
+                <div class="filters__search-container">
+                    <div class="filters__search-wrapper">
+                        <svg class="filters__search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" class="filters__search" id="projectSearch" data-i18n-placeholder="projects.search.placeholder" placeholder="Search projects...">
                     </div>
+                    <span class="filters__results-count" id="resultsCount">30 projects</span>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="filters__bar">
+                    <!-- Category Dropdown -->
+                    <div class="filter-dropdown" data-filter-type="category">
+                        <button class="filter-dropdown__trigger" id="categoryDropdown">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            <span class="filter-dropdown__label" data-i18n="projects.filter.categoryLabel">Category</span>
+                            <span class="filter-dropdown__value">All</span>
+                            <svg class="filter-dropdown__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="filter-dropdown__menu" id="categoryMenu">
+                            <button class="filter-dropdown__item active" data-filter="all">
+                                <span data-i18n="projects.filter.all">All</span>
+                                <span class="filter-count">(30)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="data-science">
+                                <span class="category-icon">📊</span>
+                                <span data-i18n="projects.filter.dataScience">Data Science</span>
+                                <span class="filter-count">(7)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="machine-learning">
+                                <span class="category-icon">🤖</span>
+                                <span data-i18n="projects.filter.machineLearning">Machine Learning</span>
+                                <span class="filter-count">(0)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="web-dev">
+                                <span class="category-icon">🌐</span>
+                                <span data-i18n="projects.filter.webDev">Web Development</span>
+                                <span class="filter-count">(5)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="backend">
+                                <span class="category-icon">⚙️</span>
+                                <span data-i18n="projects.filter.backend">Backend & APIs</span>
+                                <span class="filter-count">(5)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="devops">
+                                <span class="category-icon">☁️</span>
+                                <span data-i18n="projects.filter.devops">DevOps & Cloud</span>
+                                <span class="filter-count">(5)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="automation">
+                                <span class="category-icon">🔄</span>
+                                <span data-i18n="projects.filter.automation">Automation</span>
+                                <span class="filter-count">(5)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-filter="mobile">
+                                <span class="category-icon">📱</span>
+                                <span data-i18n="projects.filter.mobile">Mobile Apps</span>
+                                <span class="filter-count">(3)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Status Dropdown -->
+                    <div class="filter-dropdown" data-filter-type="status">
+                        <button class="filter-dropdown__trigger" id="statusDropdown">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span class="filter-dropdown__label" data-i18n="projects.filter.statusLabel">Status</span>
+                            <span class="filter-dropdown__value">All</span>
+                            <svg class="filter-dropdown__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="filter-dropdown__menu" id="statusMenu">
+                            <button class="filter-dropdown__item active" data-status="all">
+                                <span data-i18n="projects.filter.allStatus">All</span>
+                                <span class="filter-count">(30)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-status="completed">
+                                <span data-i18n="projects.filter.done">Done</span>
+                                <span class="filter-count">(8)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-status="in-progress">
+                                <span data-i18n="projects.filter.inProgress">In Progress</span>
+                                <span class="filter-count">(5)</span>
+                            </button>
+                            <button class="filter-dropdown__item" data-status="planned">
+                                <span data-i18n="projects.filter.planned">Planned</span>
+                                <span class="filter-count">(17)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Technologies Dropdown -->
+                    <div class="filter-dropdown" data-filter-type="tech">
+                        <button class="filter-dropdown__trigger" id="techDropdown">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                            <span class="filter-dropdown__label" data-i18n="projects.filter.techLabel">Technologies</span>
+                            <span class="filter-dropdown__value" data-i18n="projects.filter.selectTech">Select</span>
+                            <svg class="filter-dropdown__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="filter-dropdown__menu filter-dropdown__menu--scrollable" id="techMenu">
+                            <!-- Será populado via JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Real Projects Only Toggle -->
+                    <label class="filter-toggle">
+                        <input type="checkbox" id="realOnlyToggle">
+                        <span class="filter-toggle__checkmark">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </span>
+                        <span class="filter-toggle__label" data-i18n="projects.filter.realOnly">Real Projects Only</span>
+                    </label>
+                </div>
+
+                <!-- Applied Filters -->
+                <div class="filters__applied" id="appliedFilters" style="display: none;">
+                    <span class="filters__applied-label">Active:</span>
+                    <div class="filters__chips" id="filterChips"></div>
+                    <button class="btn-clear-filters" id="clearAllFilters">
+                        <span data-i18n="projects.filter.clearAll">Clear all</span>
+                    </button>
                 </div>
             </div>
         </section>
