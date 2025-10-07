@@ -28,14 +28,14 @@ function parseGitHubUrl(githubUrl) {
 }
 
 /**
- * Fetches last commit date for a single repository
+ * Fetches repository data including stars, watchers, forks, and last commit
  * @param {string} githubUrl - GitHub repository URL
- * @returns {Promise<object>} - {lastCommit: Date|null, success: boolean}
+ * @returns {Promise<object>} - {stars, watchers, forks, lastCommit, success, rateLimited?}
  */
-async function fetchRepoLastCommit(githubUrl) {
+async function fetchRepoData(githubUrl) {
     const parsed = parseGitHubUrl(githubUrl);
     if (!parsed) {
-        return { lastCommit: null, success: false };
+        return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false };
     }
 
     try {
@@ -44,34 +44,37 @@ async function fetchRepoLastCommit(githubUrl) {
         // Handle rate limiting
         if (response.status === 403 || response.status === 429) {
             console.warn('GitHub API rate limit reached');
-            return { lastCommit: null, success: false, rateLimited: true };
+            return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false, rateLimited: true };
         }
 
         // Handle 404 (private repo or doesn't exist)
         if (response.status === 404) {
             console.warn(`Repository not found or private: ${parsed.owner}/${parsed.repo}`);
-            return { lastCommit: null, success: false };
+            return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false };
         }
 
         if (!response.ok) {
-            return { lastCommit: null, success: false };
+            return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false };
         }
 
         const data = await response.json();
         return {
+            stars: data.stargazers_count || 0,
+            watchers: data.watchers_count || 0,
+            forks: data.forks_count || 0,
             lastCommit: data.pushed_at ? new Date(data.pushed_at) : null,
             success: true
         };
     } catch (error) {
         console.error(`Error fetching ${githubUrl}:`, error);
-        return { lastCommit: null, success: false };
+        return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false };
     }
 }
 
 /**
- * Enriches projects array with GitHub commit data
+ * Enriches projects array with GitHub data (stars, watchers, forks, last commit)
  * @param {Array} projects - Array of project objects
- * @returns {Promise<Array>} - Projects with lastCommitDate field
+ * @returns {Promise<Array>} - Projects with GitHub data fields
  */
 export async function enrichProjectsWithGitHubData(projects) {
     // Filter projects that have valid GitHub URLs
@@ -88,10 +91,13 @@ export async function enrichProjectsWithGitHubData(projects) {
 
     // Fetch all repos in parallel
     const promises = projectsWithGitHub.map(async project => {
-        const result = await fetchRepoLastCommit(project.github);
+        const result = await fetchRepoData(project.github);
 
         return {
             ...project,
+            stars: result.stars,
+            watchers: result.watchers,
+            forks: result.forks,
             lastCommitDate: result.lastCommit,
             githubDataSuccess: result.success
         };
