@@ -2,339 +2,450 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Claude Rules
-
-1. First think through the problem, read the codebase for relevant files, and write a plan to tasks/todo.md.
-
-2. The plan should have a list of todo items that you can check off as you complete them
-
-3. Before you begin working, check in with me and I will verify the plan.
-
-4. Then, begin working on the todo items, marking them as complete as you go.
-
-5. Please every step of the way just give me a high level explanation of what changes you made
-
-6. Make every task and code change you do as simple as possible. We want to avoid making any massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
-
-7. Finally, add a review section to the [todo.md](http://todo.md/) file with a summary of the changes you made and any other relevant information.
-
-8. All resulting products (code, documentation, comments, variable names, etc.) must be written in English.
-
-## Design Philosophy & Guidelines
-
-### Visual Hierarchy Principles
-- **Equal importance:** All projects and skills have equal visual weight - no artificial hierarchies
-- **Uniform grids:** Consistent card sizes, spacing, and styling across all content
-- **Let content speak:** Quality of work > visual tricks
-- **No featured items:** Avoid creating visual distinctions that don't add value
-
-### UX Priorities (in order)
-1. **Search functionality** must be fast, intuitive, and accurate
-2. **Filters** must work perfectly (alone or combined with search)
-3. **Mobile-first** responsive design (test on real devices)
-4. **Accessibility** (keyboard nav, ARIA labels, color contrast)
-5. **Performance** (lazy loading, minimal JS, optimized assets)
-
-### Code Principles
-- **Reuse existing utilities** (`.gap-xl`, `.grid`, etc.) - don't create new CSS variables unless absolutely necessary
-- **Keep JavaScript simple** and readable - avoid over-engineering
-- **Progressive enhancement** - site must work without JavaScript
-- **BEM naming** for CSS classes
-- **Consistent spacing** using `var(--space-*)` tokens
-
-### Color System
-- **Primary blue:** `--primary-600` (#1e88e5)
-- **Maintain light/dark mode** consistency
-- **Semantic colors** for states (`--success`, `--warning`, `--error`)
-- **Never use `!important`** - use specificity correctly
-
----
-
 ## Project Overview
 
-Pure HTML/CSS/JavaScript portfolio website with **no build process, no frameworks, no SSG**. Content is data-driven through JSON files. Deployed via GitHub Actions to GitHub Pages.
+Personal portfolio website built with **pure HTML, CSS, and JavaScript**. No frameworks, no build process, no SSG - intentionally simple for maximum deployment speed and maintainability.
 
-**Live Site:** https://dipedilans.github.io
+**Live Site:** https://diogo-costa-silva.github.io
 
-## Development Commands
+**Architecture Philosophy:** 99% of updates involve editing JSON files (skills, projects, translations). The 1% trade-off is ~1000 lines of duplicated HTML (header/footer across 7 files) to avoid build complexity.
+
+## Commands
 
 ### Local Development
-```bash
-# Use VS Code Live Server extension
-# Visit http://127.0.0.1:5500/
-```
 
-**No build process. No npm install. No bundling.**
+use VS Code Live Server (Recommended)
+Runs at http://127.0.0.1:5500
 
-### Deployment
+
+### Git Identity Management
+
 ```bash
-# Always set correct git identity first
-gset-dd
+# Set git identity for diogo-costa-silva account (REQUIRED before commits)
+gset-dcs
 
 # Verify identity
-git config user.name   # Should show: Dipe Dilans
-git config user.email  # Should show: 157709256+dipedilans@users.noreply.github.com
-
-# Deploy
-git add .
-git commit -m "feat: description"
-git push origin main
-
-# GitHub Actions automatically deploys to https://dipedilans.github.io
-# Monitor deployment:
-gh run list --repo dipedilans/dipedilans.github.io --limit 5
+git config user.name   # Should show: Diogo Silva
+git config user.email  # Should show: 92042225+diogo-costa-silva@users.noreply.github.com
 ```
 
-**Commit message types:** `feat:`, `fix:`, `docs:`, `style:`, `perf:`, `chore:`, `ci:`
+### Deployment
 
-## Architecture
-
-### Core Design Philosophy
-
-**Trade-off:** ~1000 lines of duplicated HTML (header/footer across 7 pages) for zero build complexity.
-
-**Why no SSG?** 99% of updates edit JSON files (skills, projects, translations). The 1% case (nav changes) doesn't justify build complexity.
-
-### Module System
-
-**Initialization order is critical** (see `assets/js/main.js`):
-
-1. `initTheme()` - Must run first (loads dark/light mode from localStorage)
-2. `initLanguage()` - Loads translations and applies to DOM
-3. `initHeader()` - Sets up navigation
-4. `initFooter()` - Sets up footer year
-5. `initAnimations()` - Intersection Observer for scroll effects
-6. Page-specific inits (hero, skills, projects, contact, testimonials)
-
-**Module responsibilities:**
-- `navigation.js` - Smart header (hides on scroll down, shows on scroll up), mobile menu, progress bar
-- `theme.js` - Dark/light toggle, localStorage persistence
-- `language.js` - PT/EN switcher, fetches/applies `data/translations.json`
-- `skills.js` - Fetches `data/skills.json`, renders skill cards with categories
-- `projects.js` - Fetches `data/projects.json`, filtering, search
-- `contact.js` - Form validation, EmailJS integration
-- `animations.js` - Scroll-triggered animations via Intersection Observer
-
-### Data Files (Edit These for Content)
-
-**Most common updates happen here:**
-
-- `data/skills.json` - Skills organized by categories (languages-core, data-science, big-data, cloud-infrastructure, devops, backend-apis)
-- `data/projects.json` - Projects with status (REAL/FICTITIOUS), difficulty (1-5), featured flag
-- `data/translations.json` - All UI text in PT and EN (navigation keys like `nav.home`, page content, etc.)
-
-**Skill schema:**
-```json
-{
-  "name": "Python",
-  "level": 5,              // 1-5 scale
-  "levelLabel": "Expert",  // Beginner/Intermediate/Advanced/Expert
-  "experience": "6+ years",
-  "featured": true         // Show on homepage
-}
-```
-
-**Project schema:**
-```json
-{
-  "id": "unique-id",
-  "title": "Project Name",
-  "category": "Web Development",  // For filtering
-  "status": "REAL",               // REAL or FICTITIOUS
-  "difficulty": 3,                // 1-5 stars
-  "featured": true,               // Show on homepage
-  "description": "...",
-  "technologies": ["React", "Node.js"],
-  "github": "https://github.com/...",
-  "demo": "https://...",
-  "image": "https://..."
-}
-```
-
-### CSS Architecture
-
-**Design system in `assets/css/variables.css`:**
-- CSS custom properties for colors (light/dark themes)
-- Spacing scale (`--space-xs` to `--space-3xl`)
-- Typography (Inter + Fira Code)
-- Breakpoints: Mobile (0-767px), Tablet (768-1023px), Desktop (1024px+)
-
-**CSS organization:**
-- `reset.css` - Browser normalization
-- `base.css` - Base typography, global styles
-- `variables.css` - Design tokens
-- `layout.css` - Header, footer, grid
-- `components.css` - Reusable components (buttons, cards)
-- `utilities.css` - Utility classes
-- `animations.css` - Keyframes, transitions
-- `pages/*.css` - Page-specific styles
-
-**BEM naming convention used throughout.**
-
-### Responsive Behavior
-
-**Mobile (<1024px):**
-- Hamburger menu (☰)
-- Full-screen overlay navigation
-- Stacked layouts
-
-**Desktop (≥1024px):**
-- Horizontal navigation
-- Hover effects
-- Multi-column layouts
-
-**Smart header behavior:**
-- Hides on scroll down (adds `header-hidden` class)
-- Shows on scroll up
-- Progress bar shows page scroll position
-
-## Common Tasks
-
-### Adding a New Skill
-
-Edit `data/skills.json` in the appropriate category:
-```json
-{
-  "name": "Docker",
-  "level": 4,
-  "levelLabel": "Advanced",
-  "experience": "4+ years",
-  "featured": true
-}
-```
-
-### Adding a New Project
-
-Edit `data/projects.json`:
-```json
-{
-  "id": "my-project",
-  "title": "My Project",
-  "category": "Data Engineering",
-  "status": "REAL",
-  "difficulty": 4,
-  "featured": true,
-  "description": "Description in English",
-  "technologies": ["Python", "Spark", "Azure"],
-  "github": "https://github.com/username/repo",
-  "demo": null,
-  "image": "https://via.placeholder.com/400x300"
-}
-```
-
-### Updating Text/Translations
-
-Edit `data/translations.json`:
-```json
-{
-  "en": {
-    "nav.home": "Home",
-    "hero.greeting": "Hello"
-  },
-  "pt": {
-    "nav.home": "Início",
-    "hero.greeting": "Olá"
-  }
-}
-```
-
-### Changing Navigation (Rare)
-
-**This requires editing all 7 HTML files:** `index.html`, `about.html`, `skills.html`, `projects.html`, `resume.html`, `contact.html`, `404.html`
-
-Search for `<nav class="nav-links">` and update consistently across all files.
-
-### Updating CV/Resume
-
-Replace `assets/docs/cv.pdf` with new PDF file (keep same filename).
-
-## GitHub Pages Deployment
-
-**GitHub Actions workflow:** `.github/workflows/static.yml`
-
-**Process:**
-1. Push to `main` branch triggers workflow
-2. Checkout code → Setup Pages → Upload artifact → Deploy
-3. Site live at https://dipedilans.github.io (30-60 seconds)
-
-**View deployment status:**
 ```bash
-gh run list --repo dipedilans/dipedilans.github.io
-gh run view <run-id> --repo dipedilans/dipedilans.github.io
+# Standard deployment workflow
+gset-dcs                                   # Set correct identity
+git add .                                  # Stage changes
+git commit -m "feat: description"          # Commit (use conventional commits)
+git push origin main                       # Deploy
+
+# GitHub Actions automatically deploys to GitHub Pages (30-60 seconds)
 ```
 
-**Note:** `.nojekyll` file disables Jekyll processing (GitHub Pages default). We serve pure HTML.
+### Monitoring Deployments
 
-## File Structure
+```bash
+# View latest workflow runs
+gh run list --repo diogo-costa-silva/diogo-costa-silva.github.io --limit 5
+
+# Watch live deployment (get run-id from list above)
+gh run view <run-id> --repo diogo-costa-silva/diogo-costa-silva.github.io
+```
+
+## Project Structure
 
 ```
 website-v3/
 ├── assets/
 │   ├── css/
-│   │   ├── variables.css      # Design system
-│   │   ├── layout.css         # Header/footer
-│   │   ├── components.css     # Reusable UI
-│   │   ├── pages/*.css        # Page-specific
+│   │   ├── variables.css      # Design system (CSS custom properties)
+│   │   ├── layout.css         # Header, footer, grid
+│   │   ├── components.css     # Reusable components
+│   │   └── pages/             # Page-specific styles
 │   ├── js/
-│   │   ├── main.js            # Entry point
-│   │   ├── navigation.js      # Header logic
-│   │   ├── theme.js           # Dark/light mode
-│   │   ├── language.js        # PT/EN switcher
-│   │   ├── skills.js          # Skills rendering
-│   │   └── projects.js        # Projects filtering
-│   ├── images/
-│   │   ├── favicon.svg
-│   │   └── profile.png
-│   └── docs/
-│       └── cv.pdf
+│   │   ├── main.js            # Entry point - initializes all modules
+│   │   ├── navigation.js      # Header behavior, mobile menu, progress bar
+│   │   ├── theme.js           # Dark/light mode + localStorage
+│   │   ├── color.js           # Color theme switcher (blue/red/green)
+│   │   ├── language.js        # PT/EN switcher + translations loader
+│   │   ├── skills.js          # Skills JSON loader + rendering
+│   │   ├── projects.js        # Projects JSON loader + filtering
+│   │   ├── github-api.js      # GitHub API integration (stars, commits)
+│   │   └── contact.js         # Form validation + EmailJS
+│   └── images/
 ├── data/
-│   ├── skills.json            # ⭐ Edit for skills
-│   ├── projects.json          # ⭐ Edit for projects
-│   └── translations.json      # ⭐ Edit for text
-├── index.html                 # Homepage
-├── skills.html
-├── projects.html
-├── about.html
-├── contact.html
-├── resume.html
-├── 404.html
-├── robots.txt                 # SEO
-├── sitemap.xml                # SEO
-└── .nojekyll                  # Disable Jekyll
+│   ├── skills.json            # ⭐ Edit to add/update skills
+│   ├── projects.json          # ⭐ Edit to add/update projects
+│   └── translations.json      # PT/EN translations (i18n)
+├── *.html                     # 7 pages (index, about, skills, projects, contact, resume, 404)
+└── .github/workflows/static.yml  # GitHub Actions deployment
 ```
 
-## Important Notes
+## Architecture
 
-- **All file paths are relative** (not absolute `/assets/...`). Required for GitHub Pages.
-- **No `!important` in CSS** - Use specificity correctly.
-- **Test on mobile devices** - Primary audience may be mobile.
-- **localStorage used for:** theme preference (`theme`), language preference (`language`).
-- **EmailJS integration** in `contact.js` - Form submissions handled client-side.
-- **DevIcons CDN** used for technology icons (e.g., `devicon-python-plain`).
+### JavaScript Module System
+
+Entry point is `main.js`, which initializes modules in this **specific order** (critical):
+
+```javascript
+// Order matters!
+initColor();      // 1. Color theme (must run first)
+initTheme();      // 2. Dark/light mode (must run second)
+initLanguage();   // 3. Load translations (before rendering)
+initHeader();     // 4. Navigation
+initFooter();     // 5. Footer
+initAnimations(); // 6. Scroll animations
+initBackToTop();  // 7. Back-to-top button
+initModals();     // 8. Modal dialogs
+
+// Page-specific (conditional)
+initHero();       // Homepage only
+initSkills();     // Homepage + skills page
+initProjects();   // Homepage (6 recent) + projects page (all)
+initContact();    // Contact page only
+```
+
+### Data-Driven Content
+
+Projects and skills are **loaded from JSON at runtime**:
+
+- **Homepage:** Shows 6 most recent projects (fetched via GitHub API by last commit date)
+- **Projects Page:** Shows all projects with GitHub stats (stars, last commit), enriched via API
+- **Skills Page:** Renders from `skills.json` with proficiency bars and DevIcon icons
+
+### GitHub API Integration
+
+`github-api.js` handles:
+- Caching (1 hour) to reduce API calls
+- Rate limit handling (falls back gracefully)
+- Enriching projects with stars, watchers, forks, last commit date
+- Sorting by recency for homepage display
+
+### Multi-Language Support
+
+Translations in `data/translations.json`:
+```json
+{
+  "en": { "nav.home": "Home", ... },
+  "pt": { "nav.home": "Início", ... }
+}
+```
+
+All translatable elements have `data-i18n="key"` attributes. The `language.js` module updates them dynamically.
+
+### Theme System
+
+**Three independent systems:**
+
+1. **Dark/Light Mode** (`theme.js`)
+   - Toggles `data-theme="dark"` on `<html>`
+   - Persisted in `localStorage`
+
+2. **Color Theme** (`color.js`)
+   - Switches primary color (blue/red/green)
+   - Updates CSS custom properties dynamically
+   - Persisted in `localStorage`
+
+3. **CSS Variables** (`variables.css`)
+   - All colors, spacing, typography defined as custom properties
+   - Scoped to `:root` and `[data-theme="dark"]`
+
+### Project Filtering (Projects Page)
+
+Advanced multi-filter system with AND logic:
+- **Categories:** data-science, machine-learning, web-dev, backend, devops, automation, mobile
+- **Statuses:** completed, in-progress, planned
+- **Technologies:** Multi-select checkboxes (auto-populated from projects)
+- **Real/Demo Toggle:** Show only `isReal: true` projects
+- **Search:** Text search across title + description
+
+All filters work together (AND logic). Applied filters shown as removable chips.
+
+## Content Updates
+
+### Add a New Project
+
+Edit `data/projects.json`:
+
+```json
+{
+  "id": "unique-slug",
+  "title": "Project Title",
+  "category": "web-dev",           // See categories above
+  "status": "completed",           // completed | in-progress | planned
+  "difficulty": "intermediate",    // novice | beginner | intermediate | advanced | expert
+  "featured": true,
+  "isReal": true,                  // true for real projects, false for demos
+  "description": "Short description...",
+  "technologies": ["React", "Node.js"],
+  "github": "https://github.com/username/repo",  // or "#" if unavailable
+  "demo": "https://demo-url.com",                // or "#" if unavailable
+  "image": "https://image-url.jpg"
+}
+```
+
+**Important:**
+- If `github` is a valid URL and `isReal: true`, GitHub API will fetch stars/commits
+- Homepage shows 6 most recent projects (by `lastCommitDate` from GitHub API)
+- Projects page shows all projects with filtering enabled
+
+### Add Translations for Projects
+
+Edit `data/translations.json`:
+
+```json
+{
+  "en": {
+    "project.unique-slug.title": "English Title",
+    "project.unique-slug.description": "English description..."
+  },
+  "pt": {
+    "project.unique-slug.title": "Título em Português",
+    "project.unique-slug.description": "Descrição em português..."
+  }
+}
+```
+
+### Add a New Skill
+
+Edit `data/skills.json`:
+
+```json
+{
+  "name": "Docker",
+  "icon": "devicon-docker-plain colored",  // See DevIcon docs
+  "proficiency": 85,                       // 0-100
+  "years": "3+",
+  "category": "devops",
+  "featured": true
+}
+```
+
+## Deployment
+
+### GitHub Pages with GitHub Actions
+
+Every push to `main` triggers automatic deployment via `.github/workflows/static.yml`:
+
+1. Checkout code
+2. Setup Pages
+3. Upload artifact (entire repo)
+4. Deploy to GitHub Pages
+
+**Workflow file:** `.github/workflows/static.yml`
+
+**Key points:**
+- No build step (pure HTML)
+- Deploys in 30-60 seconds
+- View status: https://github.com/diogo-costa-silva/diogo-costa-silva.github.io/actions
+
+### Commit Message Convention
+
+Use conventional commits:
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation
+- `style:` - CSS/visual changes
+- `perf:` - Performance improvements
+- `refactor:` - Code restructuring
+- `chore:` - Maintenance
+- `ci:` - CI/CD changes
+
+## Design System
+
+### CSS Custom Properties
+
+All design tokens in `assets/css/variables.css`:
+
+```css
+/* Colors */
+--primary-500: #2196f3;  /* Blue (default) */
+--gray-900: #212121;     /* Dark text */
+
+/* Typography */
+--font-primary: 'Inter', sans-serif;
+--font-mono: 'Fira Code', monospace;
+--text-base: 1rem;       /* 16px */
+
+/* Spacing */
+--space-md: 1rem;        /* 16px */
+--space-xl: 2rem;        /* 32px */
+--space-3xl: 4rem;       /* 64px */
+
+/* Layout */
+--container-max: 1280px;
+--header-height: 64px;
+```
+
+### Responsive Breakpoints
+
+```css
+/* Mobile-first */
+/* Base: 0-767px (no media query) */
+
+/* Tablet: 768px+ */
+@media (min-width: 768px) { ... }
+
+/* Desktop: 1024px+ */
+@media (min-width: 1024px) { ... }
+```
+
+### BEM Naming Convention
+
+```css
+.project-card { }                  /* Block */
+.project-card__title { }           /* Element */
+.project-card--featured { }        /* Modifier */
+```
+
+## Navigation Structure
+
+### Header (Duplicated in all 7 HTML files)
+
+```html
+<header id="header" class="header">
+  <!-- Logo -->
+  <!-- Desktop Nav (≥1024px) -->
+  <!-- Mobile Hamburger (<1024px) -->
+  <!-- Controls: Language | Theme | Color -->
+</header>
+```
+
+**Smart Header Behavior:**
+- Hides on scroll down
+- Shows on scroll up
+- Progress bar indicates scroll position
+- Mobile: Full-screen overlay menu
+
+### Footer (Duplicated in all 7 HTML files)
+
+Contains:
+- Social links (GitHub, LinkedIn, Email)
+- Quick navigation links
+- Copyright notice
+- Auto-updating year
+
+## Important Files to Modify
+
+### For Content Updates
+- `data/skills.json` - Add/edit skills
+- `data/projects.json` - Add/edit projects
+- `data/translations.json` - Add/edit text (PT/EN)
+
+### For Styling
+- `assets/css/variables.css` - Design tokens
+- `assets/css/components.css` - Component styles
+- `assets/css/pages/*.css` - Page-specific styles
+
+### For Functionality
+- `assets/js/main.js` - Initialization order
+- `assets/js/projects.js` - Project filtering logic
+- `assets/js/github-api.js` - GitHub API integration
+
+### For Deployment
+- `.github/workflows/static.yml` - GitHub Actions workflow
+
+## HTML Structure (All Pages)
+
+Each HTML file follows this pattern:
+
+```html
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <!-- Meta tags -->
+  <!-- CSS: reset → variables → base → layout → components → utilities → animations → page-specific -->
+  <!-- Google Fonts -->
+</head>
+<body>
+  <!-- Progress Bar -->
+  <!-- Header (exact duplicate on all pages) -->
+
+  <!-- Main Content (unique per page) -->
+  <main>...</main>
+
+  <!-- Footer (exact duplicate on all pages) -->
+  <!-- Back to Top Button -->
+
+  <!-- DevIcons CDN -->
+  <!-- JS Modules (type="module") -->
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
+```
 
 ## Troubleshooting
 
-### Changes not appearing on live site
-1. Wait 1-2 minutes for GitHub Actions deployment
+### Changes Not Appearing on Live Site
+1. Wait 1-2 minutes for GitHub Pages deployment
 2. Hard refresh browser (Cmd+Shift+R / Ctrl+Shift+R)
-3. Check deployment: `gh run list --repo dipedilans/dipedilans.github.io`
+3. Check deployment status: `gh run list --repo diogo-costa-silva/diogo-costa-silva.github.io`
 
-### CSS/JS not loading
-Check paths are relative: `assets/css/main.css` not `/assets/css/main.css`
-
-### Wrong git identity
+### Wrong Git Identity
 ```bash
-git config user.name
-git config user.email
-# If wrong:
-gset-dd  # Sets dipedilans identity
+git config user.name   # Verify current identity
+gset-dcs               # Fix if wrong
 ```
 
-## Performance & SEO
+### CSS/JS Not Loading
+- Ensure paths are **relative** (no leading `/`)
+- Correct: `href="assets/css/main.css"`
+- Wrong: `href="/assets/css/main.css"`
 
-- Semantic HTML5 elements
-- Lazy loading images (`loading="lazy"`)
-- Optimized fonts (`font-display: swap`)
-- Clean URL structure
-- `sitemap.xml` and `robots.txt` configured
-- No build overhead (instant deployment)
+### GitHub API Rate Limiting
+- Caching reduces calls (1 hour cache)
+- Falls back gracefully (no stats shown)
+- Max 60 requests/hour (unauthenticated)
+
+## Key Differences from Typical Web Projects
+
+1. **No Build Process:** Direct deployment, no npm, no bundler
+2. **Duplicated HTML:** Header/footer repeated in 7 files (intentional trade-off)
+3. **Runtime Data Loading:** JSON loaded dynamically via fetch()
+4. **GitHub API Integration:** Real-time stats for projects
+5. **No Routing:** Multi-page site (not SPA)
+6. **ES6 Modules:** Native browser support, no transpiling
+
+## Pages
+
+1. **index.html** - Homepage (hero, featured skills, 6 recent projects, testimonials)
+2. **about.html** - About me, experience, education
+3. **skills.html** - All skills with proficiency levels
+4. **projects.html** - All projects with advanced filtering
+5. **contact.html** - Contact form (EmailJS integration)
+6. **resume.html** - Downloadable CV, professional summary
+7. **404.html** - Custom error page
+
+## External Dependencies
+
+- **DevIcons CDN:** Technology icons (https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css)
+- **Google Fonts:** Inter (UI), Fira Code (monospace)
+- **EmailJS:** Contact form backend (loaded in contact.html only)
+- **GitHub API:** Repository stats (stars, commits)
+
+## Future Migration Path
+
+When ready for custom domain:
+
+```bash
+# 1. Create CNAME file
+echo "diogosilva.dev" > CNAME
+git add CNAME
+git commit -m "feat: add custom domain"
+git push origin main
+
+# 2. Configure DNS at registrar
+# - Add A records pointing to GitHub IPs
+# - Add CNAME record: www → diogo-costa-silva.github.io
+
+# 3. Enable HTTPS in GitHub Pages settings
+```
+
+## Critical Rules
+
+1. **Always run `gset-dcs` before committing** (sets correct git identity)
+2. **Test locally before deploying** (Live Server or Python HTTP server)
+3. **Edit JSON for content, not HTML** (skills, projects, translations)
+4. **Maintain initialization order in main.js** (color → theme → language → rest)
+5. **Use relative paths in HTML** (no leading `/`)
+6. **Follow BEM naming for CSS** (block__element--modifier)
+7. **Keep duplicated HTML in sync** (header/footer across 7 files)
