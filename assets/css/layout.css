@@ -35,14 +35,20 @@
 .header__logo {
     font-size: var(--text-xl);
     font-weight: var(--font-bold);
-    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: var(--space-sm);
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-400) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .header__logo:hover {
-    color: var(--primary-600);
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Navigation - MOBILE FIRST */
