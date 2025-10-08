@@ -119,6 +119,7 @@
 /* About Preview */
 .about-preview {
     background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
 }
 
 .about-preview__grid {
@@ -166,11 +167,167 @@
 /* Skills Highlights */
 .skills-highlights {
     background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
 }
+
+/* Category Preview Cards - Minimalist Professional Design */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+}
+
+.category-preview-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.category-preview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
+    transform: scaleX(0);
+    transition: transform var(--transition-base);
+}
+
+.category-preview-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-300);
+}
+
+.category-preview-card:hover::before {
+    transform: scaleX(1);
+}
+
+.category-preview__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+}
+
+.category-preview__icon {
+    font-size: 48px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: var(--primary-50);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+[data-theme="dark"] .category-preview__icon {
+    background: rgba(30, 136, 229, 0.1);
+}
+
+.category-preview-card:hover .category-preview__icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.category-preview__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.category-preview__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
+}
+
+.category-preview__count {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--primary-700);
+    background: var(--primary-100);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+}
+
+[data-theme="dark"] .category-preview__count {
+    background: rgba(30, 136, 229, 0.15);
+    color: var(--primary-300);
+}
+
+.category-preview__description {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.category-preview__tech-icons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--border-color);
+    min-height: 40px;
+}
+
+.category-preview__tech-icons i {
+    font-size: 28px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast);
+}
+
+.category-preview-card:hover .category-preview__tech-icons i {
+    transform: scale(1.1);
+}
+
+/* Staggered animation for category cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-preview-card {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.category-preview-card:nth-child(1) { animation-delay: 0.1s; }
+.category-preview-card:nth-child(2) { animation-delay: 0.2s; }
+.category-preview-card:nth-child(3) { animation-delay: 0.3s; }
+.category-preview-card:nth-child(4) { animation-delay: 0.4s; }
+.category-preview-card:nth-child(5) { animation-delay: 0.5s; }
+.category-preview-card:nth-child(6) { animation-delay: 0.6s; }
 
 /* Featured Projects */
 .featured-projects {
     background: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
 }
 
 /* Contact CTA */
@@ -250,6 +407,34 @@
     .contact-cta__title {
         font-size: var(--text-3xl);
     }
+
+    /* Category cards responsive */
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .category-preview-card {
+        padding: var(--space-lg);
+    }
+
+    .category-preview__icon {
+        font-size: 40px;
+        width: 56px;
+        height: 56px;
+    }
+
+    .category-preview__title {
+        font-size: var(--text-lg);
+    }
+
+    .category-preview__tech-icons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .category-preview__tech-icons i {
+        font-size: 24px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -276,8 +461,9 @@
 
 /* Achievements Section */
 .achievements {
-    background: var(--bg-secondary);
+    background: var(--bg-tertiary);
     padding: var(--space-4xl) 0;
+    border-top: 1px solid var(--border-color);
 }
 
 .achievements__grid {
@@ -314,7 +500,9 @@
 
 /* Testimonials Section */
 .testimonials {
+    background: var(--bg-secondary);
     padding: var(--space-4xl) 0;
+    border-top: 1px solid var(--border-color);
 }
 
 .testimonials__carousel {

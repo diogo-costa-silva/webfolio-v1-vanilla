@@ -73,45 +73,55 @@ async function loadSkills() {
 }
 
 function renderHomepageSkills(categories, container) {
-    // Extract featured skills from all categories
-    const featuredSkills = [];
+    // Render category preview cards instead of individual skills
+    const categoryCardsHTML = categories.map(category => {
+        // Get up to 6 skills for icon display - prioritize featured, then add others
+        const featuredSkills = category.skills.filter(skill => skill.featured);
+        const nonFeaturedSkills = category.skills.filter(skill => !skill.featured);
+        const skillsToShow = [...featuredSkills, ...nonFeaturedSkills].slice(0, 6);
 
-    categories.forEach(category => {
-        category.skills.forEach(skill => {
-            if (skill.featured) {
-                featuredSkills.push({
-                    ...skill,
-                    categoryIcon: category.icon,
-                    categoryName: category.name
-                });
-            }
-        });
-    });
+        // Generate DevIcon elements for skills
+        const techIconsHTML = skillsToShow
+            .map(skill => {
+                const iconClass = getIconClass(skill.name);
+                return `<i class="${iconClass}" title="${skill.name}"></i>`;
+            })
+            .join('');
 
-    // Take first 6 featured skills
-    const skillsToShow = featuredSkills.slice(0, 6);
-
-    container.innerHTML = skillsToShow.map(skill => {
-        const iconClass = getIconClass(skill.name);
-        const dotsHTML = renderDots(skill.level);
+        // Get translated strings
+        const skillsLabel = translations['skills.count'] || 'skills';
+        const categoryIndex = categories.indexOf(category) + 1;
+        const categoryNameKey = `skills.category.${categoryIndex}.name`;
+        const categoryDescKey = `skills.category.${categoryIndex}.description`;
+        const categoryName = translations[categoryNameKey] || category.name;
+        const categoryDesc = translations[categoryDescKey] || category.description;
 
         return `
-            <div class="card card--hoverable">
-                <div class="card__header">
-                    <i class="skill-item__icon ${iconClass}"></i>
-                </div>
-                <div class="card__content">
-                    <h3 class="card__title">${skill.name}</h3>
-                    <div class="skill-item__level" style="justify-content: center;">
-                        <div class="skill-item__dots">
-                            ${dotsHTML}
-                        </div>
-                        <span class="skill-item__experience">${translateExperience(skill.experience)}</span>
+            <div class="category-preview-card" data-category-id="${category.id}">
+                <div class="category-preview__header">
+                    <span class="category-preview__icon">${category.icon}</span>
+                    <div class="category-preview__info">
+                        <h3 class="category-preview__title">${categoryName}</h3>
+                        <span class="category-preview__count">${category.skills.length} ${skillsLabel}</span>
                     </div>
+                </div>
+                <p class="category-preview__description">${categoryDesc}</p>
+                <div class="category-preview__tech-icons">
+                    ${techIconsHTML}
                 </div>
             </div>
         `;
     }).join('');
+
+    container.innerHTML = categoryCardsHTML;
+
+    // Add click handlers to navigate to skills page
+    container.querySelectorAll('.category-preview-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const categoryId = card.dataset.categoryId;
+            window.location.href = `skills.html#${categoryId}`;
+        });
+    });
 }
 
 function renderSkillsPage(categories, container) {
