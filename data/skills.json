@@ -1,10 +1,10 @@
 {
   "categories": [
     {
-      "id": "languages-core",
-      "name": "Languages & Core",
+      "id": "programming-scripting",
+      "name": "Programming & Scripting",
       "icon": "💻",
-      "description": "Programming languages and core technologies",
+      "description": "Programming languages and scripting tools",
       "skills": [
         {
           "name": "Python",
@@ -18,13 +18,6 @@
           "level": 4,
           "levelLabel": "Advanced",
           "experience": "3+ years",
-          "featured": false
-        },
-        {
-          "name": "Bash",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "5+ years",
           "featured": false
         },
         {
@@ -51,10 +44,10 @@
       ]
     },
     {
-      "id": "data-science",
-      "name": "Data Science & Visualization",
+      "id": "data-processing",
+      "name": "Data Processing & Analysis",
       "icon": "📊",
-      "description": "Data analysis, visualization and machine learning",
+      "description": "Data analysis, visualization and processing tools",
       "skills": [
         {
           "name": "Pandas",
@@ -114,14 +107,7 @@
       "description": "Large-scale data processing and storage",
       "skills": [
         {
-          "name": "Apache Spark",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "5+ years",
-          "featured": true
-        },
-        {
-          "name": "PySpark",
+          "name": "Apache Spark/PySpark",
           "level": 5,
           "levelLabel": "Expert",
           "experience": "5+ years",
@@ -258,9 +244,9 @@
     },
     {
       "id": "devops",
-      "name": "DevOps & Version Control",
+      "name": "DevOps & CI/CD",
       "icon": "🔄",
-      "description": "CI/CD, version control and development tools",
+      "description": "CI/CD, automation and development tools",
       "skills": [
         {
           "name": "Git",
@@ -296,14 +282,21 @@
           "levelLabel": "Expert",
           "experience": "5+ years",
           "featured": false
+        },
+        {
+          "name": "Bash",
+          "level": 4,
+          "levelLabel": "Advanced",
+          "experience": "5+ years",
+          "featured": false
         }
       ]
     },
     {
       "id": "backend-apis",
-      "name": "Backend & APIs",
+      "name": "APIs & Web Frameworks",
       "icon": "⚙️",
-      "description": "Backend frameworks and API development",
+      "description": "API development and web frameworks",
       "skills": [
         {
           "name": "Node.js",
