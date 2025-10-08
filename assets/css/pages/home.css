@@ -279,13 +279,18 @@
 .category-preview__tech-icons {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
     gap: var(--space-lg);
     margin-top: var(--space-sm);
     padding-top: var(--space-md);
     border-top: 1px solid var(--border-color);
-    min-height: 104px;
-    max-height: 104px;
+    position: relative;
+    overflow: hidden;
+    max-height: 88px; /* 2 rows for 5 icons */
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-preview__tech-icons.expanded {
+    max-height: 400px; /* Allow for expansion */
 }
 
 .category-preview__tech-icons i {
@@ -344,6 +349,64 @@
 .category-preview__tech-icons i:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(-2px);
+}
+
+/* Hidden icons - initially invisible */
+.skill-icon-hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+}
+
+.category-preview__tech-icons.expanded .skill-icon-hidden {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Expand button */
+.skill-expand-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    border: 2px solid var(--primary-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--primary-700);
+    margin: 0 auto;
+}
+
+[data-theme="dark"] .skill-expand-btn {
+    background: rgba(30, 136, 229, 0.15);
+    border-color: var(--primary-500);
+    color: var(--primary-300);
+}
+
+.skill-expand-btn:hover {
+    background: var(--primary-600);
+    border-color: var(--primary-600);
+    color: var(--color-white);
+    transform: scale(1.1);
+}
+
+.skill-expand-btn:active {
+    transform: scale(0.95);
+}
+
+.expand-count {
+    display: block;
+    line-height: 1;
+}
+
+/* Card expansion state */
+.category-preview-card.card-expanded {
+    box-shadow: var(--shadow-xl);
 }
 
 /* Staggered animation for category cards */
@@ -476,14 +539,23 @@
     .category-preview__tech-icons {
         grid-template-columns: repeat(3, 1fr);
         gap: var(--space-md);
-        min-height: 92px;
-        max-height: 92px;
+        max-height: 80px;
+    }
+
+    .category-preview__tech-icons.expanded {
+        max-height: 350px;
     }
 
     .category-preview__tech-icons i {
         font-size: 36px;
         width: 36px;
         height: 36px;
+    }
+
+    .skill-expand-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
     }
 }
 

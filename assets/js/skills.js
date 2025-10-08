@@ -75,18 +75,38 @@ async function loadSkills() {
 function renderHomepageSkills(categories, container) {
     // Render category preview cards instead of individual skills
     const categoryCardsHTML = categories.map(category => {
-        // Get up to 6 skills for icon display - prioritize featured, then add others
+        // Get all skills - prioritize featured, then add others
         const featuredSkills = category.skills.filter(skill => skill.featured);
         const nonFeaturedSkills = category.skills.filter(skill => !skill.featured);
-        const skillsToShow = [...featuredSkills, ...nonFeaturedSkills].slice(0, 6);
+        const allSkills = [...featuredSkills, ...nonFeaturedSkills];
 
-        // Generate DevIcon elements for skills
+        // Show only first 5 skills initially
+        const skillsToShow = allSkills.slice(0, 5);
+        const hasMore = allSkills.length > 5;
+        const remainingCount = allSkills.length - 5;
+
+        // Generate DevIcon elements for first 5 skills
         const techIconsHTML = skillsToShow
             .map(skill => {
                 const iconClass = getIconClass(skill.name);
-                return `<i class="${iconClass}" title="${skill.name}"></i>`;
+                return `<i class="${iconClass}" data-tech-name="${skill.name}"></i>`;
             })
             .join('');
+
+        // Generate hidden icons for expansion (skills 6+)
+        const hiddenIconsHTML = hasMore
+            ? allSkills.slice(5).map(skill => {
+                const iconClass = getIconClass(skill.name);
+                return `<i class="${iconClass} skill-icon-hidden" data-tech-name="${skill.name}"></i>`;
+              }).join('')
+            : '';
+
+        // Expand button if category has more than 5 skills
+        const expandButton = hasMore
+            ? `<button class="skill-expand-btn" aria-label="Ver mais ${remainingCount} tecnologias">
+                 <span class="expand-count">+${remainingCount}</span>
+               </button>`
+            : '';
 
         // Get translated strings
         const skillsLabel = translations['skills.count'] || 'skills';
@@ -106,14 +126,39 @@ function renderHomepageSkills(categories, container) {
                     </div>
                 </div>
                 <p class="category-preview__description">${categoryDesc}</p>
-                <div class="category-preview__tech-icons">
+                <div class="category-preview__tech-icons" data-category="${category.id}">
                     ${techIconsHTML}
+                    ${hiddenIconsHTML}
+                    ${expandButton}
                 </div>
             </div>
         `;
     }).join('');
 
     container.innerHTML = categoryCardsHTML;
+
+    // Add expand/collapse handlers
+    container.querySelectorAll('.skill-expand-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Don't trigger card click
+            const iconsContainer = btn.closest('.category-preview__tech-icons');
+            const card = btn.closest('.category-preview-card');
+            const isExpanded = iconsContainer.classList.contains('expanded');
+
+            if (isExpanded) {
+                // Collapse
+                iconsContainer.classList.remove('expanded');
+                card.classList.remove('card-expanded');
+                const hiddenCount = iconsContainer.querySelectorAll('.skill-icon-hidden').length;
+                btn.querySelector('.expand-count').textContent = `+${hiddenCount}`;
+            } else {
+                // Expand
+                iconsContainer.classList.add('expanded');
+                card.classList.add('card-expanded');
+                btn.querySelector('.expand-count').textContent = '−';
+            }
+        });
+    });
 
     // Add click handlers to navigate to skills page
     container.querySelectorAll('.category-preview-card').forEach(card => {
@@ -143,7 +188,7 @@ function renderSkillsPage(categories, container) {
         <div class="skill-category">
             <div class="skill-category__header">
                 <span class="skill-category__icon">${category.icon}</span>
-                <div>
+                <div class="skill-category__info">
                     <h2 class="skill-category__title">${categoryName}</h2>
                     <p class="skill-category__description">${categoryDescription}</p>
                 </div>
