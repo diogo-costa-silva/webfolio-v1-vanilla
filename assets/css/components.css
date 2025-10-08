@@ -6,7 +6,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    min-height: 48px;
     font-size: var(--text-base);
     font-weight: var(--font-medium);
     border-radius: var(--radius-md);
@@ -61,6 +62,7 @@
 
 .btn--large {
     padding: var(--space-md) var(--space-xl);
+    min-height: 56px;
     font-size: var(--text-lg);
 }
 
@@ -391,8 +393,9 @@
 
 .project-card__actions .btn {
     flex: 1;
-    padding: 0.625rem 1rem;
-    font-size: var(--text-sm);
+    padding: var(--space-sm) var(--space-md);
+    min-height: 44px;
+    font-size: var(--text-base);
     border-radius: var(--radius-md);
     gap: var(--space-sm);
 }
@@ -527,8 +530,9 @@
     }
 
     .project-card__actions .btn {
-        padding: 0.75rem 0.875rem;
-        font-size: 0.8125rem;
+        padding: var(--space-sm) var(--space-md);
+        min-height: 48px;
+        font-size: var(--text-base);
     }
 
     .project-card__github-stats {
@@ -742,12 +746,14 @@
 @media (max-width: 480px) {
     .btn {
         padding: var(--space-sm) var(--space-md);
-        font-size: var(--text-sm);
+        min-height: 48px;
+        font-size: var(--text-base);
     }
 
     .btn--large {
-        padding: var(--space-sm) var(--space-lg);
-        font-size: var(--text-base);
+        padding: var(--space-md) var(--space-lg);
+        min-height: 56px;
+        font-size: var(--text-lg);
     }
 
     .card {
