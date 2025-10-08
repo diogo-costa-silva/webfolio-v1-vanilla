@@ -24,7 +24,7 @@
 
 .header__container {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     height: 100%;
     max-width: var(--container-max);
@@ -326,6 +326,10 @@ main {
 
 /* DESKTOP: A partir de 1024px mostrar nav desktop e esconder hamburger */
 @media (min-width: 1024px) {
+    .header__container {
+        grid-template-columns: 1fr auto 1fr; /* Centrar nav no desktop */
+    }
+
     .nav {
         display: flex; /* Mostrar nav horizontal no desktop */
     }
