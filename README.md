@@ -1,6 +1,6 @@
 # Portfolio Website
 
-Modern, responsive portfolio built with pure HTML, CSS, and JavaScript. **No frameworks, no build process** - just clean, performant web development.
+Modern portfolio built with **pure HTML, CSS, and JavaScript** - no frameworks, no build process.
 
 **Live Site:** [https://diogo-costa-silva.github.io](https://diogo-costa-silva.github.io)
 
@@ -8,25 +8,19 @@ Modern, responsive portfolio built with pure HTML, CSS, and JavaScript. **No fra
 
 ## ✨ Features
 
-- 🎨 **Dark/Light Theme** - Persistent user preference
-- 🌍 **Multi-language** - Portuguese/English support
-- 📱 **Fully Responsive** - Mobile-first design
-- ⚡ **Performance** - Lazy loading, optimized assets
-- 📊 **Data-Driven** - JSON-based content management
-- 🎯 **SEO Optimized** - Semantic HTML, sitemap, meta tags
+- **Dark/Light Theme** with persistent preference
+- **PT/EN Languages** with dynamic switching
+- **Fully Responsive** mobile-first design
+- **Data-Driven** JSON-based content
+- **GitHub Integration** real-time project stats
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Markup** | HTML5 (semantic) |
-| **Styling** | CSS3 (custom properties, BEM) |
-| **Scripting** | Vanilla JavaScript (ES6 modules) |
-| **Icons** | DevIcons CDN |
-| **Hosting** | GitHub Pages |
-| **CI/CD** | GitHub Actions |
+**HTML5** • **CSS3** • **Vanilla JavaScript** • **GitHub Pages**
+
+No frameworks, no dependencies, no build process.
 
 ---
 
@@ -37,18 +31,17 @@ Modern, responsive portfolio built with pure HTML, CSS, and JavaScript. **No fra
 git clone https://github.com/diogo-costa-silva/diogo-costa-silva.github.io.git
 cd diogo-costa-silva.github.io
 
-# Run locally (VS Code Live Server recommended)
+# Run locally with VS Code Live Server
 # Or use Python:
 python3 -m http.server 8000
-
 # Visit http://localhost:8000
 ```
 
-**No npm install needed!** Just open the HTML files in a browser or use any HTTP server.
+**No npm install needed!** Just open in a browser or use any HTTP server.
 
 ---
 
-## 📝 Content Updates
+## 📝 Edit Content
 
 <details>
 <summary><strong>Add/Edit Skills</strong></summary>
@@ -106,120 +99,12 @@ HTML elements with `data-i18n="nav.home"` update automatically.
 
 ---
 
-## 🏗️ Project Structure
+## 📚 Technical Documentation
 
-<details>
-<summary><strong>View folder structure</strong></summary>
-
-```
-├── assets/
-│   ├── css/
-│   │   ├── variables.css      # Design system
-│   │   ├── components.css     # Reusable components
-│   │   └── pages/             # Page-specific styles
-│   ├── js/
-│   │   ├── main.js            # Entry point
-│   │   ├── theme.js           # Dark/light mode
-│   │   ├── language.js        # PT/EN switcher
-│   │   └── projects.js        # Project filtering
-│   └── images/
-├── data/
-│   ├── skills.json            # ⭐ Edit to add skills
-│   ├── projects.json          # ⭐ Edit to add projects
-│   └── translations.json      # PT/EN translations
-├── index.html                 # Homepage
-├── skills.html                # Skills page
-├── projects.html              # Projects portfolio
-├── about.html                 # About me
-├── contact.html               # Contact form
-└── resume.html                # CV/Resume
-```
-
-</details>
-
----
-
-## 🎯 Architecture
-
-<details>
-<summary><strong>Design Philosophy</strong></summary>
-
-**Trade-off:** ~1000 lines of duplicated HTML (header/footer across 7 pages) in exchange for **zero build complexity**.
-
-- **99% of updates** = Edit JSON files
-- **1% of updates** = Edit HTML (navigation changes)
-
-**Benefits:**
-- ✅ Direct deployment: `git push` → live (30 seconds)
-- ✅ No build failures
-- ✅ Zero dependencies
-- ✅ Works offline
-- ✅ Maximum simplicity
-
-</details>
-
-<details>
-<summary><strong>Module System</strong></summary>
-
-Critical initialization order in `assets/js/main.js`:
-
-```javascript
-initColor();        // Must run first (color system)
-initTheme();        // Dark/light mode
-initLanguage();     // Loads translations
-initHeader();       // Navigation
-// Then page-specific modules...
-```
-
-**Never change this order** - language must initialize before page-specific modules.
-
-</details>
-
----
-
-## 🚢 Deployment
-
-Automatic deployment via **GitHub Actions** on every push to `main`:
-
-```bash
-git add .
-git commit -m "feat: add new project"
-git push origin main
-
-# GitHub Actions automatically deploys to GitHub Pages
-# Live in 30-60 seconds!
-```
-
-<details>
-<summary><strong>Manual Deployment Setup</strong></summary>
-
-1. Enable GitHub Pages in repo settings
-2. Source: **GitHub Actions**
-3. Workflow file: `.github/workflows/static.yml`
-4. Every push to `main` triggers deployment
-
-Monitor deployment:
-```bash
-gh run list --limit 5
-```
-
-</details>
-
----
-
-## 📱 Browser Support
-
-- ✅ Chrome/Edge (last 2 versions)
-- ✅ Firefox (last 2 versions)
-- ✅ Safari (last 2 versions)
-- ✅ Mobile browsers (iOS 12+, Chrome Mobile)
+For developers interested in architecture, design decisions, and implementation details, see **[INFO.md](INFO.md)**.
 
 ---
 
 ## 📄 License
 
 Personal portfolio project. Content © 2025 Diogo Silva.
-
----
-
-**Built with vanilla HTML, CSS, and JavaScript. No frameworks. No build process. Maximum simplicity.**
