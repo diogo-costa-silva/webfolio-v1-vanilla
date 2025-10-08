@@ -3,15 +3,21 @@
 import { getCurrentLanguage } from './language.js';
 
 let translations = {};
+let currentTypewriterInterval = null;
 
 export function initHero() {
     loadTranslationsAndInit();
     initScrollIndicator();
+
+    // Listen for language changes
+    window.addEventListener('languageChanged', async () => {
+        await loadTranslationsAndInit();
+    });
 }
 
 async function loadTranslationsAndInit() {
     try {
-        const response = await fetch('/data/translations.json');
+        const response = await fetch('data/translations.json');
         const data = await response.json();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
@@ -48,6 +54,12 @@ function typewriterCycle(element, texts, delay) {
     let charIndex = 0;
     let isDeleting = false;
     let currentText = '';
+    let timeoutId = null;
+
+    // Clear any existing animation on this element
+    if (element._typewriterTimeout) {
+        clearTimeout(element._typewriterTimeout);
+    }
 
     function type() {
         const fullText = texts[textIndex];
@@ -73,7 +85,8 @@ function typewriterCycle(element, texts, delay) {
             typeSpeed = 500;
         }
 
-        setTimeout(type, typeSpeed);
+        timeoutId = setTimeout(type, typeSpeed);
+        element._typewriterTimeout = timeoutId;
     }
 
     type();
