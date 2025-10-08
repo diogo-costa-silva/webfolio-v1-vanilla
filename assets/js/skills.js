@@ -21,7 +21,7 @@ export function initSkills() {
 
 async function loadTranslations() {
     try {
-        const response = await fetch('/data/translations.json');
+        const response = await fetch('data/translations.json');
         const data = await response.json();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];

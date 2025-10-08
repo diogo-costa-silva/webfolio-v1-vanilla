@@ -69,7 +69,7 @@ function setLanguage(lang) {
 
 async function loadTranslations(lang) {
     try {
-        const response = await fetch(`/data/translations.json`);
+        const response = await fetch(`data/translations.json`);
         const translations = await response.json();
 
         if (translations[lang]) {

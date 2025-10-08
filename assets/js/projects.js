@@ -27,7 +27,7 @@ async function loadTechIcons() {
     }
 
     try {
-        const response = await fetch('/data/tech-icons.json');
+        const response = await fetch('data/tech-icons.json');
         techIconMap = await response.json();
         return techIconMap;
     } catch (error) {
@@ -107,7 +107,7 @@ async function loadTranslationsAndProjects() {
     await loadTechIcons();
 
     try {
-        const response = await fetch('/data/translations.json');
+        const response = await fetch('data/translations.json');
         const data = await response.json();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
@@ -135,7 +135,7 @@ async function loadProjects() {
 
     try {
         // Try to load from JSON
-        const response = await fetch('/data/projects.json');
+        const response = await fetch('data/projects.json');
         const data = await response.json();
 
         if (isHomepage) {
