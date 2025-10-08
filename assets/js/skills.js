@@ -160,21 +160,15 @@ function renderSkillsPage(categories, container) {
 
 function renderSkillItem(skill) {
     const iconClass = getIconClass(skill.name);
-    const dotsHTML = renderDots(skill.level);
     const translatedExperience = translateExperience(skill.experience);
 
     return `
-        <div class="skill-item">
+        <div class="skill-item"
+             data-skill-name="${skill.name}"
+             data-skill-level="${skill.levelLabel || ''}"
+             data-skill-experience="${translatedExperience}">
             <i class="skill-item__icon ${iconClass}"></i>
-            <div class="skill-item__content">
-                <span class="skill-item__name">${skill.name}</span>
-                <div class="skill-item__level">
-                    <div class="skill-item__dots">
-                        ${dotsHTML}
-                    </div>
-                    <span class="skill-item__experience">${translatedExperience}</span>
-                </div>
-            </div>
+            <span class="skill-item__name">${skill.name}</span>
         </div>
     `;
 }
@@ -220,8 +214,7 @@ function getIconClass(skillName) {
         'Scikit-learn': 'devicon-scikitlearn-plain colored',
 
         // Big Data Platforms
-        'Apache Spark': 'devicon-apachespark-plain colored',
-        'PySpark': 'devicon-apachespark-plain colored',
+        'Apache Spark/PySpark': 'devicon-apachespark-plain colored',
         'Hadoop': 'devicon-hadoop-plain colored',
         'HDFS': 'devicon-hadoop-plain colored',
         'Hive': 'devicon-apache-plain colored',
