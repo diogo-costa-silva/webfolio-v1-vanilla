@@ -246,7 +246,7 @@
 .project-card {
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     transition: transform var(--transition-base) cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow var(--transition-base) cubic-bezier(0.4, 0, 0.2, 1),
@@ -270,9 +270,16 @@
 @media (hover: hover) and (min-width: 1024px) {
     .project-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 50px -12px color-mix(in srgb, var(--primary-600) 25%, transparent),
+        box-shadow: 0 20px 50px -12px rgba(30, 136, 229, 0.25),
                     0 10px 25px -8px rgba(0, 0, 0, 0.1);
         border-color: var(--primary-300);
+    }
+
+    @supports (color: color-mix(in srgb, white, black)) {
+        .project-card:hover {
+            box-shadow: 0 20px 50px -12px color-mix(in srgb, var(--primary-600) 25%, transparent),
+                        0 10px 25px -8px rgba(0, 0, 0, 0.1);
+        }
     }
 
     .project-card:hover .project-card__image {
@@ -327,7 +334,7 @@
     color: var(--primary-700);
     font-size: var(--text-xs);
     font-weight: var(--font-semibold);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -372,7 +379,7 @@
     background: var(--bg-secondary);
     color: var(--text-secondary);
     font-size: var(--text-sm);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-weight: var(--font-medium);
 }
 
@@ -386,7 +393,7 @@
     flex: 1;
     padding: 0.625rem 1rem;
     font-size: var(--text-sm);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     gap: var(--space-sm);
 }
 
@@ -440,7 +447,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     backdrop-filter: blur(10px);
 }
 
@@ -503,7 +510,7 @@
 /* Mobile optimizations */
 @media (max-width: 767px) {
     .project-card {
-        border-radius: 8px;
+        border-radius: var(--radius-md);
     }
 
     .project-card__content {
@@ -585,7 +592,7 @@
     padding: 0.875rem 1.25rem;
     background: var(--bg-primary);
     border: 2px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     font-size: 1rem;
     transition: all 0.2s ease;
     -webkit-appearance: none;
@@ -594,7 +601,13 @@
 .filters__search:focus {
     outline: none;
     border-color: var(--primary-500);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 10%, transparent);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+    .filters__search:focus {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 10%, transparent);
+    }
 }
 
 /* Filter tags - Horizontal scroll on mobile */
@@ -633,7 +646,7 @@
     background: var(--bg-secondary);
     color: var(--text-secondary);
     border: 2px solid transparent;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-weight: var(--font-medium);
     font-size: var(--text-base);
     transition: all var(--transition-fast);
@@ -989,8 +1002,14 @@
 }
 
 [data-theme="dark"] .language-option.active {
-    background: color-mix(in srgb, var(--primary-600) 15%, transparent);
+    background: rgba(30, 136, 229, 0.15);
     color: var(--primary-400);
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+    [data-theme="dark"] .language-option.active {
+        background: color-mix(in srgb, var(--primary-600) 15%, transparent);
+    }
 }
 
 .language-flag {
@@ -1253,12 +1272,22 @@
     outline: none;
     border-color: var(--primary-500);
     background: var(--bg-primary);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 10%, transparent);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
     transform: translateY(-1px);
 }
 
 [data-theme="dark"] .filters__search:focus {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 20%, transparent);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+    .filters__search:focus {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 10%, transparent);
+    }
+
+    [data-theme="dark"] .filters__search:focus {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 20%, transparent);
+    }
 }
 
 .filters__results-count {
@@ -1279,9 +1308,15 @@
 }
 
 [data-theme="dark"] .filters__results-count {
-    background: color-mix(in srgb, var(--primary-600) 15%, transparent);
+    background: rgba(30, 136, 229, 0.15);
     border-color: var(--primary-800);
     color: var(--primary-300);
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+    [data-theme="dark"] .filters__results-count {
+        background: color-mix(in srgb, var(--primary-600) 15%, transparent);
+    }
 }
 
 @keyframes fadeInScale {
@@ -1387,7 +1422,13 @@
 .filter-dropdown.open .filter-dropdown__trigger {
     border-color: var(--primary-600);
     background: var(--primary-50);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 10%, transparent);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+    .filter-dropdown.open .filter-dropdown__trigger {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-500) 10%, transparent);
+    }
 }
 
 [data-theme="dark"] .filter-dropdown.open .filter-dropdown__trigger {
@@ -1439,12 +1480,12 @@
 
 .filter-dropdown__menu--scrollable::-webkit-scrollbar-track {
     background: var(--bg-tertiary);
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
 }
 
 .filter-dropdown__menu--scrollable::-webkit-scrollbar-thumb {
     background: var(--text-tertiary);
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
 }
 
 .filter-dropdown__menu--scrollable::-webkit-scrollbar-thumb:hover {
@@ -1631,8 +1672,14 @@
 }
 
 [data-theme="dark"] .filters__applied {
-    background: color-mix(in srgb, var(--primary-600) 10%, transparent);
+    background: rgba(30, 136, 229, 0.1);
     border-color: var(--primary-900);
+}
+
+@supports (color: color-mix(in srgb, white, black)) {
+    [data-theme="dark"] .filters__applied {
+        background: color-mix(in srgb, var(--primary-600) 10%, transparent);
+    }
 }
 
 @keyframes slideDown {
