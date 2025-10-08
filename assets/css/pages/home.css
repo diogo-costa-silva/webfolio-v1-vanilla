@@ -176,7 +176,7 @@
 /* Contact CTA */
 .contact-cta {
     background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
-    color: white;
+    color: var(--color-white);
     text-align: center;
     padding: var(--space-4xl) 0;
 }
@@ -201,9 +201,9 @@
 }
 
 .contact-cta .btn--primary {
-    background: white;
+    background: var(--color-white);
     color: var(--primary-700);
-    border-color: white;
+    border-color: var(--color-white);
 }
 
 .contact-cta .btn--primary:hover {
@@ -213,12 +213,12 @@
 
 .contact-cta .btn--secondary {
     background: transparent;
-    color: white;
-    border-color: white;
+    color: var(--color-white);
+    border-color: var(--color-white);
 }
 
 .contact-cta .btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--white-overlay);
 }
 
 /* Responsive */
@@ -411,7 +411,7 @@
 .testimonial-control:hover {
     background: var(--primary-600);
     border-color: var(--primary-600);
-    color: white;
+    color: var(--color-white);
 }
 
 .testimonials__dots {

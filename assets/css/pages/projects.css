@@ -55,7 +55,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--overlay-bg);
     z-index: var(--z-modal);
     padding: var(--space-xl);
     overflow-y: auto;
@@ -95,7 +95,7 @@
 
 .project-modal__close:hover {
     background: var(--primary-600);
-    color: white;
+    color: var(--color-white);
 }
 
 .project-modal__image {

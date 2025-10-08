@@ -6,6 +6,7 @@ import { getRecentProjects, enrichProjectsWithGitHubData } from './github-api.js
 let translations = {};
 let allProjects = []; // Store all projects for filtering
 let filtersInitialized = false; // Prevent duplicate event listeners
+let techIconMap = {}; // Technology to DevIcon mapping (loaded from JSON)
 
 // Multi-filter state
 const filterState = {
@@ -16,81 +17,24 @@ const filterState = {
     searchTerm: ''       // search input
 };
 
-// Technology to DevIcon mapping
-const techIconMap = {
-    'Python': 'devicon-python-plain colored',
-    'JavaScript': 'devicon-javascript-plain colored',
-    'React': 'devicon-react-original colored',
-    'Vue.js': 'devicon-vuejs-plain colored',
-    'Node.js': 'devicon-nodejs-plain colored',
-    'Docker': 'devicon-docker-plain colored',
-    'Kubernetes': 'devicon-kubernetes-plain colored',
-    'Go': 'devicon-go-original-wordmark colored',
-    'PostgreSQL': 'devicon-postgresql-plain colored',
-    'MongoDB': 'devicon-mongodb-plain colored',
-    'Redis': 'devicon-redis-plain colored',
-    'AWS': 'devicon-amazonwebservices-plain-wordmark colored',
-    'Azure': 'devicon-azure-plain colored',
-    'Terraform': 'devicon-terraform-plain colored',
-    'Ansible': 'devicon-ansible-plain colored',
-    'Git': 'devicon-git-plain colored',
-    'GitHub Actions': 'devicon-github-original colored',
-    'TypeScript': 'devicon-typescript-plain colored',
-    'HTML': 'devicon-html5-plain colored',
-    'CSS': 'devicon-css3-plain colored',
-    'FastAPI': 'devicon-fastapi-plain colored',
-    'Flask': 'devicon-flask-original colored',
-    'Express': 'devicon-express-original colored',
-    'Next.js': 'devicon-nextjs-original colored',
-    'TensorFlow': 'devicon-tensorflow-original colored',
-    'Tailwind CSS': 'devicon-tailwindcss-plain colored',
-    'Firebase': 'devicon-firebase-plain colored',
-    'MySQL': 'devicon-mysql-plain colored',
-    'Pandas': 'devicon-pandas-plain colored',
-    'Jupyter': 'devicon-jupyter-plain colored',
-    'Streamlit': 'devicon-streamlit-plain colored',
-    'Selenium': 'devicon-selenium-original colored',
-    'Flutter': 'devicon-flutter-plain colored',
-    'React Native': 'devicon-react-original colored',
-    'Prisma': 'devicon-prisma-original colored',
-    'Grafana': 'devicon-grafana-original colored',
-    'Prometheus': 'devicon-prometheus-original colored',
-    'Scikit-learn': 'devicon-scikitlearn-plain colored',
-    'Plotly': 'devicon-plotly-plain colored',
-    'Matplotlib': 'devicon-matplotlib-plain colored',
-    'Seaborn': 'devicon-python-plain colored', // Fallback to Python
-    'Dash': 'devicon-plotly-plain colored', // Dash é da Plotly
-    'Prophet': 'devicon-python-plain colored',
-    'yFinance': 'devicon-python-plain colored',
-    'Spotify API': 'devicon-spotify-plain colored',
-    'SQL': 'devicon-mysql-plain colored',
-    'SQLite': 'devicon-sqlite-plain colored',
-    'EmailJS': 'devicon-javascript-plain colored',
-    'Prism.js': 'devicon-javascript-plain colored',
-    'CodeMirror': 'devicon-javascript-plain colored',
-    'Marked.js': 'devicon-markdown-original colored',
-    'JWT': 'devicon-nodejs-plain colored',
-    'Gin': 'devicon-go-original-wordmark colored',
-    'PowerShell': 'devicon-powershell-plain colored',
-    'Databricks': 'devicon-apacheairflow-plain colored', // Similar concept
-    'YAML': 'devicon-yaml-plain colored',
-    'Bash': 'devicon-bash-plain colored',
-    'Expo': 'devicon-react-original colored',
-    'AsyncStorage': 'devicon-react-original colored',
-    'Dart': 'devicon-dart-plain colored',
-    'Redux': 'devicon-redux-original colored',
-    'Watchdog': 'devicon-python-plain colored',
-    'PyQt5': 'devicon-qt-original colored',
-    'BeautifulSoup': 'devicon-python-plain colored',
-    'Scrapy': 'devicon-python-plain colored',
-    'Schedule': 'devicon-python-plain colored',
-    'CloudFormation': 'devicon-amazonwebservices-plain-wordmark colored',
-    'OpenWeather API': 'devicon-javascript-plain colored',
-    'DnD Kit': 'devicon-react-original colored',
-    'Cron': 'devicon-linux-plain colored',
-    'SMTP': 'devicon-nodejs-plain colored',
-    'Provider': 'devicon-flutter-plain colored'
-};
+/**
+ * Loads technology icon mappings from JSON file
+ * @returns {Promise<object>} - Tech icon mappings
+ */
+async function loadTechIcons() {
+    if (Object.keys(techIconMap).length > 0) {
+        return techIconMap; // Already loaded
+    }
+
+    try {
+        const response = await fetch('/data/tech-icons.json');
+        techIconMap = await response.json();
+        return techIconMap;
+    } catch (error) {
+        console.error('Error loading tech icons:', error);
+        return {};
+    }
+}
 
 /**
  * Gets the DevIcon class for a technology
@@ -159,6 +103,9 @@ export function initProjects() {
 }
 
 async function loadTranslationsAndProjects() {
+    // Load tech icons first
+    await loadTechIcons();
+
     try {
         const response = await fetch('/data/translations.json');
         const data = await response.json();
