@@ -93,6 +93,12 @@ function renderHomepageSkills(categories, container) {
             })
             .join('');
 
+        // Add invisible placeholders to always have 5 slots (for consistent height)
+        const placeholdersNeeded = 5 - skillsToShow.length;
+        const placeholdersHTML = placeholdersNeeded > 0
+            ? '<i class="skill-icon-placeholder"></i>'.repeat(placeholdersNeeded)
+            : '';
+
         // Generate hidden icons for expansion (skills 6+)
         const hiddenIconsHTML = hasMore
             ? allSkills.slice(5).map(skill => {
@@ -128,6 +134,7 @@ function renderHomepageSkills(categories, container) {
                 <p class="category-preview__description">${categoryDesc}</p>
                 <div class="category-preview__tech-icons" data-category="${category.id}">
                     ${techIconsHTML}
+                    ${placeholdersHTML}
                     ${hiddenIconsHTML}
                     ${expandButton}
                 </div>
