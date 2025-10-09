@@ -56,6 +56,10 @@ async function loadSkills() {
 
         if (categoriesGrid) {
             renderSkillsPage(data.categories, categoriesGrid);
+            // Initialize interactions after rendering
+            setTimeout(() => {
+                initSkillInteractions();
+            }, 100);
         }
     } catch (error) {
         // Fallback to inline data
@@ -68,6 +72,10 @@ async function loadSkills() {
 
         if (categoriesGrid) {
             renderSkillsPage(fallbackData.categories, categoriesGrid);
+            // Initialize interactions after rendering
+            setTimeout(() => {
+                initSkillInteractions();
+            }, 100);
         }
     }
 }
@@ -214,13 +222,28 @@ function renderSkillItem(skill) {
     const iconClass = getIconClass(skill.name);
     const translatedExperience = translateExperience(skill.experience);
 
+    // Calculate progress percentage (level is 1-5, convert to 0-100%)
+    const progressPercentage = (skill.level / 5) * 100;
+
+    // Store full skill data as JSON for JS access
+    const skillData = JSON.stringify({
+        name: skill.name,
+        icon: iconClass,
+        level: skill.level,
+        levelLabel: skill.levelLabel || '',
+        experience: translatedExperience,
+        proficiency: progressPercentage
+    });
+
     return `
         <div class="skill-item"
-             data-skill-name="${skill.name}"
-             data-skill-level="${skill.levelLabel || ''}"
-             data-skill-experience="${translatedExperience}">
+             data-skill='${skillData}'>
             <i class="skill-item__icon ${iconClass}"></i>
             <span class="skill-item__name">${skill.name}</span>
+            <div class="skill-item__progress-mini">
+                <div class="skill-item__progress-bar" style="width: ${progressPercentage}%"></div>
+            </div>
+            <span class="skill-item__experience">${translatedExperience}</span>
         </div>
     `;
 }
@@ -527,3 +550,120 @@ function getInlineSkills() {
         ]
     };
 }
+
+// ============================================
+// Skill Interactions (Modal Only)
+// ============================================
+
+let skillModal = null;
+
+// Initialize skill interactions after DOM is ready
+export function initSkillInteractions() {
+    // Create modal element if on skills page
+    if (document.querySelector('.skills-categories__grid')) {
+        createModalElement();
+        attachSkillItemListeners();
+    }
+}
+
+function createModalElement() {
+    if (skillModal) return; // Already created
+
+    skillModal = document.createElement('div');
+    skillModal.className = 'skill-modal';
+    skillModal.innerHTML = `
+        <div class="skill-modal__content">
+            <button class="skill-modal__close" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            <div class="skill-modal__header">
+                <i class="skill-modal__icon"></i>
+                <h3 class="skill-modal__title"></h3>
+            </div>
+            <div class="skill-modal__body">
+                <div class="skill-sidebar__level">
+                    <span class="skill-sidebar__level-label">Level</span>
+                    <span class="skill-sidebar__level-value"></span>
+                </div>
+                <div class="skill-sidebar__progress">
+                    <div class="skill-sidebar__progress-label">
+                        <span>Proficiency</span>
+                        <span class="skill-sidebar__progress-percentage"></span>
+                    </div>
+                    <div class="skill-sidebar__progress-bar-container">
+                        <div class="skill-sidebar__progress-bar"></div>
+                    </div>
+                </div>
+                <div class="skill-sidebar__experience">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    <span class="skill-sidebar__experience-text"></span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(skillModal);
+
+    // Close modal listeners
+    skillModal.querySelector('.skill-modal__close').addEventListener('click', hideSkillModal);
+    skillModal.addEventListener('click', (e) => {
+        if (e.target === skillModal) hideSkillModal();
+    });
+}
+
+function attachSkillItemListeners() {
+    // Re-attach listeners after DOM updates
+    const skillItems = document.querySelectorAll('.skill-item');
+
+    skillItems.forEach(item => {
+        // Remove old listeners by cloning (prevents duplicates)
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+
+        // All devices: Click to open modal
+        newItem.addEventListener('click', () => {
+            const skillData = JSON.parse(newItem.getAttribute('data-skill'));
+            showSkillModal(skillData);
+        });
+    });
+}
+
+function showSkillModal(skillData) {
+    if (!skillModal) return;
+
+    // Populate modal content (reuses sidebar classes)
+    skillModal.querySelector('.skill-modal__icon').className = `skill-modal__icon ${skillData.icon}`;
+    skillModal.querySelector('.skill-modal__title').textContent = skillData.name;
+    skillModal.querySelector('.skill-sidebar__level-value').textContent = skillData.levelLabel;
+    skillModal.querySelector('.skill-sidebar__progress-percentage').textContent = Math.round(skillData.proficiency) + '%';
+    skillModal.querySelector('.skill-sidebar__progress-bar').style.width = skillData.proficiency + '%';
+    skillModal.querySelector('.skill-sidebar__experience-text').textContent = skillData.experience;
+
+    // Show modal
+    skillModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+}
+
+function hideSkillModal() {
+    if (!skillModal) return;
+    skillModal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scroll
+}
+
+// Re-attach listeners when language changes or content updates
+window.addEventListener('languageChanged', () => {
+    setTimeout(attachSkillItemListeners, 100);
+});
+
+// Re-attach listeners on window resize (for responsive behavior)
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(attachSkillItemListeners, 300);
+});
