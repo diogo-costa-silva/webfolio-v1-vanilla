@@ -1,6 +1,6 @@
 // Skills Module - Modular and data-driven like projects.js
 
-import { getCurrentLanguage } from './language.js';
+import { getCurrentLanguage } from '../core/language.js';
 
 let translations = {};
 

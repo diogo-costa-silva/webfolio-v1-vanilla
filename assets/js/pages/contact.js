@@ -1,6 +1,6 @@
 // Contact Module
 
-import { getCurrentLanguage } from './language.js';
+import { getCurrentLanguage } from '../core/language.js';
 
 let translations = {};
 

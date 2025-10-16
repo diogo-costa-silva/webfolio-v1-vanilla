@@ -88,21 +88,24 @@ diogo-costa-silva.github.io/
 │   │       ├── resume.css            # Resume page
 │   │       └── 404.css               # 404 error page
 │   ├── js/
-│   │   ├── main.js                   # Entry point, orchestrator
-│   │   ├── color.js                  # Color theme system
-│   │   ├── theme.js                  # Dark/light mode
-│   │   ├── language.js               # PT/EN switcher
-│   │   ├── navigation.js             # Header behavior
-│   │   ├── footer.js                 # Footer setup
-│   │   ├── animations.js             # Scroll observers
-│   │   ├── back-to-top.js            # Back to top button
-│   │   ├── modal.js                  # Modal system
-│   │   ├── hero.js                   # Homepage hero (typewriter)
-│   │   ├── projects.js               # Project filtering/display
-│   │   ├── github-api.js             # GitHub integration
-│   │   ├── skills.js                 # Skills rendering
-│   │   ├── contact.js                # Contact form
-│   │   └── testimonials.js           # Testimonials carousel
+│   │   ├── core/                     # Global utilities & system
+│   │   │   ├── main.js              # Entry point, orchestrator
+│   │   │   ├── color.js             # Color theme system
+│   │   │   ├── theme.js             # Dark/light mode
+│   │   │   └── language.js          # PT/EN switcher
+│   │   ├── components/               # Reusable UI components
+│   │   │   ├── navigation.js        # Header behavior
+│   │   │   ├── footer.js            # Footer setup
+│   │   │   ├── animations.js        # Scroll observers
+│   │   │   ├── back-to-top.js       # Back to top button
+│   │   │   └── modal.js             # Modal system
+│   │   └── pages/                    # Page-specific logic
+│   │       ├── hero.js              # Homepage hero (typewriter)
+│   │       ├── projects.js          # Project filtering/display
+│   │       ├── github-api.js        # GitHub integration
+│   │       ├── skills.js            # Skills rendering
+│   │       ├── contact.js           # Contact form
+│   │       └── testimonials.js      # Testimonials carousel
 │   └── images/
 ├── data/
 │   ├── skills.json                   # Skills database
@@ -269,12 +272,15 @@ The project uses **native ES6 modules** (`type="module"`), eliminating the need 
 #### Import/Export Example
 
 ```javascript
-// language.js
+// core/language.js
 export function getCurrentLanguage() { ... }
 export function setLanguage(lang) { ... }
 
-// main.js
+// core/main.js
 import { getCurrentLanguage } from './language.js';
+
+// pages/projects.js
+import { getCurrentLanguage } from '../core/language.js';
 ```
 
 **Benefits:**

@@ -1,6 +1,6 @@
 // Hero Module - Typewriter effects and scroll indicator
 
-import { getCurrentLanguage } from './language.js';
+import { getCurrentLanguage } from '../core/language.js';
 
 let translations = {};
 let currentTypewriterInterval = null;

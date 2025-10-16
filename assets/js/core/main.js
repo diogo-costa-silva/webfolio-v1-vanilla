@@ -1,17 +1,17 @@
 // Main Application Module
-import { initHeader } from './navigation.js';
-import { initFooter } from './footer.js';
+import { initHeader } from '../components/navigation.js';
+import { initFooter } from '../components/footer.js';
 import { initColor } from './color.js';
 import { initTheme } from './theme.js';
 import { initLanguage } from './language.js';
-import { initAnimations } from './animations.js';
-import { initHero } from './hero.js';
-import { initProjects } from './projects.js';
-import { initContact } from './contact.js';
-import { initSkills } from './skills.js';
-import { initTestimonials } from './testimonials.js';
-import { initBackToTop } from './back-to-top.js';
-import { initModals } from './modal.js';
+import { initAnimations } from '../components/animations.js';
+import { initHero } from '../pages/hero.js';
+import { initProjects } from '../pages/projects.js';
+import { initContact } from '../pages/contact.js';
+import { initSkills } from '../pages/skills.js';
+import { initTestimonials } from '../pages/testimonials.js';
+import { initBackToTop } from '../components/back-to-top.js';
+import { initModals } from '../components/modal.js';
 
 // Initialize app when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {

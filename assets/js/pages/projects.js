@@ -1,6 +1,6 @@
 // Projects Module
 
-import { getCurrentLanguage } from './language.js';
+import { getCurrentLanguage } from '../core/language.js';
 import { getRecentProjects, enrichProjectsWithGitHubData } from './github-api.js';
 
 let translations = {};
