@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to GitHub Pages repository
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          TARGET_REPO: diogo-costa-silva/diogo-costa-silva.github.io
+        run: |
+          echo "Deploying to ${TARGET_REPO}..."
+
+          # Clone target repository
+          git clone https://x-access-token:${DEPLOY_TOKEN}@github.com/${TARGET_REPO}.git pages-repo
+
+          # Remove old content (except .git and .github)
+          cd pages-repo
+          shopt -s dotglob
+          for file in *; do
+            if [[ "$file" != ".git" ]]; then
+              rm -rf "$file"
+            fi
+          done
+
+          # Copy new content from source
+          cp -r ../* . 2>/dev/null || true
+          cp -r ../.[!.]* . 2>/dev/null || true
+
+          # Remove source repository workflows (not needed in Pages repo)
+          rm -rf .github/workflows/deploy-from-source.yml
+
+          # Keep only the Pages workflow if it exists
+          if [ -d ".github/workflows" ]; then
+            # If workflows dir exists, keep only static.yml
+            find .github/workflows -type f ! -name 'static.yml' -delete
+          fi
+
+          # Show what changed
+          git status
+
+          # Commit and push if there are changes
+          git add -A
+          if git diff-staged --quiet; then
+            echo "No changes to deploy"
+          else
+            SOURCE_COMMIT=$(git -C .. rev-parse --short HEAD)
+            SOURCE_MESSAGE=$(git -C .. log -1 --pretty=%B)
+            git commit -m "Deploy from webfolio-v1-vanilla @ ${SOURCE_COMMIT}
+
+${SOURCE_MESSAGE}
+
+Deployed by GitHub Actions"
+            git push origin main
+            echo "Successfully deployed to ${TARGET_REPO}"
+          fi
