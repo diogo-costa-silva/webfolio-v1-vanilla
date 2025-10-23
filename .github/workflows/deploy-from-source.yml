@@ -15,58 +15,64 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: diogo-costa-silva/diogo-costa-silva.github.io
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          path: pages-repo
+          fetch-depth: 0
 
       - name: Deploy to GitHub Pages repository
         env:
-          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           TARGET_REPO: diogo-costa-silva/diogo-costa-silva.github.io
         run: |
+          set -euo pipefail
+
+          # Validate DEPLOY_TOKEN exists
+          if [ -z "${{ secrets.DEPLOY_TOKEN }}" ]; then
+            echo "Error: DEPLOY_TOKEN secret is not set"
+            exit 1
+          fi
+
           echo "Deploying to ${TARGET_REPO}..."
 
-          # Clone target repository
-          git clone https://x-access-token:${DEPLOY_TOKEN}@github.com/${TARGET_REPO}.git pages-repo
-
-          # Remove old content (except .git and .github)
+          # Configure git in target repo
           cd pages-repo
-          shopt -s dotglob
-          for file in *; do
-            if [[ "$file" != ".git" ]]; then
-              rm -rf "$file"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Remove all content except .git directory
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+
+          # Copy all content from source (except .git and pages-repo directory itself)
+          cd ..
+          shopt -s dotglob nullglob
+          for item in *; do
+            if [[ "$item" != "pages-repo" && "$item" != ".git" ]]; then
+              cp -r "$item" pages-repo/
             fi
           done
 
-          # Copy new content from source
-          cp -r ../* . 2>/dev/null || true
-          cp -r ../.[!.]* . 2>/dev/null || true
+          cd pages-repo
 
-          # Remove source repository workflows (not needed in Pages repo)
-          rm -rf .github/workflows/deploy-from-source.yml
-
-          # Keep only the Pages workflow if it exists
+          # Keep only static.yml workflow in target repo
           if [ -d ".github/workflows" ]; then
-            # If workflows dir exists, keep only static.yml
             find .github/workflows -type f ! -name 'static.yml' -delete
           fi
 
           # Show what changed
+          echo "Changes to be deployed:"
           git status
 
           # Commit and push if there are changes
           git add -A
-          if git diff-staged --quiet; then
+          if git diff --staged --quiet; then
             echo "No changes to deploy"
           else
             SOURCE_COMMIT=$(git -C .. rev-parse --short HEAD)
-            SOURCE_MESSAGE=$(git -C .. log -1 --pretty=%B)
-            git commit -m "Deploy from webfolio-v1-vanilla @ ${SOURCE_COMMIT}
-
-${SOURCE_MESSAGE}
-
-Deployed by GitHub Actions"
+            SOURCE_MESSAGE=$(git -C .. log -1 --pretty=%s)
+            git commit -m "Deploy from webfolio-v1-vanilla @ ${SOURCE_COMMIT}: ${SOURCE_MESSAGE}"
             git push origin main
             echo "Successfully deployed to ${TARGET_REPO}"
           fi

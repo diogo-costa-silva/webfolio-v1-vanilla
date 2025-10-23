@@ -64,6 +64,58 @@ gh run view <run-id>
 
 ## Architecture
 
+### Deployment Architecture
+
+This repository is part of a **source → deploy** architecture:
+
+```
+┌────────────────────────────┐
+│  webfolio-v1-vanilla       │  Source Repository (this is where development happens)
+│  github.com/diogo-costa-   │
+│  silva/webfolio-v1-vanilla │
+│                            │
+│  • All source code         │
+│  • Development history     │
+│  • GitHub Actions workflow │
+└─────────────┬──────────────┘
+              │
+              │ Automated deployment via GitHub Actions
+              │ Triggers on: push to main
+              │
+              ▼
+┌────────────────────────────┐
+│  diogo-costa-silva.        │  Deployment Repository (GitHub Pages target)
+│  github.io                 │
+│                            │
+│  • Receives deployed code  │
+│  • Clean deployment history│
+│  • Serves GitHub Pages     │
+└────────────────────────────┘
+              │
+              │
+              ▼
+     https://diogo-costa-silva.github.io
+```
+
+**Key Points:**
+- **Source repo:** `webfolio-v1-vanilla` - All development work happens here
+- **Deploy repo:** `diogo-costa-silva.github.io` - Only receives automated deployments
+- **Workflow:** `.github/workflows/deploy-from-source.yml` handles deployment
+- **Authentication:** Uses Personal Access Token stored in `DEPLOY_TOKEN` secret
+- **Future flexibility:** Easy to switch to different tech stack (create `webfolio-v2-react` and point workflow there)
+
+**Versioning Strategy:**
+- `webfolio-v0-jekyll` - Original Jekyll template (archived)
+- `webfolio-v1-vanilla` - Current: Pure HTML/CSS/JS built from scratch
+- `webfolio-v2-react` - Future: Potential React version
+- `webfolio-v3-nextjs` - Future: Potential Next.js version
+
+To switch deployment source, simply:
+1. Create new version repo (e.g., `webfolio-v2-react`)
+2. Add same `DEPLOY_TOKEN` secret
+3. Add same workflow file pointing to `diogo-costa-silva.github.io`
+4. Deploy repo automatically receives new content
+
 ### Core Design Philosophy
 
 **Trade-off:** ~1000 lines of duplicated HTML (header/footer across 7 pages) in exchange for zero build complexity.
@@ -259,19 +311,34 @@ All design tokens in `assets/css/variables.css`:
 
 ## GitHub Actions Deployment
 
-Workflow: `.github/workflows/static.yml`
+### Current Deployment Model (Post-Migration)
 
-Triggers:
-- Every push to `main`
-- Manual dispatch via Actions tab
+**This repository (`diogo-costa-silva.github.io`) is a deployment target, not a source.**
 
-Steps:
-1. Checkout code
-2. Setup Pages
-3. Upload artifact (entire repo)
-4. Deploy to GitHub Pages
+Deployment flow:
+1. **Developer pushes to:** `webfolio-v1-vanilla` repository
+2. **GitHub Actions runs in:** `webfolio-v1-vanilla` (workflow: `deploy-from-source.yml`)
+3. **Workflow deploys to:** This repository (`diogo-costa-silva.github.io`)
+4. **GitHub Pages serves from:** This repository automatically
 
-Deployment time: 30-60 seconds
+**Workflow file location:** `webfolio-v1-vanilla/.github/workflows/deploy-from-source.yml`
+
+**This repo's workflow:** `.github/workflows/static.yml` (standard GitHub Pages workflow)
+- Triggers automatically when content is pushed by the source workflow
+- No manual intervention needed
+
+### Legacy Deployment Model (Pre-Migration)
+
+Before migration, this repository contained both source and deployment:
+- Workflow: `.github/workflows/static.yml`
+- Triggered on every push to `main` in this repo
+- Deployed directly to GitHub Pages
+
+### Deployment Time
+
+End-to-end deployment: 60-90 seconds
+- Source workflow: 30-45 seconds (clone, copy, push)
+- Pages deployment: 30-45 seconds (build, deploy)
 
 ## Important Constraints
 
