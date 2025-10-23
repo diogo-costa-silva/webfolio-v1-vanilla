@@ -202,10 +202,7 @@ git config user.email "your-email@example.com"
 git add -A
 
 # Commit
-git commit -m "chore: initial commit for webfolio-v1-vanilla source repository
-
-Migrating from monolithic repo to source → deploy architecture.
-This repo will be the source of truth for development."
+git commit -m "chore: initial commit for webfolio-v1-vanilla source repository"
 
 # Push to new remote (this will NOT trigger deployment yet - secret is not configured)
 git push -u origin main
