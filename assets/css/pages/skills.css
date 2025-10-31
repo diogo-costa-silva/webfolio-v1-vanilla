@@ -29,27 +29,11 @@
     animation: fadeInUp 0.6s ease-out backwards;
 }
 
-/* Top border animation on hover */
-.skill-category::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
-    transform: scaleX(0);
-    transition: transform var(--transition-base);
-}
-
 .skill-category:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: var(--primary-300);
-}
-
-.skill-category:hover::before {
-    transform: scaleX(1);
+    border-width: 3px;
 }
 
 /* Category header - matches homepage preview */

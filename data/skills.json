@@ -8,38 +8,38 @@
       "skills": [
         {
           "name": "Python",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
+          "featured": false
         },
         {
           "name": "JavaScript",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "3+ years",
-          "featured": false
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~1-2 years",
+          "featured": true
         },
         {
           "name": "HTML",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
-          "featured": false
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~1-2 years",
+          "featured": true
         },
         {
           "name": "CSS",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
-          "featured": false
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~1-2 years",
+          "featured": true
         },
         {
           "name": "SQL",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
+          "featured": false
         }
       ]
     },
@@ -51,51 +51,51 @@
       "skills": [
         {
           "name": "Pandas",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
+          "featured": false
         },
         {
           "name": "NumPy",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
+          "featured": false
         },
         {
           "name": "Matplotlib",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "5+ years",
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~1 year",
           "featured": false
         },
         {
           "name": "Seaborn",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~1 year",
           "featured": false
         },
         {
           "name": "Streamlit",
           "level": 3,
           "levelLabel": "Intermediate",
-          "experience": "2+ years",
-          "featured": false
-        },
-        {
-          "name": "Jupyter Notebooks",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
+          "experience": "~1 year",
           "featured": true
         },
         {
-          "name": "Scikit-learn",
+          "name": "Jupyter Notebooks",
           "level": 3,
           "levelLabel": "Intermediate",
-          "experience": "3+ years",
+          "experience": "~1-2 years",
+          "featured": false
+        },
+        {
+          "name": "Scikit-learn",
+          "level": 1,
+          "levelLabel": "Beginner",
+          "experience": "Learning",
           "featured": false
         }
       ]
@@ -108,72 +108,72 @@
       "skills": [
         {
           "name": "Apache Spark/PySpark",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "5+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
+          "featured": false
         },
         {
           "name": "Hadoop",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "HDFS",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "Hive",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "Cloudera Data Platform",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "3+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "Parquet",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 1,
+          "levelLabel": "Beginner",
+          "experience": "Learning",
           "featured": false
         },
         {
           "name": "Delta Lake",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "2+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "PostgreSQL",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "5+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
+          "featured": false
         },
         {
           "name": "MongoDB",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "2+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "SQL Server",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         }
       ]
@@ -186,58 +186,58 @@
       "skills": [
         {
           "name": "Microsoft Azure",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "5+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
+          "featured": false
         },
         {
           "name": "Azure Data Factory",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 1,
+          "levelLabel": "Beginner",
+          "experience": "Learning",
           "featured": false
         },
         {
           "name": "Azure Data Lake Storage",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 1,
+          "levelLabel": "Beginner",
+          "experience": "Learning",
           "featured": false
         },
         {
           "name": "Linux",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~2 years",
           "featured": true
         },
         {
           "name": "Docker",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
+          "featured": false
         },
         {
           "name": "Kubernetes",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "2+ years",
+          "level": 1,
+          "levelLabel": "Beginner",
+          "experience": "Learning",
           "featured": false
         },
         {
           "name": "Terraform",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "5+ years",
-          "featured": true
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
+          "featured": false
         },
         {
           "name": "Ansible",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         }
       ]
@@ -250,44 +250,44 @@
       "skills": [
         {
           "name": "Git",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1-2 years",
           "featured": true
         },
         {
           "name": "GitHub",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "6+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1-2 years",
           "featured": true
         },
         {
           "name": "GitHub Actions",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "3+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "Jenkins",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "2+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "VS Code",
-          "level": 5,
-          "levelLabel": "Expert",
-          "experience": "5+ years",
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~2 years",
           "featured": false
         },
         {
           "name": "Bash",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "5+ years",
+          "level": 3,
+          "levelLabel": "Intermediate",
+          "experience": "~2 years",
           "featured": false
         }
       ]
@@ -300,30 +300,30 @@
       "skills": [
         {
           "name": "Node.js",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "2+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "FastAPI",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "2+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "<1 year",
           "featured": false
         },
         {
           "name": "Flask",
-          "level": 3,
-          "levelLabel": "Intermediate",
-          "experience": "3+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
           "featured": false
         },
         {
           "name": "REST APIs",
-          "level": 4,
-          "levelLabel": "Advanced",
-          "experience": "4+ years",
+          "level": 2,
+          "levelLabel": "Elementary",
+          "experience": "~1 year",
           "featured": false
         }
       ]

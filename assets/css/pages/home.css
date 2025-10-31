@@ -192,26 +192,11 @@
     position: relative;
 }
 
-.category-preview-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary-400), var(--primary-600));
-    transform: scaleX(0);
-    transition: transform var(--transition-base);
-}
-
 .category-preview-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
     border-color: var(--primary-300);
-}
-
-.category-preview-card:hover::before {
-    transform: scaleX(1);
+    border-width: 3px;
 }
 
 .category-preview__header {
