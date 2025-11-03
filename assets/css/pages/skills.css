@@ -88,41 +88,40 @@
 /* Skills list - responsive grid showing all skills */
 .skill-category__skills {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-sm);
     margin-top: var(--space-sm);
     padding-top: var(--space-md);
     border-top: 1px solid var(--border-color);
 }
 
-/* Skill item - with always visible info */
+/* Skill item - horizontal compact card layout */
 .skill-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    text-align: center;
     gap: var(--space-md);
-    padding: var(--space-lg);
+    padding: var(--space-md);
     border-radius: var(--radius-md);
-    transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+    transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
     cursor: pointer;
     position: relative;
-    background: transparent;
-    border: 1px solid transparent;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
 }
 
 .skill-item:hover {
-    transform: translateY(-2px);
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
-    box-shadow: var(--shadow-sm);
+    transform: translateX(4px);
+    background: var(--bg-primary);
+    border-color: var(--primary-300);
+    box-shadow: var(--shadow-md);
 }
 
-/* Technology icon */
+/* Technology icon - smaller for compact layout */
 .skill-item__icon {
-    font-size: 48px;
-    width: 56px;
-    height: 56px;
+    font-size: 32px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,28 +129,129 @@
     transition: transform var(--transition-fast);
 }
 
+/* Custom SVG icon (for official logos) - smaller for compact layout */
+.skill-item__icon--custom {
+    font-size: inherit;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Skill content wrapper - contains name, progress, and experience */
+.skill-item__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+    min-width: 0;
+}
+
+/* =================================================================
+   THEME-AWARE ICON STYLING
+   Icons adapt to light/dark theme for optimal visibility
+   ================================================================= */
+
+/* Simple Icons (white by default) - Invert for light theme */
+.skill-item__icon[class*="si-"] {
+    filter: invert(1);
+    transition: filter var(--transition-fast);
+}
+
+[data-theme="dark"] .skill-item__icon[class*="si-"] {
+    filter: invert(0);
+}
+
+/* Font Awesome solid icons - Color based on theme */
+.skill-item__icon.fa-solid {
+    color: var(--text-primary);
+    transition: color var(--transition-fast);
+}
+
+[data-theme="dark"] .skill-item__icon.fa-solid {
+    color: var(--text-tertiary);
+}
+
+/* DevIcon colored icons - Default (no filter) */
+.skill-item__icon[class*="devicon-"][class*="colored"],
+.skill-item__icon[class*="devicon-"][class*="original"] {
+    /* No filter by default - icons are already colored */
+}
+
+/* =================================================================
+   SPECIFIC ICON CONTRAST FIXES
+   Some DevIcon colored icons are too dark/light for certain themes
+   ================================================================= */
+
+/* Dark DevIcon icons that need brightness boost in light theme */
+.skill-item__icon.devicon-bash-plain,
+.skill-item__icon.devicon-linux-plain,
+.skill-item__icon.devicon-ansible-plain,
+.skill-item__icon.devicon-flask-original,
+.skill-item__icon.devicon-github-original,
+.skill-item__icon.devicon-jenkins-line {
+    /* Light theme: add brightness and slight contrast */
+    filter: brightness(0.7) contrast(1.2);
+    transition: filter var(--transition-fast);
+}
+
+[data-theme="dark"] .skill-item__icon.devicon-bash-plain,
+[data-theme="dark"] .skill-item__icon.devicon-linux-plain,
+[data-theme="dark"] .skill-item__icon.devicon-ansible-plain,
+[data-theme="dark"] .skill-item__icon.devicon-flask-original,
+[data-theme="dark"] .skill-item__icon.devicon-github-original,
+[data-theme="dark"] .skill-item__icon.devicon-jenkins-line {
+    /* Dark theme: increase brightness for visibility */
+    filter: brightness(1.4) contrast(1.1);
+}
+
+/* Simple Icons that need enhanced contrast */
+.skill-item__icon.si-cloudera,
+.skill-item__icon.si-numpy,
+.skill-item__icon.si-githubactions {
+    /* Light theme: invert to black with good contrast */
+    filter: invert(1) brightness(0.8);
+    transition: filter var(--transition-fast);
+}
+
+[data-theme="dark"] .skill-item__icon.si-cloudera,
+[data-theme="dark"] .skill-item__icon.si-numpy,
+[data-theme="dark"] .skill-item__icon.si-githubactions {
+    /* Dark theme: keep white but add brightness */
+    filter: invert(0) brightness(1.3);
+}
+
 .skill-item:hover .skill-item__icon {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* Skill name */
+/* Skill name - compact horizontal layout */
 .skill-item__name {
-    font-size: var(--text-base);
-    font-weight: var(--font-medium);
-    color: var(--text-secondary);
-    line-height: 1.3;
-    width: 100%;
-    margin-top: 2px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Mini progress bar - always visible */
+/* Progress and experience row - horizontal layout */
+.skill-item__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+/* Mini progress bar - compact horizontal inline */
 .skill-item__progress-mini {
-    width: 100%;
-    height: 4px;
+    flex: 1;
+    height: 6px;
     background: var(--bg-tertiary);
     border-radius: var(--radius-sm);
     overflow: hidden;
     position: relative;
+    min-width: 60px;
 }
 
 [data-theme="dark"] .skill-item__progress-mini {
@@ -165,16 +265,17 @@
     transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Experience badge - always visible */
+/* Experience badge - compact inline */
 .skill-item__experience {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: var(--font-medium);
     color: var(--text-tertiary);
     line-height: 1;
-    padding: 4px 8px;
+    padding: 3px 6px;
     background: var(--bg-tertiary);
     border-radius: var(--radius-sm);
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 [data-theme="dark"] .skill-item__experience {
@@ -281,6 +382,37 @@
 
 [data-theme="dark"] .skill-modal__icon {
     background: rgba(30, 136, 229, 0.1);
+}
+
+/* Apply same icon contrast fixes to modal icons */
+.skill-modal__icon.devicon-bash-plain,
+.skill-modal__icon.devicon-linux-plain,
+.skill-modal__icon.devicon-ansible-plain,
+.skill-modal__icon.devicon-flask-original,
+.skill-modal__icon.devicon-github-original,
+.skill-modal__icon.devicon-jenkins-line {
+    filter: brightness(0.7) contrast(1.2);
+}
+
+[data-theme="dark"] .skill-modal__icon.devicon-bash-plain,
+[data-theme="dark"] .skill-modal__icon.devicon-linux-plain,
+[data-theme="dark"] .skill-modal__icon.devicon-ansible-plain,
+[data-theme="dark"] .skill-modal__icon.devicon-flask-original,
+[data-theme="dark"] .skill-modal__icon.devicon-github-original,
+[data-theme="dark"] .skill-modal__icon.devicon-jenkins-line {
+    filter: brightness(1.4) contrast(1.1);
+}
+
+.skill-modal__icon.si-cloudera,
+.skill-modal__icon.si-numpy,
+.skill-modal__icon.si-githubactions {
+    filter: invert(1) brightness(0.8);
+}
+
+[data-theme="dark"] .skill-modal__icon.si-cloudera,
+[data-theme="dark"] .skill-modal__icon.si-numpy,
+[data-theme="dark"] .skill-modal__icon.si-githubactions {
+    filter: invert(0) brightness(1.3);
 }
 
 .skill-modal__title {
@@ -567,47 +699,152 @@
 .skill-category:nth-child(5) { animation-delay: 0.5s; }
 .skill-category:nth-child(6) { animation-delay: 0.6s; }
 
-/* Responsive */
+/* =================================================================
+   RESPONSIVE DESIGN - MOBILE-FIRST APPROACH
+   Base styles = Mobile, then progressive enhancement
+   Breakpoints: 640px (large mobile), 768px (tablet), 1024px (desktop)
+   ================================================================= */
 
-/* Desktop - Enhanced modal experience */
-@media (min-width: 1025px) {
-    .skill-modal__content {
-        max-width: 600px;
-    }
+/* BASE STYLES - MOBILE (0-639px) */
+/* These apply to all screen sizes unless overridden */
+
+/* Mobile: Single column layout */
+.skills-categories__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
 }
 
-/* Tablet - Adjust grid */
-@media (max-width: 1024px) {
+.skill-category {
+    padding: var(--space-md);
+}
+
+.skill-category__icon {
+    font-size: 36px;
+    width: 52px;
+    height: 52px;
+}
+
+.skill-category__title {
+    font-size: var(--text-lg);
+}
+
+.skill-category__description {
+    font-size: 14px; /* Accessibility minimum */
+}
+
+/* Mobile: Single column for skill items */
+.skill-category__skills {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+}
+
+/* Mobile: Compact horizontal cards */
+.skill-item {
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+}
+
+.skill-item__icon {
+    font-size: 28px;
+    width: 32px;
+    height: 32px;
+}
+
+.skill-item__icon--custom {
+    width: 32px;
+    height: 32px;
+}
+
+.skill-item__name {
+    font-size: 14px; /* Accessibility minimum - increased from 13px */
+}
+
+.skill-item__progress-mini {
+    min-width: 50px;
+    height: 6px; /* Increased from 5px for better visibility */
+}
+
+.skill-item__experience {
+    font-size: 10px; /* Increased from 9px */
+    padding: 3px 6px;
+}
+
+/* Mobile: Full screen modal */
+.skill-modal {
+    padding: 0;
+}
+
+.skill-modal__content {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    padding: var(--space-xl);
+}
+
+.skill-modal__header {
+    padding-right: var(--space-2xl);
+}
+
+.skill-modal__icon {
+    font-size: 48px;
+    width: 56px;
+    height: 56px;
+}
+
+.certifications__grid {
+    grid-template-columns: 1fr;
+}
+
+/* LARGE MOBILE (640px+) - Allow 2 columns where space permits */
+@media (min-width: 640px) {
     .skill-category__skills {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: var(--space-md);
     }
 
-    .skill-modal__content {
-        max-width: 550px;
+    .skill-item {
+        padding: var(--space-md);
     }
 
-    .skill-modal__icon {
-        font-size: 48px;
-        width: 56px;
-        height: 56px;
+    .skill-item__icon {
+        font-size: 32px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .skill-item__icon--custom {
+        width: 36px;
+        height: 36px;
+    }
+
+    .skill-item__name {
+        font-size: 14px;
+    }
+
+    .skill-item__experience {
+        font-size: 10px;
+    }
+
+    /* Modal with some margin */
+    .skill-modal {
+        padding: var(--space-md);
+    }
+
+    .skill-modal__content {
+        max-width: 90%;
+        border-radius: var(--radius-lg);
     }
 }
 
-/* Mobile - Hide sidebar, use modal instead */
-@media (max-width: 768px) {
+/* TABLET (768px+) - 2-3 columns, better spacing */
+@media (min-width: 768px) {
     .skills-categories__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: var(--space-xl);
     }
 
     .skill-category {
         padding: var(--space-lg);
-    }
-
-    .skill-category__header {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: var(--space-md);
     }
 
     .skill-category__icon {
@@ -616,13 +853,14 @@
         height: 56px;
     }
 
-    .skill-category__skills {
-        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-        gap: var(--space-sm);
+    .skill-category__description {
+        font-size: 14px;
     }
 
-    .skill-item {
-        padding: var(--space-xs);
+    /* Tablet: 2-3 skill columns */
+    .skill-category__skills {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: var(--space-md);
     }
 
     .skill-item__icon {
@@ -631,55 +869,66 @@
         height: 40px;
     }
 
+    .skill-item__icon--custom {
+        width: 40px;
+        height: 40px;
+    }
+
     .skill-item__name {
-        font-size: 10px;
-    }
-
-    .skill-item__experience {
-        font-size: 9px;
-        padding: 1px 4px;
-    }
-
-    /* Modal full screen on mobile */
-    .skill-modal {
-        padding: 0;
+        font-size: var(--text-sm);
     }
 
     .skill-modal__content {
-        max-width: 100%;
-        max-height: 100vh;
-        border-radius: 0;
-        padding: var(--space-xl);
-    }
-
-    .skill-modal__header {
-        padding-right: var(--space-2xl);
-    }
-
-    .skill-modal__icon {
-        font-size: 48px;
-        width: 56px;
-        height: 56px;
+        max-width: 550px;
     }
 
     .certifications__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .skill-card__techs {
-        justify-content: center;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 }
 
-@media (max-width: 480px) {
+/* DESKTOP (1024px+) - Optimal 3-4 columns */
+@media (min-width: 1024px) {
+    .skills-categories__grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .skill-category {
+        padding: var(--space-xl);
+    }
+
+    .skill-category__icon {
+        font-size: 48px;
+        width: 64px;
+        height: 64px;
+    }
+
+    .skill-category__description {
+        font-size: var(--text-sm);
+    }
+
+    /* Desktop: 3-4 skill columns */
     .skill-category__skills {
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-        gap: var(--space-xs);
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .skill-item {
+        padding: var(--space-md);
+        gap: var(--space-md);
     }
 
     .skill-item__icon {
         font-size: 32px;
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .skill-item__icon--custom {
+        width: 40px;
+        height: 40px;
+    }
+
+    .skill-modal__content {
+        max-width: 600px;
     }
 }
