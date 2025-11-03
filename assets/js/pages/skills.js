@@ -225,6 +225,15 @@ function renderSkillItem(skill) {
     // Calculate progress percentage (level is 1-5, convert to 0-100%)
     const progressPercentage = (skill.level / 5) * 100;
 
+    // Check if this is a custom SVG icon
+    const isCustomIcon = iconClass.startsWith('custom-icon:');
+    const iconPath = isCustomIcon ? iconClass.replace('custom-icon:', '') : iconClass;
+
+    // Generate appropriate icon HTML
+    const iconHtml = isCustomIcon
+        ? `<img src="${iconPath}" class="skill-item__icon skill-item__icon--custom" alt="${skill.name} logo" loading="lazy">`
+        : `<i class="skill-item__icon ${iconClass}"></i>`;
+
     // Store full skill data as JSON for JS access
     const skillData = JSON.stringify({
         name: skill.name,
@@ -238,12 +247,16 @@ function renderSkillItem(skill) {
     return `
         <div class="skill-item"
              data-skill='${skillData}'>
-            <i class="skill-item__icon ${iconClass}"></i>
-            <span class="skill-item__name">${skill.name}</span>
-            <div class="skill-item__progress-mini">
-                <div class="skill-item__progress-bar" style="width: ${progressPercentage}%"></div>
+            ${iconHtml}
+            <div class="skill-item__content">
+                <span class="skill-item__name">${skill.name}</span>
+                <div class="skill-item__meta">
+                    <div class="skill-item__progress-mini">
+                        <div class="skill-item__progress-bar" style="width: ${progressPercentage}%"></div>
+                    </div>
+                    <span class="skill-item__experience">${translatedExperience}</span>
+                </div>
             </div>
-            <span class="skill-item__experience">${translatedExperience}</span>
         </div>
     `;
 }
@@ -269,59 +282,63 @@ function renderDots(level) {
 }
 
 function getIconClass(skillName) {
-    // Map skill names to DevIcon classes
+    // Map skill names to icon classes from multiple libraries
+    // DevIcon: devicon-*
+    // Simple Icons: si si-*
+    // Font Awesome: fa-solid fa-*
     const iconMap = {
-        // Languages & Core
-        'Python': 'devicon-python-plain colored',
-        'JavaScript': 'devicon-javascript-plain colored',
-        'Bash': 'devicon-bash-plain',
-        'HTML': 'devicon-html5-plain colored',
-        'CSS': 'devicon-css3-plain colored',
-        'SQL': 'devicon-azuresqldatabase-plain colored',
+        // Cloud Platforms & Services
+        'Microsoft Azure': 'devicon-azure-plain colored',
+        'Azure Data Factory': 'fa-solid fa-diagram-project',
+        'Azure Data Lake Storage': 'fa-solid fa-box-archive',
 
-        // Data Science & Visualization
-        'Pandas': 'devicon-pandas-plain colored',
-        'NumPy': 'devicon-numpy-plain colored',
-        'Matplotlib': 'devicon-matplotlib-plain colored',
-        'Seaborn': 'devicon-python-plain colored',
-        'Streamlit': 'devicon-streamlit-plain colored',
-        'Jupyter Notebooks': 'devicon-jupyter-plain colored',
-        'Scikit-learn': 'devicon-scikitlearn-plain colored',
+        // Infrastructure as Code & Automation
+        'Terraform': 'devicon-terraform-plain colored',
+        'Ansible': 'devicon-ansible-plain colored',
+        'Bash': 'devicon-bash-plain colored',
+        'Linux': 'devicon-linux-plain colored',
 
-        // Big Data Platforms
+        // Big Data Ecosystem
         'Apache Spark/PySpark': 'devicon-apachespark-plain colored',
         'Hadoop': 'devicon-hadoop-plain colored',
-        'HDFS': 'devicon-hadoop-plain colored',
-        'Hive': 'devicon-apache-plain colored',
-        'Cloudera Data Platform': 'devicon-hadoop-plain colored',
-        'Parquet': 'devicon-apache-plain colored',
-        'Delta Lake': 'devicon-azure-plain colored',
+        'HDFS': 'custom-icon:assets/icons/custom/hdfs.svg',
+        'Hive': 'custom-icon:assets/icons/custom/hive.svg',
+        'Cloudera Data Platform': 'si si-cloudera',
+
+        // Databases & Storage
         'PostgreSQL': 'devicon-postgresql-plain colored',
         'MongoDB': 'devicon-mongodb-plain colored',
         'SQL Server': 'devicon-microsoftsqlserver-plain colored',
 
-        // Cloud & Infrastructure
-        'Microsoft Azure': 'devicon-azure-plain colored',
-        'Azure Data Factory': 'devicon-azure-plain colored',
-        'Azure Data Lake Storage': 'devicon-azure-plain colored',
-        'Linux': 'devicon-linux-plain',
+        // Data Science & Analytics
+        'Python': 'devicon-python-plain colored',
+        'Pandas': 'devicon-pandas-plain colored',
+        'NumPy': 'si si-numpy',
+        'Matplotlib': 'devicon-matplotlib-plain colored',
+        'Seaborn': 'custom-icon:assets/icons/custom/seaborn.svg',
+        'Streamlit': 'devicon-streamlit-plain colored',
+        'Jupyter Notebooks': 'devicon-jupyter-plain colored',
+        'Scikit-learn': 'devicon-scikitlearn-plain colored',
+
+        // Programming & Development
+        'JavaScript': 'devicon-javascript-plain colored',
+        'HTML': 'devicon-html5-plain colored',
+        'CSS': 'devicon-css3-plain colored',
+        'SQL': 'fa-solid fa-database',
+        'Node.js': 'devicon-nodejs-plain colored',
+
+        // DevOps & CI/CD
+        'Git': 'devicon-git-plain colored',
+        'GitHub': 'devicon-github-original colored',
+        'GitHub Actions': 'si si-githubactions',
+        'Jenkins': 'devicon-jenkins-line colored',
         'Docker': 'devicon-docker-plain colored',
         'Kubernetes': 'devicon-kubernetes-plain colored',
-        'Terraform': 'devicon-terraform-plain colored',
-        'Ansible': 'devicon-ansible-plain colored',
 
-        // DevOps & Version Control
-        'Git': 'devicon-git-plain colored',
-        'GitHub': 'devicon-github-original',
-        'GitHub Actions': 'devicon-githubactions-plain',
-        'Jenkins': 'devicon-jenkins-plain colored',
-        'VS Code': 'devicon-vscode-plain colored',
-
-        // Backend & APIs
-        'Node.js': 'devicon-nodejs-plain colored',
+        // APIs & Backend Frameworks
         'FastAPI': 'devicon-fastapi-plain colored',
-        'Flask': 'devicon-flask-original',
-        'REST APIs': 'devicon-postman-plain colored'
+        'Flask': 'devicon-flask-original colored',
+        'REST APIs': 'fa-solid fa-cloud'
     };
 
     return iconMap[skillName] || 'devicon-code-plain';
