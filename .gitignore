@@ -3,3 +3,6 @@ CLAUDE.md
 /tasks
 
 .mcp.json
+.claude/settings.json
+docs/claude-tooling-setup.md
+docs/claude-workflows.md
