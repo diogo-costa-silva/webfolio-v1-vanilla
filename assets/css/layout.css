@@ -103,8 +103,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: var(--radius-md);
     color: var(--text-secondary);
     transition: background-color var(--transition-fast), color var(--transition-fast);
@@ -135,8 +135,8 @@
 /* Mobile Menu Toggle - MOBILE FIRST */
 .mobile-menu-toggle {
     display: flex; /* Visível por defeito (mobile) */
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-md);
@@ -193,6 +193,8 @@
     top: var(--header-height);
     left: 0;
     right: 0;
+    height: calc(100dvh - var(--header-height)); /* full-height overlay; dvh handles the mobile URL bar */
+    overflow-y: auto;
     background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
     padding: var(--space-lg) 0;
@@ -215,7 +217,16 @@
 .nav--mobile .nav__list {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    min-height: 100%;
     gap: var(--space-lg);
+}
+
+.nav--mobile .nav__link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-lg);
 }
 
 /* Footer */
@@ -344,7 +355,7 @@ main {
 }
 
 /* TABLET & MOBILE: Até 1024px manter comportamento mobile */
-@media (max-width: 1024px) {
+@media (max-width: 1023.98px) {
     /* Nav desktop escondida, hamburger visível - já definido por defeito */
 
     .footer__content {
@@ -373,8 +384,8 @@ main {
     }
 
     .header__button {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
     }
 }
 
