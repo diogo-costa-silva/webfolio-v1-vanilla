@@ -156,5 +156,65 @@
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/scenic-routes-simple",
       "isReal": true
     }
+  ],
+  "roadmap": [
+    {
+      "id": 1,
+      "title": "N2 Digital Passport",
+      "problem": "The physical Nacional 2 passport is easily damaged or lost, lacks real-time GPS stamp verification, and cannot showcase local recommendations dynamically.",
+      "why": "A modern mobile experience to replace the physical N2 passport, letting roadtrippers log stops, view local attractions, and share their journey.",
+      "category": "mobile",
+      "technologies": [
+        "react-native",
+        "expo",
+        "mapbox",
+        "supabase"
+      ],
+      "status": "planned",
+      "horizon": "next",
+      "target": "Q3 2026",
+      "link": "#",
+      "featured": true,
+      "isReal": false
+    },
+    {
+      "id": 2,
+      "title": "Agroturismo Mirandela Website",
+      "problem": "Trás-os-Montes agrotourism properties lack high-quality, modern booking websites that effectively convey local culture and traditional vibes while enabling direct payment.",
+      "why": "A fast, SEO-optimized website showcasing a Mirandela estate, regional traditions, and integrating direct bookings/payments.",
+      "category": "web",
+      "technologies": [
+        "nextjs",
+        "react",
+        "tailwind",
+        "stripe",
+        "seo"
+      ],
+      "status": "planned",
+      "horizon": "next",
+      "target": "Q4 2026",
+      "link": "#",
+      "featured": true,
+      "isReal": false
+    },
+    {
+      "id": 3,
+      "title": "Mini Golf Scorecard & Tracker",
+      "problem": "Tracking scores during mini-golf matches with friends is tedious on paper, and there is no unified profile to keep a history of visited courses.",
+      "why": "A gamified mobile application for logging scores, tracking visited courses, and offering future integrations/deals with local venues.",
+      "category": "mobile",
+      "technologies": [
+        "react-native",
+        "expo",
+        "supabase",
+        "gamification"
+      ],
+      "status": "idea",
+      "horizon": "later",
+      "target": null,
+      "link": "#",
+      "featured": false,
+      "isReal": false
+    }
   ]
 }
