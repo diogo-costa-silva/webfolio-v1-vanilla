@@ -1,6 +1,6 @@
 // Contact Module
 
-import { getCurrentLanguage } from '../core/language.js';
+import { getCurrentLanguage, getTranslationsData } from '../core/language.js';
 
 let translations = {};
 
@@ -15,8 +15,7 @@ export function initContact() {
 
 async function loadTranslations() {
     try {
-        const response = await fetch('data/translations.json', { cache: 'no-cache' });
-        const data = await response.json();
+        const data = await getTranslationsData();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
     } catch (error) {

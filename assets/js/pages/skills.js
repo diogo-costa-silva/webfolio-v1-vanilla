@@ -1,6 +1,6 @@
 // Skills Module - Modular and data-driven like projects.js
 
-import { getCurrentLanguage } from '../core/language.js';
+import { getCurrentLanguage, getTranslationsData } from '../core/language.js';
 
 let translations = {};
 
@@ -9,8 +9,7 @@ export function initSkills() {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', loadSkills);
     } else {
-        // Add a small delay to ensure all elements are rendered
-        setTimeout(loadSkills, 50);
+        loadSkills();
     }
 
     // Listen for language changes and re-render
@@ -21,8 +20,7 @@ export function initSkills() {
 
 async function loadTranslations() {
     try {
-        const response = await fetch('data/translations.json', { cache: 'no-cache' });
-        const data = await response.json();
+        const data = await getTranslationsData();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
     } catch (error) {
@@ -42,7 +40,7 @@ async function loadSkills() {
 
     try {
         // Load from JSON file
-        const response = await fetch('data/skills.json', { cache: 'no-cache' });
+        const response = await fetch('/data/skills.json');
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -56,27 +54,13 @@ async function loadSkills() {
 
         if (categoriesGrid) {
             renderSkillsPage(data.categories, categoriesGrid);
-            // Initialize interactions after rendering
-            setTimeout(() => {
-                initSkillInteractions();
-            }, 100);
+            initSkillInteractions();
         }
     } catch (error) {
-        // Fallback to inline data
-        console.error('Error loading skills.json:', error.message);
-        const fallbackData = getInlineSkills();
-
-        if (skillsGrid) {
-            renderHomepageSkills(fallbackData.categories, skillsGrid);
-        }
-
-        if (categoriesGrid) {
-            renderSkillsPage(fallbackData.categories, categoriesGrid);
-            // Initialize interactions after rendering
-            setTimeout(() => {
-                initSkillInteractions();
-            }, 100);
-        }
+        console.error('Error loading skills:', error);
+        const msg = translations['skills.loadError'] || "Couldn't load skills. Please try again later.";
+        if (skillsGrid) skillsGrid.innerHTML = `<p class="grid-message">${msg}</p>`;
+        if (categoriesGrid) categoriesGrid.innerHTML = `<p class="grid-message">${msg}</p>`;
     }
 }
 
@@ -269,17 +253,6 @@ function translateExperience(experience) {
     return experience.replace(/years/gi, yearsWord);
 }
 
-function renderDots(level) {
-    const totalDots = 5;
-    let dots = '';
-
-    for (let i = 1; i <= totalDots; i++) {
-        const filled = i <= level ? 'skill-item__dot--filled' : '';
-        dots += `<span class="skill-item__dot ${filled}"></span>`;
-    }
-
-    return dots;
-}
 
 function getIconClass(skillName) {
     // Map skill names to icon classes from multiple libraries
@@ -345,228 +318,6 @@ function getIconClass(skillName) {
 }
 
 // Fallback inline data
-function getInlineSkills() {
-    return {
-        categories: [
-            {
-                id: "cloud-infrastructure",
-                name: "Cloud & Infrastructure",
-                icon: "☁️",
-                description: "Cloud platforms and infrastructure automation",
-                skills: [
-                    {
-                        name: "Microsoft Azure",
-                        level: 85,
-                        experience: "4+ years",
-                        techs: ["Data Lake", "HDInsight", "Data Factory"],
-                        featured: true
-                    },
-                    {
-                        name: "Terraform",
-                        level: 90,
-                        experience: "5+ years",
-                        techs: ["IaC", "Cloud Automation"],
-                        featured: true
-                    },
-                    {
-                        name: "Docker",
-                        level: 85,
-                        experience: "4+ years",
-                        techs: ["Containers", "Docker Compose"],
-                        featured: false
-                    },
-                    {
-                        name: "Linux",
-                        level: 90,
-                        experience: "6+ years",
-                        techs: ["Ubuntu", "CentOS", "Bash"],
-                        featured: true
-                    }
-                ]
-            },
-            {
-                id: "big-data",
-                name: "Big Data & Analytics",
-                icon: "📊",
-                description: "Large-scale data processing and analytics platforms",
-                skills: [
-                    {
-                        name: "Apache Spark",
-                        level: 85,
-                        experience: "4+ years",
-                        techs: ["PySpark", "Spark SQL", "Spark Streaming"],
-                        featured: true
-                    },
-                    {
-                        name: "Databricks",
-                        level: 80,
-                        experience: "3+ years",
-                        techs: ["Delta Lake", "Unity Catalog", "Notebooks"],
-                        featured: true
-                    },
-                    {
-                        name: "Hadoop Ecosystem",
-                        level: 75,
-                        experience: "3+ years",
-                        techs: ["HDFS", "Hive", "HBase", "Impala"],
-                        featured: false
-                    },
-                    {
-                        name: "Cloudera Platform",
-                        level: 80,
-                        experience: "3+ years",
-                        techs: ["CDP", "HDP", "Ranger", "Hue"],
-                        featured: false
-                    }
-                ]
-            },
-            {
-                id: "programming",
-                name: "Programming & Development",
-                icon: "💻",
-                description: "Programming languages and development frameworks",
-                skills: [
-                    {
-                        name: "Python",
-                        level: 90,
-                        experience: "6+ years",
-                        techs: ["Pandas", "NumPy", "FastAPI", "Jupyter"],
-                        featured: true
-                    },
-                    {
-                        name: "SQL & Databases",
-                        level: 85,
-                        experience: "5+ years",
-                        techs: ["T-SQL", "MySQL", "PostgreSQL", "Query Optimization"],
-                        featured: false
-                    },
-                    {
-                        name: "JavaScript",
-                        level: 75,
-                        experience: "3+ years",
-                        techs: ["Node.js", "ES6+", "REST APIs"],
-                        featured: false
-                    },
-                    {
-                        name: "Shell Scripting",
-                        level: 85,
-                        experience: "5+ years",
-                        techs: ["Bash", "PowerShell", "Zsh"],
-                        featured: false
-                    }
-                ]
-            },
-            {
-                id: "data-engineering",
-                name: "Data Engineering",
-                icon: "⚙️",
-                description: "Data pipelines and ETL/ELT processes",
-                skills: [
-                    {
-                        name: "ETL/ELT Pipelines",
-                        level: 85,
-                        experience: "4+ years",
-                        techs: ["Apache Airflow", "Data Factory", "Custom Python"],
-                        featured: false
-                    },
-                    {
-                        name: "Data Processing",
-                        level: 80,
-                        experience: "4+ years",
-                        techs: ["Pandas", "PySpark", "Stream Processing"],
-                        featured: false
-                    },
-                    {
-                        name: "Data Modeling",
-                        level: 75,
-                        experience: "3+ years",
-                        techs: ["Dimensional Modeling", "Star Schema", "Data Vault"],
-                        featured: false
-                    },
-                    {
-                        name: "Data Quality",
-                        level: 80,
-                        experience: "3+ years",
-                        techs: ["Great Expectations", "Data Validation", "Testing"],
-                        featured: false
-                    }
-                ]
-            },
-            {
-                id: "devops",
-                name: "DevOps & Automation",
-                icon: "🔄",
-                description: "CI/CD, automation, and operational excellence",
-                skills: [
-                    {
-                        name: "CI/CD",
-                        level: 80,
-                        experience: "4+ years",
-                        techs: ["GitHub Actions", "Jenkins", "GitLab CI"],
-                        featured: false
-                    },
-                    {
-                        name: "Version Control",
-                        level: 90,
-                        experience: "6+ years",
-                        techs: ["Git", "GitHub", "Git Flow"],
-                        featured: false
-                    },
-                    {
-                        name: "Monitoring & Logging",
-                        level: 75,
-                        experience: "3+ years",
-                        techs: ["Prometheus", "Grafana", "ELK Stack"],
-                        featured: false
-                    },
-                    {
-                        name: "Automation",
-                        level: 85,
-                        experience: "5+ years",
-                        techs: ["Ansible", "Python Scripts", "Cron Jobs"],
-                        featured: false
-                    }
-                ]
-            },
-            {
-                id: "databases",
-                name: "Databases & Storage",
-                icon: "🗄️",
-                description: "Relational, NoSQL, and data storage solutions",
-                skills: [
-                    {
-                        name: "Relational Databases",
-                        level: 85,
-                        experience: "5+ years",
-                        techs: ["SQL Server", "MySQL", "PostgreSQL"],
-                        featured: false
-                    },
-                    {
-                        name: "NoSQL",
-                        level: 70,
-                        experience: "2+ years",
-                        techs: ["MongoDB", "HBase", "Document Stores"],
-                        featured: false
-                    },
-                    {
-                        name: "Data Lakes",
-                        level: 80,
-                        experience: "3+ years",
-                        techs: ["Azure Data Lake", "Delta Lake", "Parquet"],
-                        featured: false
-                    },
-                    {
-                        name: "Database Design",
-                        level: 75,
-                        experience: "4+ years",
-                        techs: ["Normalization", "Indexing", "Performance Tuning"],
-                        featured: false
-                    }
-                ]
-            }
-        ]
-    };
-}
 
 // ============================================
 // Skill Interactions (Modal Only)
@@ -575,12 +326,29 @@ function getInlineSkills() {
 let skillModal = null;
 
 // Initialize skill interactions after DOM is ready
+let interactionsInitialized = false;
+
 export function initSkillInteractions() {
-    // Create modal element if on skills page
-    if (document.querySelector('.skills-categories__grid')) {
-        createModalElement();
-        attachSkillItemListeners();
-    }
+    if (!document.querySelector('.skills-categories__grid')) return;
+    createModalElement();
+    if (interactionsInitialized) return;
+    interactionsInitialized = true;
+
+    // Event delegation: one listener handles all current and future skill items
+    document.addEventListener('click', (e) => {
+        const item = e.target.closest('.skill-item');
+        if (!item || !item.hasAttribute('data-skill')) return;
+        try {
+            showSkillModal(JSON.parse(item.getAttribute('data-skill')));
+        } catch (err) {
+            console.warn('Malformed skill data:', err);
+        }
+    });
+
+    // Escape closes the modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') hideSkillModal();
+    });
 }
 
 function createModalElement() {
@@ -634,23 +402,6 @@ function createModalElement() {
     });
 }
 
-function attachSkillItemListeners() {
-    // Re-attach listeners after DOM updates
-    const skillItems = document.querySelectorAll('.skill-item');
-
-    skillItems.forEach(item => {
-        // Remove old listeners by cloning (prevents duplicates)
-        const newItem = item.cloneNode(true);
-        item.parentNode.replaceChild(newItem, item);
-
-        // All devices: Click to open modal
-        newItem.addEventListener('click', () => {
-            const skillData = JSON.parse(newItem.getAttribute('data-skill'));
-            showSkillModal(skillData);
-        });
-    });
-}
-
 function showSkillModal(skillData) {
     if (!skillModal) return;
 
@@ -673,14 +424,3 @@ function hideSkillModal() {
     document.body.style.overflow = ''; // Restore scroll
 }
 
-// Re-attach listeners when language changes or content updates
-window.addEventListener('languageChanged', () => {
-    setTimeout(attachSkillItemListeners, 100);
-});
-
-// Re-attach listeners on window resize (for responsive behavior)
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(attachSkillItemListeners, 300);
-});
