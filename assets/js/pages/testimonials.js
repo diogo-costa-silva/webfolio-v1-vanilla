@@ -5,6 +5,7 @@ export function initTestimonials() {
     if (!carousel) return;
 
     const cards = carousel.querySelectorAll('.testimonial-card');
+    if (!cards.length) return; // nothing to rotate; avoids cards[index]/%0 errors
     const dots = document.querySelectorAll('.testimonial-dot');
     const prevBtn = document.querySelector('.testimonial-control--prev');
     const nextBtn = document.querySelector('.testimonial-control--next');

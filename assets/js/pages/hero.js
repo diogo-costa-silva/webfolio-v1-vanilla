@@ -1,6 +1,6 @@
 // Hero Module - Typewriter effects and scroll indicator
 
-import { getCurrentLanguage } from '../core/language.js';
+import { getCurrentLanguage, getTranslationsData } from '../core/language.js';
 
 let translations = {};
 let currentTypewriterInterval = null;
@@ -17,8 +17,7 @@ export function initHero() {
 
 async function loadTranslationsAndInit() {
     try {
-        const response = await fetch('data/translations.json', { cache: 'no-cache' });
-        const data = await response.json();
+        const data = await getTranslationsData();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
     } catch (error) {

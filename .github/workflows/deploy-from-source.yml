@@ -37,6 +37,17 @@ jobs:
 
           echo "Deploying to ${TARGET_REPO}..."
 
+          # Safety net: never wipe production unless the source build looks complete.
+          # If any required page is missing or empty, abort BEFORE touching the target repo.
+          REQUIRED_FILES="index.html about.html projects.html skills.html resume.html contact.html 404.html"
+          for f in ${REQUIRED_FILES}; do
+            if [ ! -s "$f" ]; then
+              echo "Error: required source file '$f' is missing or empty — aborting deploy to protect production."
+              exit 1
+            fi
+          done
+          echo "Source sanity check passed (${REQUIRED_FILES})."
+
           # Configure git in target repo
           cd pages-repo
           git config user.name "github-actions[bot]"

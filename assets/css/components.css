@@ -239,7 +239,7 @@
 /* Projects Grid - Auto-responsive (auto-fit) */
 .projects__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
     gap: var(--space-xl);
     justify-items: center;
 }
@@ -575,6 +575,7 @@
 .form-group select:focus {
     outline: none;
     border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.35);
 }
 
 .form-group textarea {
@@ -974,7 +975,7 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--transition-base);
-    z-index: 1000;
+    z-index: var(--z-dropdown);
 }
 
 .language-dropdown.active {
@@ -1127,23 +1128,23 @@
 }
 
 .color-indicator[data-color="blue"] {
-    background: #1e88e5;
+    background: var(--swatch-blue);
 }
 
 .color-indicator[data-color="red"] {
-    background: #e53935;
+    background: var(--swatch-red);
 }
 
 .color-indicator[data-color="green"] {
-    background: #43a047;
+    background: var(--swatch-green);
 }
 
 .color-indicator[data-color="orange"] {
-    background: #fb8c00;
+    background: var(--swatch-orange);
 }
 
 .color-indicator[data-color="yellow"] {
-    background: #fdd835;
+    background: var(--swatch-yellow);
 }
 
 .color-dropdown {
@@ -1163,7 +1164,7 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--transition-base);
-    z-index: 1000;
+    z-index: var(--z-dropdown);
 }
 
 .color-dropdown.active {
@@ -1202,23 +1203,23 @@
 }
 
 .color-circle--blue {
-    background: #1e88e5;
+    background: var(--swatch-blue);
 }
 
 .color-circle--red {
-    background: #e53935;
+    background: var(--swatch-red);
 }
 
 .color-circle--green {
-    background: #43a047;
+    background: var(--swatch-green);
 }
 
 .color-circle--orange {
-    background: #fb8c00;
+    background: var(--swatch-orange);
 }
 
 .color-circle--yellow {
-    background: #fdd835;
+    background: var(--swatch-yellow);
 }
 
 /* Mobile adjustments */
@@ -1879,4 +1880,49 @@
     .filter-dropdown__trigger {
         min-width: 140px;
     }
+}
+
+/* ---- Accessibility additions (audit 2026-06) ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: var(--z-tooltip, 1000);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 2px solid var(--primary-500);
+    border-radius: var(--radius-md);
+}
+.skip-link:focus {
+    left: var(--space-md);
+    top: var(--space-md);
+}
+
+[data-color="yellow"] .btn--primary {
+    color: #1a1a1a;
+}
+
+/* Empty/error message inside a grid */
+.grid-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-secondary);
+    padding: var(--space-2xl, 3rem) var(--space-md, 1rem);
+}
+
+/* Neutral badge (used by archived/idea statuses) */
+.badge--neutral {
+    background: rgba(127, 127, 127, 0.18);
+    color: var(--text-secondary);
 }

@@ -3,7 +3,8 @@ CLAUDE.md
 /tasks
 
 .mcp.json
-.claude/settings.json
+# Machine-local Claude settings stay local; the shared .claude/settings.json is committed.
+.claude/settings.local.json
 docs/claude-tooling-setup.md
 docs/claude-workflows.md
 

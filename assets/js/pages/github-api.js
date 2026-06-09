@@ -2,8 +2,11 @@
 // Handles fetching repository data with caching and error handling
 
 const CACHE_KEY = 'github_projects_cache';
+const ENRICH_CACHE_KEY = 'github_enriched_cache';
 const CACHE_DURATION = 3600000; // 1 hour in milliseconds
+const REQUEST_TIMEOUT = 8000;   // abort a hung GitHub request after 8s
 const GITHUB_API_BASE = 'https://api.github.com/repos';
+const DEBUG = false;            // flip to true for verbose console logging
 
 /**
  * Extracts owner and repo name from GitHub URL
@@ -38,8 +41,10 @@ async function fetchRepoData(githubUrl) {
         return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false };
     }
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
     try {
-        const response = await fetch(`${GITHUB_API_BASE}/${parsed.owner}/${parsed.repo}`);
+        const response = await fetch(`${GITHUB_API_BASE}/${parsed.owner}/${parsed.repo}`, { signal: controller.signal });
 
         // Handle rate limiting
         if (response.status === 403 || response.status === 429) {
@@ -66,8 +71,10 @@ async function fetchRepoData(githubUrl) {
             success: true
         };
     } catch (error) {
-        console.error(`Error fetching ${githubUrl}:`, error);
+        if (error.name !== 'AbortError') console.error(`Error fetching ${githubUrl}:`, error);
         return { stars: 0, watchers: 0, forks: 0, lastCommit: null, success: false };
+    } finally {
+        clearTimeout(timeoutId);
     }
 }
 
@@ -83,11 +90,11 @@ export async function enrichProjectsWithGitHubData(projects) {
     });
 
     if (projectsWithGitHub.length === 0) {
-        console.log('No projects with valid GitHub URLs found');
+        if (DEBUG) console.log('No projects with valid GitHub URLs found');
         return projects;
     }
 
-    console.log(`Fetching GitHub data for ${projectsWithGitHub.length} projects...`);
+    if (DEBUG) console.log(`Fetching GitHub data for ${projectsWithGitHub.length} projects...`);
 
     // Fetch all repos in parallel
     const promises = projectsWithGitHub.map(async project => {
@@ -114,6 +121,36 @@ export async function enrichProjectsWithGitHubData(projects) {
 }
 
 /**
+ * Projects-page enrichment with a 1-hour cache, so each visit doesn't re-hit
+ * the unauthenticated 60-req/hr GitHub budget (and the "Loading…" count resolves fast).
+ * @param {Array} projects
+ * @returns {Promise<Array>}
+ */
+export async function enrichProjectsWithGitHubDataCached(projects) {
+    try {
+        const cached = localStorage.getItem(ENRICH_CACHE_KEY);
+        if (cached) {
+            const { data, timestamp } = JSON.parse(cached);
+            if (Date.now() - timestamp < CACHE_DURATION) {
+                if (DEBUG) console.log('Using cached enriched projects');
+                return data;
+            }
+        }
+    } catch (error) {
+        if (DEBUG) console.warn('Enrich cache read failed:', error);
+    }
+
+    const enriched = await enrichProjectsWithGitHubData(projects);
+
+    try {
+        localStorage.setItem(ENRICH_CACHE_KEY, JSON.stringify({ data: enriched, timestamp: Date.now() }));
+    } catch (error) {
+        if (DEBUG) console.warn('Enrich cache write failed:', error);
+    }
+    return enriched;
+}
+
+/**
  * Gets cached project data if valid
  * @returns {object|null} - Cached data or null if expired/missing
  */
@@ -127,11 +164,11 @@ function getFromCache() {
 
         // Check if cache is still valid
         if (now - timestamp < CACHE_DURATION) {
-            console.log('Using cached GitHub data');
+            if (DEBUG) console.log('Using cached GitHub data');
             return data;
         }
 
-        console.log('Cache expired');
+        if (DEBUG) console.log('Cache expired');
         return null;
     } catch (error) {
         console.error('Error reading cache:', error);
@@ -150,7 +187,7 @@ function saveToCache(data) {
             timestamp: Date.now()
         };
         localStorage.setItem(CACHE_KEY, JSON.stringify(cacheObject));
-        console.log('GitHub data cached successfully');
+        if (DEBUG) console.log('GitHub data cached successfully');
     } catch (error) {
         console.error('Error saving to cache:', error);
     }
@@ -193,7 +230,7 @@ export async function getRecentProjects(projects, limit = 6) {
         console.error('Error fetching GitHub data:', error);
 
         // Fallback: return featured projects that are completed or in-progress
-        console.log('Using fallback: featured projects');
+        if (DEBUG) console.log('Using fallback: featured projects');
         return projects
             .filter(p => p.isReal && (p.status === 'completed' || p.status === 'in-progress' || p.status === 'active' || p.status === 'wip'))
             .slice(0, limit);
@@ -207,7 +244,7 @@ export async function getRecentProjects(projects, limit = 6) {
 export function clearCache() {
     try {
         localStorage.removeItem(CACHE_KEY);
-        console.log('GitHub cache cleared');
+        if (DEBUG) console.log('GitHub cache cleared');
     } catch (error) {
         console.error('Error clearing cache:', error);
     }

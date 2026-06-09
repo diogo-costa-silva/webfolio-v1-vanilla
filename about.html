@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="About Diogo Silva - Full-Stack Developer Journey">
     <meta name="author" content="Diogo Silva">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About - Diogo Silva">
+    <meta property="og:description" content="About Diogo Silva - Full-Stack Developer Journey">
+    <meta property="og:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <meta property="og:url" content="https://diogo-costa-silva.github.io/about.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About - Diogo Silva">
+    <meta name="twitter:description" content="About Diogo Silva - Full-Stack Developer Journey">
+    <meta name="twitter:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <link rel="canonical" href="https://diogo-costa-silva.github.io/about.html">
     <title>About - Diogo Silva</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
     <!-- CSS -->
+    <!-- Anti-FOUC: set theme/color before CSS to avoid a flash on load -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          document.documentElement.setAttribute('data-color', localStorage.getItem('primaryColor') || 'blue');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -26,6 +48,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a href="#main" class="skip-link" data-i18n="a11y.skip">Skip to content</a>
+
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -117,7 +141,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
@@ -131,7 +155,7 @@
             <div class="container">
                 <div class="about-content__grid">
                     <div class="about-content__image">
-                        <img src="assets/images/profile.png" alt="Diogo Silva" loading="lazy">
+                        <img src="assets/images/profile.jpg" alt="Diogo Silva" loading="lazy">
                     </div>
                     <div class="about-content__text">
                         <h2 data-i18n="about.myStory.title">My Story</h2>

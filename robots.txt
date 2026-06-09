@@ -1,7 +1,7 @@
-# robots.txt for https://dipedilans.github.io
+# robots.txt for https://diogo-costa-silva.github.io
 
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://dipedilans.github.io/sitemap.xml
+Sitemap: https://diogo-costa-silva.github.io/sitemap.xml

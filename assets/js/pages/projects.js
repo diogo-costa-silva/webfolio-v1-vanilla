@@ -1,9 +1,10 @@
 // Projects Module
 
-import { getCurrentLanguage } from '../core/language.js';
-import { getRecentProjects, enrichProjectsWithGitHubData } from './github-api.js';
+import { getCurrentLanguage, getTranslationsData } from '../core/language.js';
+import { getRecentProjects, enrichProjectsWithGitHubData, enrichProjectsWithGitHubDataCached } from './github-api.js';
 
 let translations = {};
+const DEBUG = false; // flip to true for verbose logging
 let allProjects = []; // Store all projects for filtering
 let filtersInitialized = false; // Prevent duplicate event listeners
 let techIconMap = {}; // Technology to DevIcon mapping (loaded from JSON)
@@ -27,7 +28,7 @@ async function loadTechIcons() {
     }
 
     try {
-        const response = await fetch('data/tech-icons.json', { cache: 'no-cache' });
+        const response = await fetch('/data/tech-icons.json');
         techIconMap = await response.json();
         return techIconMap;
     } catch (error) {
@@ -110,8 +111,7 @@ async function loadTranslationsAndProjects() {
     await loadTechIcons();
 
     try {
-        const response = await fetch('data/translations.json', { cache: 'no-cache' });
-        const data = await response.json();
+        const data = await getTranslationsData();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
     } catch (error) {
@@ -138,29 +138,36 @@ async function loadProjects() {
 
     try {
         // Try to load from JSON
-        const response = await fetch('data/projects.json', { cache: 'no-cache' });
+        const response = await fetch('/data/projects.json');
         const data = await response.json();
 
         if (isHomepage) {
             // Homepage: fetch 6 most recent projects from GitHub API
-            console.log('Loading recent projects for homepage...');
+            if (DEBUG) console.log('Loading recent projects for homepage...');
             const recentProjects = await getRecentProjects(data.projects, 6);
             projectsGrid.classList.remove('loading');
             renderProjects(recentProjects, projectsGrid);
         } else {
             // Projects page: enrich all projects with GitHub data and show them
-            console.log('Loading all projects for projects page...');
+            if (DEBUG) console.log('Loading all projects for projects page...');
             projectsGrid.classList.add('loading');
-            const enrichedProjects = await enrichProjectsWithGitHubData(data.projects);
+            const enrichedProjects = await enrichProjectsWithGitHubDataCached(data.projects);
             projectsGrid.classList.remove('loading');
             renderProjects(enrichedProjects, projectsGrid);
+            updateResultsCount(enrichedProjects.length); // resolve the "Loading…" count on initial render
+            const roadmapGrid = document.getElementById('roadmapGrid');
+            if (roadmapGrid && Array.isArray(data.roadmap)) {
+                renderRoadmap(data.roadmap, roadmapGrid);
+            }
         }
     } catch (error) {
-        // Graceful failure: render an empty grid instead of throwing
-        // (the old getInlineProjects() fallback was never defined → ReferenceError that blanked filters too).
+        // Graceful failure: show a visible message instead of a silent empty grid.
         console.error('Failed to load projects:', error);
         projectsGrid.classList.remove('loading');
-        renderProjects([], projectsGrid);
+        const msg = (translations && translations['projects.loadError']) || "Couldn't load projects. Please try again later.";
+        projectsGrid.innerHTML = `<p class="grid-message">${msg}</p>`;
+        const rc = document.getElementById('resultsCount');
+        if (rc) rc.textContent = '';
     }
 
     return Promise.resolve(); // Ensure promise is returned
@@ -203,10 +210,22 @@ function getStatusDisplayName(status) {
         'completed': 'projects.filter.done',
         'in-progress': 'projects.filter.inProgress',
         'planned': 'projects.filter.planned',
-        'archived': 'projects.filter.archived'
+        'archived': 'projects.filter.archived',
+        'idea': 'projects.filter.idea',
+        'building': 'projects.filter.building'
     };
     const key = statusMap[status];
     return key ? (translations[key] || humanizeSlug(status)) : humanizeSlug(status);
+}
+
+// Escape user/data-controlled strings before interpolating into innerHTML
+function escapeHtml(value) {
+    return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
 
 function getStatusBadge(status, isReal) {
@@ -216,7 +235,9 @@ function getStatusBadge(status, isReal) {
         'completed': isReal ? translations['status.real'] || 'REAL' : translations['status.completed'] || 'COMPLETED',
         'in-progress': translations['status.inProgress'] || 'IN PROGRESS',
         'planned': translations['status.planned'] || 'PLANNED',
-        'archived': translations['status.archived'] || 'ARCHIVED'
+        'archived': translations['status.archived'] || 'ARCHIVED',
+        'idea': translations['status.idea'] || 'IDEA',
+        'building': translations['status.building'] || 'BUILDING'
     };
 
     const badges = {
@@ -225,9 +246,11 @@ function getStatusBadge(status, isReal) {
         'completed': `<span class="badge badge--success">${statusText['completed']}</span>`,
         'in-progress': `<span class="badge badge--warning">${statusText['in-progress']}</span>`,
         'planned': `<span class="badge badge--info">${statusText['planned']}</span>`,
-        'archived': `<span class="badge badge--neutral">${statusText['archived']}</span>`
+        'archived': `<span class="badge badge--neutral">${statusText['archived']}</span>`,
+        'idea': `<span class="badge badge--neutral">${statusText['idea']}</span>`,
+        'building': `<span class="badge badge--warning">${statusText['building']}</span>`
     };
-    return badges[status] || `<span class="badge">${(status || '').toUpperCase()}</span>`;
+    return badges[status] || `<span class="badge">${escapeHtml((status || '').toUpperCase())}</span>`;
 }
 
 function getDifficultyIndicator(difficulty) {
@@ -354,6 +377,40 @@ function renderProjects(projects, container) {
     }
 }
 
+// Renders the roadmap (aspirational, unstarted ideas) emitted by the portfolio hub.
+function renderRoadmap(roadmap, container) {
+    if (!container) return;
+    if (!Array.isArray(roadmap) || roadmap.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+    const problemLabel = translations['roadmap.problem'] || 'Problem';
+    const whyLabel = translations['roadmap.why'] || 'Why';
+
+    container.innerHTML = roadmap.map(item => {
+        const categoryDisplayName = getCategoryDisplayName(item.category);
+        const statusBadge = getStatusBadge(item.status, item.isReal);
+        const techs = item.technologies || [];
+        return `
+        <div class="roadmap-card" data-horizon="${escapeHtml(item.horizon || '')}">
+            <div class="roadmap-card__header">
+                <span class="project-card__category">
+                    <span class="category-icon">${getCategoryIcon(item.category)}</span>
+                    <span>${categoryDisplayName}</span>
+                </span>
+                ${statusBadge}
+            </div>
+            <h3 class="roadmap-card__title">${escapeHtml(item.title)}</h3>
+            <p class="roadmap-card__line"><strong>${problemLabel}:</strong> ${escapeHtml(item.problem)}</p>
+            <p class="roadmap-card__line"><strong>${whyLabel}:</strong> ${escapeHtml(item.why)}</p>
+            <div class="roadmap-card__tags">
+                ${techs.slice(0, 6).map(t => `<span class="project-card__tag">${escapeHtml(t)}</span>`).join('')}
+            </div>
+        </div>
+        `;
+    }).join('');
+}
+
 function updateProjectCounts(allProjects) {
     const filterButtons = document.querySelectorAll('[data-filter]');
 
@@ -424,7 +481,7 @@ function initProjectFilters() {
                 }
             }
 
-            updateDropdownValue('categoryDropdown', category === 'all' ? 'All' : getCategoryDisplayName(category));
+            updateDropdownValue('categoryDropdown', category === 'all' ? (translations['projects.filter.all'] || 'All') : getCategoryDisplayName(category));
             applyFilters();
         });
     });
@@ -463,7 +520,7 @@ function initProjectFilters() {
                 }
             }
 
-            const displayText = status === 'all' ? 'All' : getStatusDisplayName(status);
+            const displayText = status === 'all' ? (translations['projects.filter.allStatus'] || 'All') : getStatusDisplayName(status);
             updateDropdownValue('statusDropdown', displayText);
             applyFilters();
         });
