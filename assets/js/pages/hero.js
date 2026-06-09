@@ -17,7 +17,7 @@ export function initHero() {
 
 async function loadTranslationsAndInit() {
     try {
-        const response = await fetch('data/translations.json');
+        const response = await fetch('data/translations.json', { cache: 'no-cache' });
         const data = await response.json();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
