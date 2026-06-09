@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Page Not Found - Diogo Silva">
     <meta name="author" content="Diogo Silva">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="404 - Page Not Found">
+    <meta property="og:description" content="Page Not Found - Diogo Silva">
+    <meta property="og:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <meta property="og:url" content="https://diogo-costa-silva.github.io/404.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="404 - Page Not Found">
+    <meta name="twitter:description" content="Page Not Found - Diogo Silva">
+    <meta name="twitter:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <meta name="robots" content="noindex">
     <title>404 - Page Not Found</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
     <!-- CSS -->
+    <!-- Anti-FOUC: set theme/color before CSS to avoid a flash on load -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          document.documentElement.setAttribute('data-color', localStorage.getItem('primaryColor') || 'blue');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -26,6 +48,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a href="#main" class="skip-link" data-i18n="a11y.skip">Skip to content</a>
+
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -117,32 +141,32 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <!-- 404 Content -->
         <section class="error-page">
             <div class="container">
                 <div class="error-page__content">
                     <h1 class="error-page__code">404</h1>
-                    <h2 class="error-page__title">Page Not Found</h2>
-                    <p class="error-page__text">Oops! The page you're looking for doesn't exist.</p>
+                    <h2 class="error-page__title" data-i18n="error.title">Page Not Found</h2>
+                    <p class="error-page__text" data-i18n="error.text">Oops! The page you're looking for doesn't exist.</p>
 
                     <div class="error-page__search">
-                        <input type="text" placeholder="Search for something..." class="search-input">
-                        <button class="btn btn--primary">Search</button>
+                        <input type="text" placeholder="Search for something..." class="search-input" data-i18n-placeholder="error.search.placeholder">
+                        <button class="btn btn--primary" data-i18n="error.search.button">Search</button>
                     </div>
 
                     <div class="error-page__actions">
-                        <a href="index.html" class="btn btn--primary">Go Home</a>
-                        <a href="projects.html" class="btn btn--secondary">View Projects</a>
+                        <a href="index.html" class="btn btn--primary" data-i18n="error.home">Go Home</a>
+                        <a href="projects.html" class="btn btn--secondary" data-i18n="error.projects">View Projects</a>
                     </div>
 
                     <div class="error-page__suggestions">
-                        <h3>Popular Pages:</h3>
+                        <h3 data-i18n="error.popular">Popular Pages:</h3>
                         <ul>
-                            <li><a href="about.html">About Me</a></li>
-                            <li><a href="skills.html">Skills</a></li>
-                            <li><a href="projects.html">Projects</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="about.html" data-i18n="error.about">About Me</a></li>
+                            <li><a href="skills.html" data-i18n="error.skills">Skills</a></li>
+                            <li><a href="projects.html" data-i18n="error.projectsLink">Projects</a></li>
+                            <li><a href="contact.html" data-i18n="error.contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -156,7 +180,7 @@
             <div class="footer__content">
                 <div class="footer__brand">
                     <div class="footer__logo">Diogo Silva</div>
-                    <p class="footer__tagline">Platform Engineer building robust infrastructure solutions</p>
+                    <p class="footer__tagline" data-i18n="footer.tagline">Platform Engineer building robust infrastructure solutions</p>
                     <div class="social-links">
                         <a href="https://github.com/diogo-costa-silva" target="_blank" aria-label="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

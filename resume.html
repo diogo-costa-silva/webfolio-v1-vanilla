@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Resume - Diogo Silva">
     <meta name="author" content="Diogo Silva">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Resume - Diogo Silva">
+    <meta property="og:description" content="Resume - Diogo Silva">
+    <meta property="og:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <meta property="og:url" content="https://diogo-costa-silva.github.io/resume.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Resume - Diogo Silva">
+    <meta name="twitter:description" content="Resume - Diogo Silva">
+    <meta name="twitter:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <link rel="canonical" href="https://diogo-costa-silva.github.io/resume.html">
     <title>Resume - Diogo Silva</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
     <!-- CSS -->
+    <!-- Anti-FOUC: set theme/color before CSS to avoid a flash on load -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          document.documentElement.setAttribute('data-color', localStorage.getItem('primaryColor') || 'blue');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -26,6 +48,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a href="#main" class="skip-link" data-i18n="a11y.skip">Skip to content</a>
+
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -117,7 +141,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
@@ -149,51 +173,51 @@
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
                                     <div>
-                                        <div class="resume__timeline-title">Platform Engineer</div>
-                                        <div class="resume__timeline-company">MC Digital (Sonae)</div>
+                                        <div class="resume__timeline-title" data-i18n="resume.exp1.title">Platform Engineer</div>
+                                        <div class="resume__timeline-company" data-i18n="resume.exp1.company">MC Digital (Sonae)</div>
                                     </div>
-                                    <div class="resume__timeline-date">September 2024 - Present</div>
+                                    <div class="resume__timeline-date" data-i18n="resume.exp1.date">September 2024 - Present</div>
                                 </div>
-                                <p class="resume__timeline-description">Managing cloud infrastructure and Big Data platforms for one of Portugal's largest retail operations through the Programa Contacto initiative.</p>
+                                <p class="resume__timeline-description" data-i18n="resume.exp1.desc">Managing cloud infrastructure and Big Data platforms for one of Portugal's largest retail operations through the Programa Contacto initiative.</p>
                                 <ul class="resume__timeline-achievements">
-                                    <li>Designing and implementing Infrastructure as Code using Terraform for Azure environments</li>
-                                    <li>Managing Linux systems and automating repetitive tasks with Ansible and Bash scripting</li>
-                                    <li>Configuring Big Data platforms including Hadoop, Databricks, and Cloudera</li>
-                                    <li>Providing technical support and solving complex infrastructure challenges</li>
-                                    <li>Ensuring security and compliance across all platform deployments</li>
+                                    <li data-i18n="resume.exp1.achievement1">Designing and implementing Infrastructure as Code using Terraform for Azure environments</li>
+                                    <li data-i18n="resume.exp1.achievement2">Managing Linux systems and automating repetitive tasks with Ansible and Bash scripting</li>
+                                    <li data-i18n="resume.exp1.achievement3">Configuring Big Data platforms including Hadoop, Databricks, and Cloudera</li>
+                                    <li data-i18n="resume.exp1.achievement4">Providing technical support and solving complex infrastructure challenges</li>
+                                    <li data-i18n="resume.exp1.achievement5">Ensuring security and compliance across all platform deployments</li>
                                 </ul>
                             </div>
 
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
                                     <div>
-                                        <div class="resume__timeline-title">Internship</div>
-                                        <div class="resume__timeline-company">Mozaboot</div>
+                                        <div class="resume__timeline-title" data-i18n="resume.exp2.title">Internship</div>
+                                        <div class="resume__timeline-company" data-i18n="resume.exp2.company">Mozaboot</div>
                                     </div>
-                                    <div class="resume__timeline-date">February 2024 - March 2024</div>
+                                    <div class="resume__timeline-date" data-i18n="resume.exp2.date">February 2024 - March 2024</div>
                                 </div>
-                                <p class="resume__timeline-description">Explored PHC ERP system architecture and researched AI module applications for business automation.</p>
+                                <p class="resume__timeline-description" data-i18n="resume.exp2.desc">Explored PHC ERP system architecture and researched AI module applications for business automation.</p>
                                 <ul class="resume__timeline-achievements">
-                                    <li>Analyzed ERP system architecture to identify integration opportunities</li>
-                                    <li>Researched AI module applications for business process automation</li>
-                                    <li>Collaborated with technical team to identify value propositions for enterprise clients</li>
+                                    <li data-i18n="resume.exp2.achievement1">Analyzed ERP system architecture to identify integration opportunities</li>
+                                    <li data-i18n="resume.exp2.achievement2">Researched AI module applications for business process automation</li>
+                                    <li data-i18n="resume.exp2.achievement3">Collaborated with technical team to identify value propositions for enterprise clients</li>
                                 </ul>
                             </div>
 
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
                                     <div>
-                                        <div class="resume__timeline-title">Research Grant</div>
-                                        <div class="resume__timeline-company">ISISE, University of Minho</div>
+                                        <div class="resume__timeline-title" data-i18n="resume.exp3.title">Research Grant</div>
+                                        <div class="resume__timeline-company" data-i18n="resume.exp3.company">ISISE, University of Minho</div>
                                     </div>
-                                    <div class="resume__timeline-date">February 2022 - June 2023</div>
+                                    <div class="resume__timeline-date" data-i18n="resume.exp3.date">February 2022 - June 2023</div>
                                 </div>
-                                <p class="resume__timeline-description">Built and managed a Hadoop cluster for the REV@CONSTRUCTION project, processing sensor data from road pavements.</p>
+                                <p class="resume__timeline-description" data-i18n="resume.exp3.desc">Built and managed a Hadoop cluster for the REV@CONSTRUCTION project, processing sensor data from road pavements.</p>
                                 <ul class="resume__timeline-achievements">
-                                    <li>Built and managed a Hadoop cluster for processing large-scale sensor data</li>
-                                    <li>Developed Python scripts for data ingestion and processing pipelines</li>
-                                    <li>Implemented Delta Lake architecture for reliable data storage</li>
-                                    <li>Automated file transfers between Windows and Linux systems</li>
+                                    <li data-i18n="resume.exp3.achievement1">Built and managed a Hadoop cluster for processing large-scale sensor data</li>
+                                    <li data-i18n="resume.exp3.achievement2">Developed Python scripts for data ingestion and processing pipelines</li>
+                                    <li data-i18n="resume.exp3.achievement3">Implemented Delta Lake architecture for reliable data storage</li>
+                                    <li data-i18n="resume.exp3.achievement4">Automated file transfers between Windows and Linux systems</li>
                                 </ul>
                             </div>
                         </div>
@@ -206,23 +230,23 @@
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
                                     <div>
-                                        <div class="resume__timeline-title">Integrated Master's Degree</div>
-                                        <div class="resume__timeline-company">University of Minho</div>
+                                        <div class="resume__timeline-title" data-i18n="resume.edu1.title">Integrated Master's Degree</div>
+                                        <div class="resume__timeline-company" data-i18n="resume.edu1.institution">University of Minho</div>
                                     </div>
-                                    <div class="resume__timeline-date">September 2016 - June 2023</div>
+                                    <div class="resume__timeline-date" data-i18n="resume.edu1.date">September 2016 - June 2023</div>
                                 </div>
-                                <p class="resume__timeline-description">Engineering and Management of Information Systems. Focused on distributed systems, data engineering, and software development. Developed strong foundations in both technical and management aspects of IT.</p>
+                                <p class="resume__timeline-description" data-i18n="resume.edu1.desc">Engineering and Management of Information Systems. Focused on distributed systems, data engineering, and software development. Developed strong foundations in both technical and management aspects of IT.</p>
                             </div>
 
                             <div class="resume__timeline-item">
                                 <div class="resume__timeline-header">
                                     <div>
-                                        <div class="resume__timeline-title">High School</div>
-                                        <div class="resume__timeline-company">Portuguese School of Mozambique</div>
+                                        <div class="resume__timeline-title" data-i18n="resume.edu2.title">High School</div>
+                                        <div class="resume__timeline-company" data-i18n="resume.edu2.institution">Portuguese School of Mozambique</div>
                                     </div>
-                                    <div class="resume__timeline-date">September 2013 - July 2016</div>
+                                    <div class="resume__timeline-date" data-i18n="resume.edu2.date">September 2013 - July 2016</div>
                                 </div>
-                                <p class="resume__timeline-description">Science and Technology track in Maputo, Mozambique. First exposure to programming and computer science, which sparked my passion for technology and problem-solving.</p>
+                                <p class="resume__timeline-description" data-i18n="resume.edu2.desc">Science and Technology track in Maputo, Mozambique. First exposure to programming and computer science, which sparked my passion for technology and problem-solving.</p>
                             </div>
                         </div>
                     </div>
@@ -259,7 +283,7 @@
             <div class="footer__content">
                 <div class="footer__brand">
                     <div class="footer__logo">Diogo Silva</div>
-                    <p class="footer__tagline">Platform Engineer building robust infrastructure solutions</p>
+                    <p class="footer__tagline" data-i18n="footer.tagline">Platform Engineer building robust infrastructure solutions</p>
                     <div class="social-links">
                         <a href="https://github.com/diogo-costa-silva" target="_blank" aria-label="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio Projects - Diogo Silva">
     <meta name="author" content="Diogo Silva">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Projects - Diogo Silva">
+    <meta property="og:description" content="Portfolio Projects - Diogo Silva">
+    <meta property="og:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <meta property="og:url" content="https://diogo-costa-silva.github.io/projects.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Projects - Diogo Silva">
+    <meta name="twitter:description" content="Portfolio Projects - Diogo Silva">
+    <meta name="twitter:image" content="https://diogo-costa-silva.github.io/assets/images/profile.jpg">
+    <link rel="canonical" href="https://diogo-costa-silva.github.io/projects.html">
     <title>Projects - Diogo Silva</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
     <!-- CSS -->
+    <!-- Anti-FOUC: set theme/color before CSS to avoid a flash on load -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          document.documentElement.setAttribute('data-color', localStorage.getItem('primaryColor') || 'blue');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -29,6 +51,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 </head>
 <body>
+    <a href="#main" class="skip-link" data-i18n="a11y.skip">Skip to content</a>
+
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -120,7 +144,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main">
         <!-- Page Hero -->
         <section class="page-hero">
             <div class="container">
@@ -156,7 +180,7 @@
                                 <rect x="3" y="14" width="7" height="7"></rect>
                             </svg>
                             <span class="filter-dropdown__label" data-i18n="projects.filter.categoryLabel">Category</span>
-                            <span class="filter-dropdown__value">All</span>
+                            <span class="filter-dropdown__value" data-i18n="projects.filter.all">All</span>
                             <svg class="filter-dropdown__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
@@ -173,7 +197,7 @@
                                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
                             <span class="filter-dropdown__label" data-i18n="projects.filter.statusLabel">Status</span>
-                            <span class="filter-dropdown__value">All</span>
+                            <span class="filter-dropdown__value" data-i18n="projects.filter.allStatus">All</span>
                             <svg class="filter-dropdown__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
@@ -231,6 +255,17 @@
                 </div>
             </div>
         </section>
+
+        <!-- Roadmap (ideas not started yet) -->
+        <section class="section roadmap-section">
+            <div class="container">
+                <h2 class="section__title" data-i18n="roadmap.title">Roadmap</h2>
+                <p class="section__subtitle" data-i18n="roadmap.subtitle">Ideas I'm planning to build next</p>
+                <div class="roadmap-grid" id="roadmapGrid">
+                    <!-- Roadmap cards added via JavaScript -->
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -239,7 +274,7 @@
             <div class="footer__content">
                 <div class="footer__brand">
                     <div class="footer__logo">Diogo Silva</div>
-                    <p class="footer__tagline">Platform Engineer building robust infrastructure solutions</p>
+                    <p class="footer__tagline" data-i18n="footer.tagline">Platform Engineer building robust infrastructure solutions</p>
                     <div class="social-links">
                         <a href="https://github.com/diogo-costa-silva" target="_blank" aria-label="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
