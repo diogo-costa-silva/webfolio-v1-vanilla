@@ -148,17 +148,16 @@ async function loadProjects() {
             projectsGrid.classList.remove('loading');
             renderProjects(recentProjects, projectsGrid);
         } else {
-            // Projects page: enrich all projects with GitHub data and show them
+            // Projects page: merge the roadmap ideas in as filterable, planned/idea-status
+            // cards (so they sit among the projects and the existing filters apply), then
+            // enrich the real ones with GitHub data.
             if (DEBUG) console.log('Loading all projects for projects page...');
             projectsGrid.classList.add('loading');
-            const enrichedProjects = await enrichProjectsWithGitHubDataCached(data.projects);
+            const all = [...data.projects, ...roadmapToProjects(data.roadmap)];
+            const enrichedProjects = await enrichProjectsWithGitHubDataCached(all);
             projectsGrid.classList.remove('loading');
             renderProjects(enrichedProjects, projectsGrid);
             updateResultsCount(enrichedProjects.length); // resolve the "Loading…" count on initial render
-            const roadmapGrid = document.getElementById('roadmapGrid');
-            if (roadmapGrid && Array.isArray(data.roadmap)) {
-                renderRoadmap(data.roadmap, roadmapGrid);
-            }
         }
     } catch (error) {
         // Graceful failure: show a visible message instead of a silent empty grid.
@@ -310,7 +309,9 @@ function renderProjects(projects, container) {
              data-real="${project.isReal || false}"
              data-technologies="${techList}">
             <div class="project-card__image-wrapper">
-                <img src="${project.image}" alt="${projectTitle}" class="project-card__image" loading="lazy">
+                ${project.image
+                    ? `<img src="${project.image}" alt="${escapeHtml(projectTitle)}" class="project-card__image" loading="lazy">`
+                    : `<div class="project-card__image project-card__image--placeholder">${getCategoryIcon(project.category)}</div>`}
                 ${statusBadge ? `<div class="project-card__status">${statusBadge}</div>` : ''}
             </div>
             <div class="project-card__content">
@@ -321,10 +322,10 @@ function renderProjects(projects, container) {
                     </span>
                     ${difficultyIndicator}
                 </div>
-                <h3 class="project-card__title">${projectTitle}</h3>
-                <p class="project-card__description">${projectDescription}</p>
+                <h3 class="project-card__title">${escapeHtml(projectTitle)}</h3>
+                <p class="project-card__description">${escapeHtml(projectDescription)}</p>
                 <div class="project-card__tags">
-                    ${techs.slice(0, 3).map(tag => `<span class="project-card__tag">${tag}</span>`).join('')}
+                    ${techs.slice(0, 3).map(tag => `<span class="project-card__tag">${escapeHtml(tag)}</span>`).join('')}
                 </div>
                 <div class="project-card__actions">
                     ${project.demo !== '#' ? `<a href="${project.demo}" class="btn btn--secondary" target="_blank" aria-label="View live demo">
@@ -377,38 +378,23 @@ function renderProjects(projects, container) {
     }
 }
 
-// Renders the roadmap (aspirational, unstarted ideas) emitted by the portfolio hub.
-function renderRoadmap(roadmap, container) {
-    if (!container) return;
-    if (!Array.isArray(roadmap) || roadmap.length === 0) {
-        container.innerHTML = '';
-        return;
-    }
-    const problemLabel = translations['roadmap.problem'] || 'Problem';
-    const whyLabel = translations['roadmap.why'] || 'Why';
-
-    container.innerHTML = roadmap.map(item => {
-        const categoryDisplayName = getCategoryDisplayName(item.category);
-        const statusBadge = getStatusBadge(item.status, item.isReal);
-        const techs = item.technologies || [];
-        return `
-        <div class="roadmap-card" data-horizon="${escapeHtml(item.horizon || '')}">
-            <div class="roadmap-card__header">
-                <span class="project-card__category">
-                    <span class="category-icon">${getCategoryIcon(item.category)}</span>
-                    <span>${categoryDisplayName}</span>
-                </span>
-                ${statusBadge}
-            </div>
-            <h3 class="roadmap-card__title">${escapeHtml(item.title)}</h3>
-            <p class="roadmap-card__line"><strong>${problemLabel}:</strong> ${escapeHtml(item.problem)}</p>
-            <p class="roadmap-card__line"><strong>${whyLabel}:</strong> ${escapeHtml(item.why)}</p>
-            <div class="roadmap-card__tags">
-                ${techs.slice(0, 6).map(t => `<span class="project-card__tag">${escapeHtml(t)}</span>`).join('')}
-            </div>
-        </div>
-        `;
-    }).join('');
+// Maps roadmap ideas into the project shape so they render inside the filterable grid
+// (planned/idea/building status, not "real", no demo/repo, no image → icon placeholder).
+function roadmapToProjects(roadmap) {
+    if (!Array.isArray(roadmap)) return [];
+    return roadmap.map(r => ({
+        id: `roadmap-${r.id}`,
+        title: r.title,
+        description: r.why || r.problem || '',
+        category: r.category,
+        technologies: r.technologies || [],
+        status: r.status,        // idea / planned / building
+        isReal: false,
+        demo: '#',
+        github: '#',
+        image: null,
+        difficulty: null
+    }));
 }
 
 function updateProjectCounts(allProjects) {

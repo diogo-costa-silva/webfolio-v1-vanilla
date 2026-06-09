@@ -53,12 +53,15 @@
   the 44px minimum; mobile nav links got an explicit 44px hit area.
 
 ### Added (cont.)
-- **Phase 6 — Roadmap:** the projects page now renders the `data.roadmap` ideas (which the
-  portfolio hub already emits) in a dedicated, distinct "Roadmap" section — dashed muted
-  cards with status badges (idea/planned/building), Problem/Why, and tech tags, reusing the
-  project-card patterns. Per the agreed design, **no speculative dates** are shown on
-  unstarted ideas. Added `renderRoadmap()`, an `escapeHtml()` helper, `.badge--neutral`, and
-  `roadmap.*` / `status.idea` / `status.building` keys (PT+EN).
+- **Phase 6 — Roadmap (integrated):** the `data.roadmap` ideas (emitted by the portfolio
+  hub) are now merged **into the main projects grid** as regular, **filterable** cards with a
+  `planned`/`idea`/`building` status badge — so they sit among the projects and the existing
+  Category/Status/Technology filters apply (you can filter to just "Planned"). They render
+  with an icon placeholder (no repo image), an "Em Breve"/"Soon" button (no demo/repo), and
+  **no speculative dates**. Added `roadmapToProjects()`, an `escapeHtml()` helper (now applied
+  to card title/description/tags), `.badge--neutral`, an image-placeholder style, and
+  `status.idea`/`status.building` + `projects.filter.idea`/`building` keys (PT+EN). Bumped the
+  GitHub-enrichment cache key so returning visitors pick up the merged set.
 - **Phase 3/4 (cont.):** keyboard-operable modal triggers (Enter/Space + role/tabindex via
   `modal.js`); scroll-reveal now reveals immediately under `prefers-reduced-motion` or when
   `IntersectionObserver` is unavailable (no flash of invisible content); carousel guard for

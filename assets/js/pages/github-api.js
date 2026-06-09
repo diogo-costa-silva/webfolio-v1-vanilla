@@ -2,7 +2,7 @@
 // Handles fetching repository data with caching and error handling
 
 const CACHE_KEY = 'github_projects_cache';
-const ENRICH_CACHE_KEY = 'github_enriched_cache';
+const ENRICH_CACHE_KEY = 'github_enriched_cache_v2';
 const CACHE_DURATION = 3600000; // 1 hour in milliseconds
 const REQUEST_TIMEOUT = 8000;   // abort a hung GitHub request after 8s
 const GITHUB_API_BASE = 'https://api.github.com/repos';

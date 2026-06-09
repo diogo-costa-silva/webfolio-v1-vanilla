@@ -205,51 +205,15 @@
         flex-direction: column;
     }
 }
-/* ---- Roadmap section (aspirational, unstarted ideas) ---- */
-.roadmap-section { padding-top: 0; }
-.roadmap-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-    gap: var(--space-xl);
-    margin-top: var(--space-xl);
-}
-.roadmap-card {
+.roadmap-grid, .roadmap-section { /* legacy ids removed; kept harmless no-op */ }
+
+/* Planned/idea cards have no repo image — show a category-icon placeholder */
+.project-card__image--placeholder {
     display: flex;
-    flex-direction: column;
-    background: var(--bg-primary);
-    border: 1px dashed var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
-}
-.roadmap-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary-500);
-    box-shadow: var(--shadow-md);
-}
-.roadmap-card__header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
-}
-.roadmap-card__title {
-    font-size: var(--text-lg);
-    line-height: 1.3;
-    margin: 0 0 var(--space-sm);
-}
-.roadmap-card__line {
-    font-size: var(--text-sm);
+    justify-content: center;
+    min-height: 160px;
+    font-size: 3rem;
+    background: var(--bg-secondary);
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0 0 var(--space-sm);
-}
-.roadmap-card__line:last-of-type { margin-bottom: var(--space-md); }
-.roadmap-card__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: auto;
-    padding-top: var(--space-sm);
 }
