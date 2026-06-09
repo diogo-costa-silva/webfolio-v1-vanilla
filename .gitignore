@@ -6,3 +6,5 @@ CLAUDE.md
 .claude/settings.json
 docs/claude-tooling-setup.md
 docs/claude-workflows.md
+
+graphify-out/
