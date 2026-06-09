@@ -15,7 +15,7 @@
       "difficulty": "—",
       "featured": true,
       "github": "https://github.com/diogo-costa-silva/ibm-hr-analytics",
-      "demo": null,
+      "demo": "#",
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/ibm-hr-analytics",
       "isReal": true
     },
@@ -33,7 +33,7 @@
       "difficulty": "—",
       "featured": true,
       "github": "https://github.com/diogo-costa-silva/motogp-analytics",
-      "demo": null,
+      "demo": "#",
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/motogp-analytics",
       "isReal": true
     },
@@ -53,7 +53,7 @@
       "difficulty": "—",
       "featured": false,
       "github": "https://github.com/diogo-costa-silva/streamlit-sales-dashboard",
-      "demo": "https://sales-dashbooard.streamlit.app/",
+      "demo": "#",
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/streamlit-sales-dashboard",
       "isReal": true
     },
@@ -70,7 +70,7 @@
       "difficulty": "—",
       "featured": false,
       "github": "https://github.com/diogo-costa-silva/sql-murder-mystery",
-      "demo": null,
+      "demo": "#",
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/sql-murder-mystery",
       "isReal": true
     },
@@ -113,7 +113,7 @@
       "difficulty": "—",
       "featured": false,
       "github": "https://github.com/diogo-costa-silva/streamlit-data-analysis-chatbot",
-      "demo": null,
+      "demo": "#",
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/streamlit-data-analysis-chatbot",
       "isReal": true
     },

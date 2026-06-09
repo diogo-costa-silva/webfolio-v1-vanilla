@@ -161,47 +161,8 @@
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </button>
-                        <div class="filter-dropdown__menu" id="categoryMenu">
-                            <button class="filter-dropdown__item active" data-filter="all">
-                                <span data-i18n="projects.filter.all">All</span>
-                                <span class="filter-count">(30)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="data-science">
-                                <span class="category-icon">📊</span>
-                                <span data-i18n="projects.filter.dataScience">Data Science</span>
-                                <span class="filter-count">(7)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="machine-learning">
-                                <span class="category-icon">🤖</span>
-                                <span data-i18n="projects.filter.machineLearning">Machine Learning</span>
-                                <span class="filter-count">(0)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="web-dev">
-                                <span class="category-icon">🌐</span>
-                                <span data-i18n="projects.filter.webDev">Web Development</span>
-                                <span class="filter-count">(5)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="backend">
-                                <span class="category-icon">⚙️</span>
-                                <span data-i18n="projects.filter.backend">Backend & APIs</span>
-                                <span class="filter-count">(5)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="devops">
-                                <span class="category-icon">☁️</span>
-                                <span data-i18n="projects.filter.devops">DevOps & Cloud</span>
-                                <span class="filter-count">(5)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="automation">
-                                <span class="category-icon">🔄</span>
-                                <span data-i18n="projects.filter.automation">Automation</span>
-                                <span class="filter-count">(5)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-filter="mobile">
-                                <span class="category-icon">📱</span>
-                                <span data-i18n="projects.filter.mobile">Mobile Apps</span>
-                                <span class="filter-count">(3)</span>
-                            </button>
-                        </div>
+                        <!-- Items populated dynamically from loaded projects (populateCategoryDropdown) -->
+                        <div class="filter-dropdown__menu" id="categoryMenu"></div>
                     </div>
 
                     <!-- Status Dropdown -->
@@ -217,24 +178,8 @@
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </button>
-                        <div class="filter-dropdown__menu" id="statusMenu">
-                            <button class="filter-dropdown__item active" data-status="all">
-                                <span data-i18n="projects.filter.allStatus">All</span>
-                                <span class="filter-count">(30)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-status="completed">
-                                <span data-i18n="projects.filter.done">Done</span>
-                                <span class="filter-count">(8)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-status="in-progress">
-                                <span data-i18n="projects.filter.inProgress">In Progress</span>
-                                <span class="filter-count">(5)</span>
-                            </button>
-                            <button class="filter-dropdown__item" data-status="planned">
-                                <span data-i18n="projects.filter.planned">Planned</span>
-                                <span class="filter-count">(17)</span>
-                            </button>
-                        </div>
+                        <!-- Items populated dynamically from loaded projects (populateStatusDropdown) -->
+                        <div class="filter-dropdown__menu" id="statusMenu"></div>
                     </div>
 
                     <!-- Technologies Dropdown -->
