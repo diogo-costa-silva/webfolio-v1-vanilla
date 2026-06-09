@@ -27,7 +27,7 @@ async function loadTechIcons() {
     }
 
     try {
-        const response = await fetch('data/tech-icons.json');
+        const response = await fetch('data/tech-icons.json', { cache: 'no-cache' });
         techIconMap = await response.json();
         return techIconMap;
     } catch (error) {
@@ -110,7 +110,7 @@ async function loadTranslationsAndProjects() {
     await loadTechIcons();
 
     try {
-        const response = await fetch('data/translations.json');
+        const response = await fetch('data/translations.json', { cache: 'no-cache' });
         const data = await response.json();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
@@ -138,7 +138,7 @@ async function loadProjects() {
 
     try {
         // Try to load from JSON
-        const response = await fetch('data/projects.json');
+        const response = await fetch('data/projects.json', { cache: 'no-cache' });
         const data = await response.json();
 
         if (isHomepage) {
@@ -156,10 +156,11 @@ async function loadProjects() {
             renderProjects(enrichedProjects, projectsGrid);
         }
     } catch (error) {
-        // Fallback to inline data
-        console.log('Loading inline projects data');
+        // Graceful failure: render an empty grid instead of throwing
+        // (the old getInlineProjects() fallback was never defined → ReferenceError that blanked filters too).
+        console.error('Failed to load projects:', error);
         projectsGrid.classList.remove('loading');
-        renderProjects(getInlineProjects(), projectsGrid);
+        renderProjects([], projectsGrid);
     }
 
     return Promise.resolve(); // Ensure promise is returned

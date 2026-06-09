@@ -21,7 +21,7 @@ export function initSkills() {
 
 async function loadTranslations() {
     try {
-        const response = await fetch('data/translations.json');
+        const response = await fetch('data/translations.json', { cache: 'no-cache' });
         const data = await response.json();
         const currentLang = getCurrentLanguage();
         translations = data[currentLang] || data['en'];
@@ -42,7 +42,7 @@ async function loadSkills() {
 
     try {
         // Load from JSON file
-        const response = await fetch('data/skills.json');
+        const response = await fetch('data/skills.json', { cache: 'no-cache' });
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
