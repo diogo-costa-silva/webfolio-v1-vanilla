@@ -2,6 +2,43 @@
   "projects": [
     {
       "id": 1,
+      "title": "IBM HR Analytics",
+      "category": "data-analytics",
+      "description": "EDA in R",
+      "technologies": [
+        "r",
+        "eda",
+        "data-visualization",
+        "jupyter"
+      ],
+      "status": "active",
+      "difficulty": "—",
+      "featured": true,
+      "github": "https://github.com/diogo-costa-silva/ibm-hr-analytics",
+      "demo": null,
+      "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/ibm-hr-analytics",
+      "isReal": true
+    },
+    {
+      "id": 2,
+      "title": "MotoGP Analytics",
+      "category": "data-analytics",
+      "description": "Exploring 70+ years of MotoGP data (1949–2022)",
+      "technologies": [
+        "python",
+        "pandas",
+        "jupyter"
+      ],
+      "status": "active",
+      "difficulty": "—",
+      "featured": true,
+      "github": "https://github.com/diogo-costa-silva/motogp-analytics",
+      "demo": null,
+      "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/motogp-analytics",
+      "isReal": true
+    },
+    {
+      "id": 3,
       "title": "Sales Dashboard",
       "category": "data-analytics",
       "description": "Interactive sales analytics dashboard",
@@ -14,54 +51,17 @@
       ],
       "status": "active",
       "difficulty": "—",
-      "featured": true,
+      "featured": false,
       "github": "https://github.com/diogo-costa-silva/streamlit-sales-dashboard",
       "demo": "https://sales-dashbooard.streamlit.app/",
       "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/streamlit-sales-dashboard",
       "isReal": true
     },
     {
-      "id": 2,
-      "title": "IBM HR Analytics",
-      "category": "data-analytics",
-      "description": "Exploratory analysis of HR attrition data",
-      "technologies": [
-        "r",
-        "eda",
-        "data-visualization",
-        "jupyter"
-      ],
-      "status": "active",
-      "difficulty": "—",
-      "featured": false,
-      "github": "https://github.com/diogo-costa-silva/ibm-hr-analytics",
-      "demo": null,
-      "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/ibm-hr-analytics",
-      "isReal": true
-    },
-    {
-      "id": 3,
-      "title": "MotoGP Analytics",
-      "category": "data-analytics",
-      "description": "Data analysis of MotoGP championships",
-      "technologies": [
-        "python",
-        "pandas",
-        "jupyter"
-      ],
-      "status": "active",
-      "difficulty": "—",
-      "featured": false,
-      "github": "https://github.com/diogo-costa-silva/motogp-analytics",
-      "demo": null,
-      "image": "https://opengraph.githubassets.com/1/diogo-costa-silva/motogp-analytics",
-      "isReal": true
-    },
-    {
       "id": 4,
       "title": "SQL Murder Mystery",
       "category": "data-engineering",
-      "description": "Solving a murder with SQL",
+      "description": "Knight Lab challenge",
       "technologies": [
         "sql",
         "jupyter"
@@ -78,14 +78,17 @@
       "id": 5,
       "title": "Multi-LLM Doc Chatbot",
       "category": "ai-apps",
-      "description": "Analyze TXT and PDF documents with multiple LLMs",
+      "description": "3 LLM backends, streaming Q&A",
       "technologies": [
         "llm",
+        "gemini",
+        "groq",
+        "ollama",
         "streamlit",
-        "python",
-        "text-analysis",
         "chatbot",
-        "text-summarization"
+        "text-analysis",
+        "text-summarization",
+        "python"
       ],
       "status": "active",
       "difficulty": "—",
@@ -99,7 +102,7 @@
       "id": 6,
       "title": "Data Analysis Chatbot",
       "category": "ai-apps",
-      "description": "Chat-driven data analysis and visualization",
+      "description": "Ask questions about your data in plain English",
       "technologies": [
         "pandasai",
         "openai",
@@ -118,12 +121,13 @@
       "id": 7,
       "title": "Moto Routes",
       "category": "web",
-      "description": "Motorcycle route discovery platform",
+      "description": "Real GPS routes, GPX export, bilingual",
       "technologies": [
         "react",
-        "mapbox",
+        "typescript",
         "supabase",
-        "typescript"
+        "mapbox",
+        "postgis"
       ],
       "status": "active",
       "difficulty": "—",
@@ -137,11 +141,12 @@
       "id": 8,
       "title": "Scenic Routes",
       "category": "web",
-      "description": "20 national roads, interactive map",
+      "description": "The 20 best scenic driving roads in Portugal",
       "technologies": [
         "react",
         "leaflet",
-        "python"
+        "python",
+        "geopandas"
       ],
       "status": "active",
       "difficulty": "—",
