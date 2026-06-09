@@ -11,6 +11,14 @@ function initScrollReveal() {
 
     if (!reveals.length) return;
 
+    // Fallback: if the user prefers reduced motion, or IntersectionObserver is
+    // unavailable, reveal everything immediately so content is never stuck hidden.
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+        reveals.forEach(el => el.classList.add('active'));
+        return;
+    }
+
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'

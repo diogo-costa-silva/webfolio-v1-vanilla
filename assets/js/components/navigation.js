@@ -20,6 +20,11 @@ export function initHeader() {
         console.warn('[Navigation] Mobile nav not found');
     }
 
+    // A11y: mark the active nav link for screen readers
+    document.querySelectorAll('.nav__link--active').forEach((el) => {
+        el.setAttribute('aria-current', 'page');
+    });
+
     // Scroll variables
     let lastScrollTop = 0;
     let isScrolling = false;

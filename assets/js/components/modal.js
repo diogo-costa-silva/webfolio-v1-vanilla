@@ -68,10 +68,19 @@ export function initModals() {
             modals.set(modalId, new Modal(modalId));
         }
 
-        // Add click listener to trigger
-        trigger.addEventListener('click', (e) => {
+        // Make non-button triggers keyboard-operable
+        if (trigger.tagName !== 'BUTTON' && trigger.tagName !== 'A') {
+            if (!trigger.hasAttribute('role')) trigger.setAttribute('role', 'button');
+            if (!trigger.hasAttribute('tabindex')) trigger.setAttribute('tabindex', '0');
+        }
+
+        const openModal = (e) => {
             e.preventDefault();
             modals.get(modalId).open();
+        };
+        trigger.addEventListener('click', openModal);
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') openModal(e);
         });
     });
 }

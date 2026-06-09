@@ -12,7 +12,7 @@ export function initColor() {
     updateActiveColor();
 
     // Toggle dropdown
-    if (colorToggle) {
+    if (colorToggle && colorDropdown) {
         colorToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             colorDropdown.classList.toggle('active');
@@ -30,7 +30,7 @@ export function initColor() {
                 localStorage.setItem('primaryColor', currentColor);
                 updateActiveColor();
             }
-            colorDropdown.classList.remove('active');
+            if (colorDropdown) colorDropdown.classList.remove('active');
         });
     });
 

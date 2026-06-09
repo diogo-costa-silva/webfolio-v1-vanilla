@@ -36,6 +36,7 @@ export function initLanguage() {
 
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
+        if (!languageToggle || !languageDropdown) return;
         if (!languageToggle.contains(e.target) && !languageDropdown.contains(e.target)) {
             languageDropdown.classList.remove('active');
         }
@@ -67,16 +68,30 @@ function setLanguage(lang) {
     window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
 }
 
+// Single source of truth for the translations file: fetched once, then cached.
+// Page modules import getTranslationsData() instead of re-fetching, so the JSON
+// is loaded only once per page instead of once per module.
+let translationsPromise = null;
+export function getTranslationsData() {
+    if (!translationsPromise) {
+        translationsPromise = fetch(`/data/translations.json`)
+            .then((response) => response.json())
+            .catch((error) => {
+                translationsPromise = null; // allow a retry on a later call
+                throw error;
+            });
+    }
+    return translationsPromise;
+}
+
 async function loadTranslations(lang) {
     try {
-        const response = await fetch(`data/translations.json`);
-        const translations = await response.json();
-
+        const translations = await getTranslationsData();
         if (translations[lang]) {
             applyTranslations(translations[lang]);
         }
     } catch (error) {
-        console.log('Translations file not found, using default text');
+        console.warn('Failed to load translations:', error);
     }
 }
 
