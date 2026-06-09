@@ -11,12 +11,12 @@ jobs:
 
     steps:
       - name: Checkout source repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Checkout target repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: diogo-costa-silva/diogo-costa-silva.github.io
           token: ${{ secrets.DEPLOY_TOKEN }}
@@ -98,7 +98,7 @@ jobs:
               runs-on: ubuntu-latest
               steps:
                 - name: Checkout
-                  uses: actions/checkout@v4
+                  uses: actions/checkout@v5
 
                 - name: Setup Pages
                   uses: actions/configure-pages@v5
