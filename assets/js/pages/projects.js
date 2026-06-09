@@ -47,13 +47,16 @@ function getTechIcon(tech) {
 
 // Category to emoji icon mapping
 const categoryIconMap = {
-    'data-science': '📊',
+    'data-analytics': '📊',
     'machine-learning': '🤖',
-    'web-dev': '🌐',
+    'data-engineering': '🗄️',
+    'ai-apps': '✨',
+    'web': '🌐',
     'backend': '⚙️',
     'devops': '☁️',
     'automation': '🔄',
-    'mobile': '📱'
+    'mobile': '📱',
+    'library': '📦'
 };
 
 /**
@@ -164,32 +167,66 @@ async function loadProjects() {
 
 function getCategoryDisplayName(category) {
     const categoryMap = {
-        'data-science': 'category.dataScience',
+        'data-analytics': 'category.dataAnalytics',
         'machine-learning': 'category.machineLearning',
-        'web-dev': 'category.webDev',
+        'data-engineering': 'category.dataEngineering',
+        'ai-apps': 'category.aiApps',
+        'web': 'category.web',
         'backend': 'category.backend',
         'devops': 'category.devops',
         'automation': 'category.automation',
-        'mobile': 'category.mobile'
+        'mobile': 'category.mobile',
+        'library': 'category.library'
     };
 
+    const humanize = (slug) => (slug || '')
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
     const key = categoryMap[category];
-    return key ? (translations[key] || category) : category;
+    return key ? (translations[key] || humanize(category)) : humanize(category);
+}
+
+function humanizeSlug(slug) {
+    return (slug || '')
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+function getStatusDisplayName(status) {
+    const statusMap = {
+        'active': 'projects.filter.active',
+        'wip': 'projects.filter.inProgress',
+        'completed': 'projects.filter.done',
+        'in-progress': 'projects.filter.inProgress',
+        'planned': 'projects.filter.planned',
+        'archived': 'projects.filter.archived'
+    };
+    const key = statusMap[status];
+    return key ? (translations[key] || humanizeSlug(status)) : humanizeSlug(status);
 }
 
 function getStatusBadge(status, isReal) {
     const statusText = {
+        'active': isReal ? translations['status.real'] || 'REAL' : translations['status.active'] || 'ACTIVE',
+        'wip': translations['status.wip'] || 'WIP',
         'completed': isReal ? translations['status.real'] || 'REAL' : translations['status.completed'] || 'COMPLETED',
         'in-progress': translations['status.inProgress'] || 'IN PROGRESS',
-        'planned': translations['status.planned'] || 'PLANNED'
+        'planned': translations['status.planned'] || 'PLANNED',
+        'archived': translations['status.archived'] || 'ARCHIVED'
     };
 
     const badges = {
+        'active': `<span class="badge badge--success">${statusText['active']}</span>`,
+        'wip': `<span class="badge badge--warning">${statusText['wip']}</span>`,
         'completed': `<span class="badge badge--success">${statusText['completed']}</span>`,
         'in-progress': `<span class="badge badge--warning">${statusText['in-progress']}</span>`,
-        'planned': `<span class="badge badge--info">${statusText['planned']}</span>`
+        'planned': `<span class="badge badge--info">${statusText['planned']}</span>`,
+        'archived': `<span class="badge badge--neutral">${statusText['archived']}</span>`
     };
-    return badges[status] || '';
+    return badges[status] || `<span class="badge">${(status || '').toUpperCase()}</span>`;
 }
 
 function getDifficultyIndicator(difficulty) {
@@ -352,7 +389,8 @@ function initProjectFilters() {
     // 1. Initialize dropdown toggles
     initDropdownToggles();
 
-    // 2. Category dropdown items
+    // 2. Category dropdown items (dynamically built from loaded projects)
+    populateCategoryDropdown();
     const categoryItems = document.querySelectorAll('#categoryMenu [data-filter]');
     categoryItems.forEach(item => {
         item.addEventListener('click', () => {
@@ -390,7 +428,8 @@ function initProjectFilters() {
         });
     });
 
-    // 3. Status dropdown items
+    // 3. Status dropdown items (dynamically built from loaded projects)
+    populateStatusDropdown();
     const statusItems = document.querySelectorAll('#statusMenu [data-status]');
     statusItems.forEach(item => {
         item.addEventListener('click', () => {
@@ -423,7 +462,7 @@ function initProjectFilters() {
                 }
             }
 
-            const displayText = status === 'all' ? 'All' : translations[`projects.filter.${status}`] || status;
+            const displayText = status === 'all' ? 'All' : getStatusDisplayName(status);
             updateDropdownValue('statusDropdown', displayText);
             applyFilters();
         });
@@ -596,6 +635,65 @@ function updateResultsCount(count) {
     }
 }
 
+// Populate category dropdown from loaded projects
+function populateCategoryDropdown() {
+    const menu = document.getElementById('categoryMenu');
+    if (!menu || allProjects.length === 0) return;
+
+    const counts = {};
+    allProjects.forEach(p => {
+        if (p.category) counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+
+    const sorted = Object.keys(counts).sort((a, b) => {
+        const diff = counts[b] - counts[a];
+        return diff !== 0 ? diff : a.localeCompare(b);
+    });
+
+    const allBtn = `
+        <button class="filter-dropdown__item active" data-filter="all">
+            <span>${translations['projects.filter.all'] || 'All'}</span>
+            <span class="filter-count"> (${allProjects.length})</span>
+        </button>`;
+
+    menu.innerHTML = allBtn + sorted.map(cat => `
+        <button class="filter-dropdown__item" data-filter="${cat}">
+            <span class="category-icon">${getCategoryIcon(cat)}</span>
+            <span>${getCategoryDisplayName(cat)}</span>
+            <span class="filter-count"> (${counts[cat]})</span>
+        </button>
+    `).join('');
+}
+
+// Populate status dropdown from loaded projects
+function populateStatusDropdown() {
+    const menu = document.getElementById('statusMenu');
+    if (!menu || allProjects.length === 0) return;
+
+    const counts = {};
+    allProjects.forEach(p => {
+        if (p.status) counts[p.status] = (counts[p.status] || 0) + 1;
+    });
+
+    const sorted = Object.keys(counts).sort((a, b) => {
+        const diff = counts[b] - counts[a];
+        return diff !== 0 ? diff : a.localeCompare(b);
+    });
+
+    const allBtn = `
+        <button class="filter-dropdown__item active" data-status="all">
+            <span>${translations['projects.filter.allStatus'] || 'All'}</span>
+            <span class="filter-count"> (${allProjects.length})</span>
+        </button>`;
+
+    menu.innerHTML = allBtn + sorted.map(status => `
+        <button class="filter-dropdown__item" data-status="${status}">
+            <span>${getStatusDisplayName(status)}</span>
+            <span class="filter-count"> (${counts[status]})</span>
+        </button>
+    `).join('');
+}
+
 // Populate technology dropdown from projects
 function populateTechDropdown() {
     if (allProjects.length === 0) return;
@@ -686,7 +784,7 @@ function updateAppliedFilters() {
 
     // Add status chips
     filterState.statuses.forEach(status => {
-        const label = translations[`projects.filter.${status === 'completed' ? 'done' : status === 'in-progress' ? 'inProgress' : 'planned'}`] || status;
+        const label = getStatusDisplayName(status);
         chips.push({ type: 'status', value: status, label });
     });
 

@@ -195,7 +195,7 @@ export async function getRecentProjects(projects, limit = 6) {
         // Fallback: return featured projects that are completed or in-progress
         console.log('Using fallback: featured projects');
         return projects
-            .filter(p => p.isReal && (p.status === 'completed' || p.status === 'in-progress'))
+            .filter(p => p.isReal && (p.status === 'completed' || p.status === 'in-progress' || p.status === 'active' || p.status === 'wip'))
             .slice(0, limit);
     }
 }
