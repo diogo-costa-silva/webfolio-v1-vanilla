@@ -72,6 +72,13 @@
 - **CSS (5.2):** the 5 color-picker swatch hexes (blue/red/green/orange/yellow), previously
   duplicated across `.color-indicator` and `.color-circle`, are now `--swatch-*` tokens.
 - **Docs (5.4):** `MIGRATION-GUIDE.md` (a completed one-off migration) moved to `docs/archive/`.
+- **Resume redesign:** rebuilt `resume.html` from a narrow 900px centered column with an
+  awkward alternating "zigzag" timeline into a viewport-using **2-column layout** — a sticky
+  sidebar (profile card with avatar, contact with inline-SVG icons, languages as proficiency
+  bars, Download-PDF CTA) + a wide main column with a clean **single-rail timeline of cards**
+  (role, company, date pill, achievements). All `resume.*` i18n keys preserved (+2 new
+  `resume.contact.*`), token-based so it works in light/dark + all color themes, fully
+  responsive (sidebar stacks on mobile), with updated print styles. Browser-verified.
 
 ### Added
 - `assets/images/profile.jpg` (optimised). The old `assets/images/profile.png` is now

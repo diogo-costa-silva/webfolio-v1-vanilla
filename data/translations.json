@@ -264,7 +264,9 @@
         "project.5.description": "3 LLM backends, streaming Q&A",
         "project.6.description": "Ask questions about your data in plain English",
         "project.7.description": "Real GPS routes, GPX export, bilingual",
-        "project.8.description": "The 20 best scenic driving roads in Portugal"
+        "project.8.description": "The 20 best scenic driving roads in Portugal",
+        "resume.contact.title": "Contact",
+        "resume.contact.location": "Braga, Portugal"
     },
     "pt": {
         "nav.home": "Início",
@@ -531,6 +533,8 @@
         "project.5.description": "3 backends LLM, perguntas e respostas em streaming",
         "project.6.description": "Faz perguntas sobre os teus dados em linguagem natural",
         "project.7.description": "Rotas GPS reais, exportação GPX, bilingue",
-        "project.8.description": "As 20 melhores estradas cénicas de Portugal"
+        "project.8.description": "As 20 melhores estradas cénicas de Portugal",
+        "resume.contact.title": "Contacto",
+        "resume.contact.location": "Braga, Portugal"
     }
 }
