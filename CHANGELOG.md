@@ -55,7 +55,8 @@
 ### Added (cont.)
 - **Phase 6 — Roadmap (integrated):** the `data.roadmap` ideas (emitted by the portfolio
   hub) are now merged **into the main projects grid** as regular, **filterable** cards with a
-  `planned`/`idea`/`building` status badge — so they sit among the projects and the existing
+  single `planned` status badge (no idea/building split — avoids redundant statuses) — so they
+  sit among the projects and the existing
   Category/Status/Technology filters apply (you can filter to just "Planned"). They render
   with an icon placeholder (no repo image), an "Em Breve"/"Soon" button (no demo/repo), and
   **no speculative dates**. Added `roadmapToProjects()`, an `escapeHtml()` helper (now applied

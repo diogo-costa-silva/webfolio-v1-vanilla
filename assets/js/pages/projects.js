@@ -153,11 +153,13 @@ async function loadProjects() {
             // enrich the real ones with GitHub data.
             if (DEBUG) console.log('Loading all projects for projects page...');
             projectsGrid.classList.add('loading');
-            const all = [...data.projects, ...roadmapToProjects(data.roadmap)];
-            const enrichedProjects = await enrichProjectsWithGitHubDataCached(all);
+            // Cache only the GitHub-enriched REAL projects; merge the roadmap fresh each
+            // load so roadmap/mapping changes are never stuck behind the GitHub cache.
+            const enrichedReal = await enrichProjectsWithGitHubDataCached(data.projects);
+            const all = [...enrichedReal, ...roadmapToProjects(data.roadmap)];
             projectsGrid.classList.remove('loading');
-            renderProjects(enrichedProjects, projectsGrid);
-            updateResultsCount(enrichedProjects.length); // resolve the "Loading…" count on initial render
+            renderProjects(all, projectsGrid);
+            updateResultsCount(all.length); // resolve the "Loading…" count on initial render
         }
     } catch (error) {
         // Graceful failure: show a visible message instead of a silent empty grid.
@@ -388,7 +390,7 @@ function roadmapToProjects(roadmap) {
         description: r.why || r.problem || '',
         category: r.category,
         technologies: r.technologies || [],
-        status: r.status,        // idea / planned / building
+        status: 'planned',       // collapse all roadmap items to one status (no idea/planned/building split)
         isReal: false,
         demo: '#',
         github: '#',
