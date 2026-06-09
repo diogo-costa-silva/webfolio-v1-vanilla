@@ -857,9 +857,9 @@ function removeFilter(type, value) {
             const techIndex = filterState.technologies.indexOf(value);
             if (techIndex > -1) filterState.technologies.splice(techIndex, 1);
             // Update UI
-            const checkbox = document.querySelector(`#techFilterDropdown input[value="${value}"]`);
+            const checkbox = document.querySelector(`#techMenu input[value="${value}"]`);
             if (checkbox) checkbox.checked = false;
-            updateTechCount();
+            updateTechDropdownValue();
             break;
         case 'realOnly':
             filterState.realOnly = false;
@@ -894,7 +894,7 @@ function clearAllFilters() {
         btn.classList.toggle('active', btn.dataset.status === 'all');
     });
 
-    document.querySelectorAll('#techFilterDropdown input[type="checkbox"]').forEach(cb => {
+    document.querySelectorAll('#techMenu input[type="checkbox"]').forEach(cb => {
         cb.checked = false;
     });
 
@@ -904,7 +904,7 @@ function clearAllFilters() {
     const searchInput = document.querySelector('.filters__search');
     if (searchInput) searchInput.value = '';
 
-    updateTechCount();
+    updateTechDropdownValue();
     applyFilters();
 }
 
