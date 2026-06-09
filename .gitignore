@@ -4,7 +4,7 @@ CLAUDE.md
 
 .mcp.json
 # Machine-local Claude settings stay local; the shared .claude/settings.json is committed.
-.claude/settings.local.json
+.claude
 docs/claude-tooling-setup.md
 docs/claude-workflows.md
 
